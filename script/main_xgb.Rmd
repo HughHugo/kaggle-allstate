@@ -66,6 +66,30 @@ MEMB_NUM = 1000000000
 # Load data
 # **************************************
 setwd("~/Documents/github/kaggle-allstate/script/")
+tmp = read_csv("./tmp.csv")
+
+dx_train = xgb.DMatrix(as.matrix(tmp), 
+                       label = df_train$loss,
+                       missing = MISSING)
+
+
+## parameter setting
+params = list(nthread = 8,
+              booster = "gbtree",
+              objective = "reg:linear",
+              max_depth = 3,
+              eta = 0.3,
+              colsample_bytree = 1,
+              subsample = 0.7,
+              seed = 6174)
+
+## CV for small data set
+model_cv = xgb.cv(params, dx_train, 50000, nfold=5,
+      eval_metric = 'mae', maximize=F,
+      early.stop.round = EARLY_STOP_ROUNDS, print.every.n = 1)
+
+
+
 
 df_train = read_csv("../input/train.csv")
 df_test = read_csv("../input/test.csv")
