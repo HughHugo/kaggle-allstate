@@ -84,6 +84,7 @@ def batch_generatorp(X, batch_size, shuffle):
 seed = 6174
 np.random.seed(seed)
 datadir = '../input'
+cache_dir = '../cache'
 df_train = pd.read_csv(os.path.join(datadir,'train.csv'))
 train_id = df_train['id']
 df_test = pd.read_csv(os.path.join(datadir,'test.csv'))
@@ -92,47 +93,118 @@ test_id = df_test['id']
 Y = df_train["loss"].values
 del df_train['loss']
 df_train =  pd.concat([df_train, df_test])
+df_train = df_train.sort_values(['id'], ascending=[1])
 df_train = df_train.reset_index(drop =True)
-
 
 names_cat = ['cat' + str(i+1) for i in range(116)]
 names_cont = ['cont' + str(i+1) for i in range(14)]
 
-df_train_vector = None
-df_train_value_vector = None
+load_cache = True
 
-for i in names_cat:
-    print i
-    tmp = df_train[['id',i]]
-    tmp.loc[:,i] = tmp[i] + '_' + i
-    tmp_value = np.ones(len(tmp))
-    tmp.columns = ['id', 'feature']
-    if df_train_vector is None:
-        df_train_vector = tmp
-        df_train_value_vector = tmp_value
-    else:
+if not load_cache:
+    df_train_vector = None
+    df_train_value_vector = None
+    next_value = True
+    previous_value = True
+
+    for i in names_cat:
+        print i
+        tmp = df_train[['id',i]]
+        tmp.loc[:,i] = tmp[i] + '_' + i
+        tmp_value = np.ones(len(tmp))
+        tmp.columns = ['id', 'feature']
+
+        assert tmp.shape[0] == len(tmp_value)
+
+        if df_train_vector is None:
+            df_train_vector = tmp
+            df_train_value_vector = tmp_value
+        else:
+            df_train_vector = pd.concat([df_train_vector, tmp])
+            df_train_value_vector = np.concatenate((df_train_value_vector, tmp_value))
+
+        if next_value:
+            #print "next_value"
+            tmp_copy = copy.deepcopy(tmp)
+            tmp_copy['feature']= tmp_copy['feature'].shift(-1)
+            tmp_copy = tmp_copy.dropna()
+            tmp_value = np.ones(len(tmp_copy))
+            tmp_copy['feature'] = tmp_copy['feature'] + '_next'
+
+            assert tmp_copy.shape[0] == len(tmp_value)
+
+            df_train_vector = pd.concat([df_train_vector, tmp_copy])
+            df_train_value_vector = np.concatenate((df_train_value_vector, tmp_value))
+
+        if previous_value:
+            #print "previous_value"
+            tmp_copy = copy.deepcopy(tmp)
+            tmp_copy['feature']= tmp_copy['feature'].shift(1)
+            tmp_copy = tmp_copy.dropna()
+            tmp_value = np.ones(len(tmp_copy))
+            tmp_copy['feature'] = tmp_copy['feature'] + '_previous'
+
+            assert tmp_copy.shape[0] == len(tmp_value)
+
+            df_train_vector = pd.concat([df_train_vector, tmp_copy])
+            df_train_value_vector = np.concatenate((df_train_value_vector, tmp_value))
+
+    df_train_vector = df_train_vector.reset_index(drop =True)
+
+    for i in names_cont:
+        print i
+        tmp = df_train[['id',i]]
+        tmp.loc[:,i] = i
+        tmp_value = df_train[i].values
+        tmp.columns = ['id', 'feature']
+
+        assert tmp.shape[0] == len(tmp_value)
+
         df_train_vector = pd.concat([df_train_vector, tmp])
         df_train_value_vector = np.concatenate((df_train_value_vector, tmp_value))
 
-df_train_vector = df_train_vector.reset_index(drop =True)
+        if next_value:
+            #print "next_value"
+            tmp_copy = copy.deepcopy(tmp)
+            tmp_copy['feature']= tmp_copy['feature'].shift(-1)
+            tmp_copy = tmp_copy.dropna()
+            tmp_value = df_train[i].values[1:]
+            tmp_copy['feature'] = tmp_copy['feature'] + '_next'
 
-for i in names_cont:
-    print i
-    tmp = df_train[['id',i]]
-    tmp.loc[:,i] = i
-    tmp_value = df_train[i].values
-    tmp.columns = ['id', 'feature']
+            assert tmp_copy.shape[0] == len(tmp_value)
 
-    df_train_vector = pd.concat([df_train_vector, tmp])
-    df_train_value_vector = np.concatenate((df_train_value_vector, tmp_value))
+            df_train_vector = pd.concat([df_train_vector, tmp_copy])
+            df_train_value_vector = np.concatenate((df_train_value_vector, tmp_value))
 
-df_train_vector = df_train_vector.reset_index(drop =True)
+        if previous_value:
+            #print "previous_value"
+            tmp_copy = copy.deepcopy(tmp)
+            tmp_copy['feature']= tmp_copy['feature'].shift(1)
+            tmp_copy = tmp_copy.dropna()
+            tmp_value = df_train[i].values[:-1]
+            tmp_copy['feature'] = tmp_copy['feature'] + '_previous'
+
+            assert tmp_copy.shape[0] == len(tmp_value)
+
+            df_train_vector = pd.concat([df_train_vector, tmp_copy])
+            df_train_value_vector = np.concatenate((df_train_value_vector, tmp_value))
+
+    df_train_vector = df_train_vector.reset_index(drop =True)
+
+    df_train_vector.to_csv(os.path.join(cache_dir,'df_train_vector.csv'), index=False)
+    #df_train_vector.to_pickle(os.path.join(cache_dir,'df_train_vector.pkl'))
+    np.save(os.path.join(cache_dir,'df_train_value_vector'), df_train_value_vector)
+else:
+    df_train_vector = pd.read_csv(os.path.join(cache_dir,'df_train_vector.csv'))
+    df_train_value_vector = np.load(os.path.join(cache_dir,'df_train_value_vector.npy'))
+
 
 id_ind = True
 if id_ind:
     tmp = df_train[['id',i]]
     tmp.loc[:,i] = 'id_feature'
-    tmp_value = df_train['id'].values
+    tmp_value = df_train['id'].values/float(max(df_train['id'].values))
+    #tmp_value = 1.0 * df_train['id'].values
     #tmp_value = np.random.rand(len( np.array(df_train['id']) ))
     tmp.columns = ['id', 'feature']
     #tmp_value = np.array(range(len( np.array(df_train['id']) )))
@@ -141,42 +213,13 @@ if id_ind:
     df_train_value_vector = np.concatenate((df_train_value_vector, tmp_value))
 
 df_train_vector = df_train_vector.reset_index(drop =True)
-
-next_value = False
-if next_value:
-    tmp = df_train[['id',i]]
-    tmp.loc[:,i] = 'next_value'
-    tmp_value = Y[1:]
-    tmp_value = np.concatenate((tmp_value, np.array([np.median(Y)])))
-    #tmp_value = np.random.rand(len( np.array(df_train['id']) ))
-    tmp.columns = ['id', 'feature']
-    #tmp_value = np.array(range(len( np.array(df_train['id']) )))
-
-    df_train_vector = pd.concat([df_train_vector, tmp])
-    df_train_value_vector = np.concatenate((df_train_value_vector, tmp_value))
-
-df_train_vector = df_train_vector.reset_index(drop =True)
-
-previous_value = False
-if previous_value:
-    tmp = df_train[['id',i]]
-    tmp.loc[:,i] = 'previous_value'
-    tmp_value = Y[0:-1]
-    tmp_value = np.concatenate((np.array([np.median(Y)]), tmp_value))
-    #tmp_value = np.random.rand(len( np.array(df_train['id']) ))
-    tmp.columns = ['id', 'feature']
-    #tmp_value = np.array(range(len( np.array(df_train['id']) )))
-
-    df_train_vector = pd.concat([df_train_vector, tmp])
-    df_train_value_vector = np.concatenate((df_train_value_vector, tmp_value))
-
-df_train_vector = df_train_vector.reset_index(drop =True)
-
 
 
 FLS = df_train_vector
 data = df_train_value_vector
 
+df_train_vector = None
+df_train_value_vector = None
 
 print("# Create Sparse features")
 
@@ -191,7 +234,7 @@ sparse_matrix = sparse.csr_matrix(
 sparse_matrix.shape
 sys.getsizeof(sparse_matrix)
 sparse_matrix = sparse_matrix[:, sparse_matrix.getnnz(0) > 0]
-sparse_matrix = normalize(sparse_matrix, axis=1)
+sparse_matrix = normalize(sparse_matrix, axis=0)
 print("# Sparse matrix done")
 
 
@@ -204,7 +247,7 @@ test_row = dec.transform(test_id)
 test_sp = sparse_matrix[test_row, :]
 
 X_train, X_val, y_train, y_val = train_test_split(
-    train_sp, Y, train_size=0.999, random_state=6174)
+    train_sp, Y, train_size=0.99, random_state=6174)
 
 
 
@@ -222,30 +265,33 @@ print("# Num of Features: ", X_train.shape[1])
 
 
 #act = keras.layers.advanced_activations.PReLU(init='zero', weights=None)
-xgb_ind = False
+xgb_ind = True
 if not xgb_ind:
     def baseline_model():
         # create model
         model = Sequential()
-        model.add(Dense(150, input_dim=(X_train.shape[1]), init='normal'))
+        model.add(Dense(128, input_dim=(X_train.shape[1]), init='normal'))
         model.add(PReLU())
         model.add(Dropout(0.4))
-        model.add(Dense(50, init='normal'))
+        model.add(Dense(64, init='normal'))
         model.add(PReLU())
         model.add(Dropout(0.2))
+        model.add(Dense(32, init='normal'))
+        model.add(PReLU())
+        model.add(Dropout(0.1))
         model.add(Dense(1, init='normal'))
         # Compile model
-        model.compile(loss='mae', optimizer='rmsprop')   #logloss
+        model.compile(loss='mae', optimizer='adam')   #logloss
         return model
 
     model=baseline_model()
 
     # parameters
     early_stopping = EarlyStopping(monitor='val_loss',
-                                   patience=5000,
+                                   patience=50,
                                    mode="min")
 
-    fit= model.fit_generator(generator=batch_generator(X_train, y_train, 1000, True),
+    fit= model.fit_generator(generator=batch_generator(X_train, y_train, 400, True),
                              nb_epoch=100000,
                              samples_per_epoch=60000,
                              validation_data = (X_val.todense(), y_val),
@@ -256,11 +302,11 @@ if not xgb_ind:
 
 
     # evaluate the model
-    scores_val = model.predict_generator(generator=batch_generatorp(X_val, 1024, False), val_samples=X_val.shape[0])
+    scores_val = model.predict_generator(generator=batch_generatorp(X_val, 400, False), val_samples=X_val.shape[0])
     print('mae val {}'.format(mean_absolute_error(y_val, scores_val)))
 
     print("# Final prediction")
-    scores = model.predict_generator(generator=batch_generatorp(test_sp, 1024, False), val_samples=test_sp.shape[0])
+    scores = model.predict_generator(generator=batch_generatorp(test_sp, 400, False), val_samples=test_sp.shape[0])
     result = pd.DataFrame(scores)
     result.columns = ['loss']
     result["id"] = test_id
@@ -276,15 +322,15 @@ else:
     params['eval_metric'] = 'mae'
     params['eta'] = 0.3
     params['lambda'] = 5
-    params['max_depth'] = 3
+    params['max_depth'] = 7
     params['seed'] = 6174
     params['silent'] = 0
 
     #clf = xgb.cv(params, xgb.DMatrix(Xtrain, label=y), 10000, nfold=5, early_stopping_rounds=param_early_stop, verbose_eval=1)
     #best_iteration = clf.shape[0] - param_early_stop
 
-    d_train = xgb.DMatrix(X_train[:,1:1190], label=y_train)
-    d_valid = xgb.DMatrix(X_val[:,1:1190], label=y_val)
+    d_train = xgb.DMatrix(X_train, label=y_train)
+    d_valid = xgb.DMatrix(X_val, label=y_val)
 
     watchlist = [(d_train, 'train'), (d_valid, 'eval')]
 
