@@ -105,8 +105,9 @@ load_cache = True
 if not load_cache:
     df_train_vector = None
     df_train_value_vector = None
-    next_value = True
-    previous_value = True
+    next_value = False
+    previous_value = False
+    id_ind = False
     #k=0
 
     for i in names_cat:
@@ -452,7 +453,6 @@ if not load_cache:
     df_train_vector = df_train_vector.reset_index(drop =True)
 
     #=============== Feature Engineering - id index ===============#
-    id_ind = True
     if id_ind:
         tmp = df_train[['id','cat1']]
         tmp.loc[:,'cat1'] = 'id_feature'
@@ -470,11 +470,11 @@ if not load_cache:
     print df_train_vector.shape
     print len(df_train_value_vector)
     #=============== Save cache ===============#
-    df_train_vector.to_csv(os.path.join(cache_dir,'df_train_vector.csv'), index=False)
-    np.save(os.path.join(cache_dir,'df_train_value_vector'), df_train_value_vector)
+    df_train_vector.to_csv(os.path.join(cache_dir,'df_train_vector_2.csv'), index=False)
+    np.save(os.path.join(cache_dir,'df_train_value_vector_2'), df_train_value_vector)
 else:
-    df_train_vector = pd.read_csv(os.path.join(cache_dir,'df_train_vector.csv'))
-    df_train_value_vector = np.load(os.path.join(cache_dir,'df_train_value_vector.npy'))
+    df_train_vector = pd.read_csv(os.path.join(cache_dir,'df_x.csv'))
+    df_train_value_vector = np.load(os.path.join(cache_dir,'df_y.npy'))
 
 
 
@@ -529,15 +529,15 @@ print("# Num of Features: ", X_train.shape[1])
 
 
 #act = keras.layers.advanced_activations.PReLU(init='zero', weights=None)
-xgb_ind = True
+xgb_ind = False
 if not xgb_ind:
     def baseline_model():
         # create model
         model = Sequential()
-        model.add(Dense(300, input_dim=(X_train.shape[1]), init='he_normal'))
+        model.add(Dense(150, input_dim=(X_train.shape[1]), init='he_normal'))
         model.add(PReLU())
         model.add(Dropout(0.4))
-        model.add(Dense(150, init='he_normal'))
+        model.add(Dense(50, init='he_normal'))
         model.add(PReLU())
         model.add(Dropout(0.2))
         model.add(Dense(1, init='he_normal'))
@@ -552,7 +552,7 @@ if not xgb_ind:
                                    patience=50,
                                    mode="min")
 
-    fit= model.fit_generator(generator=batch_generator(X_train, y_train, 128, True),
+    fit= model.fit_generator(generator=batch_generator(X_train, y_train, 800, True),
                              nb_epoch=100000,
                              samples_per_epoch=X_train.shape[0],
                              validation_data = (X_val.todense(), y_val),
@@ -563,11 +563,11 @@ if not xgb_ind:
 
 
     # evaluate the model
-    scores_val = model.predict_generator(generator=batch_generatorp(X_val, 128, False), val_samples=X_val.shape[0])
+    scores_val = model.predict_generator(generator=batch_generatorp(X_val, 800, False), val_samples=X_val.shape[0])
     print('mae val {}'.format(mean_absolute_error(y_val, scores_val)))
 
     print("# Final prediction")
-    scores = model.predict_generator(generator=batch_generatorp(test_sp, 128, False), val_samples=test_sp.shape[0])
+    scores = model.predict_generator(generator=batch_generatorp(test_sp, 800, False), val_samples=test_sp.shape[0])
     result = pd.DataFrame(scores)
     result.columns = ['loss']
     result["id"] = test_id

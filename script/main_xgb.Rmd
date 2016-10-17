@@ -66,7 +66,13 @@ MEMB_NUM = 1000000000
 # Load data
 # **************************************
 setwd("~/Documents/github/kaggle-allstate/script/")
-tmp = read_csv("./tmp.csv")
+df_train = read_csv("../input/train.csv")
+
+for (i in names(df_train)){
+  if (grepl('cat', i)){
+  print(paste(i, dim(unique(df_train[,i]))[1], paste(sort(as.matrix(unique(df_train[,i]))))) )    
+  }
+}
 
 dx_train = xgb.DMatrix(as.matrix(tmp), 
                        label = df_train$loss,
