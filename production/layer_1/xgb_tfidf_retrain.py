@@ -96,12 +96,12 @@ for tr, te in skf:
     dtrain = xgb.DMatrix(X_train.values, label=y_train)
     clf = xgb.train(xgb_params, dtrain, best_nrounds)
     dtest = xgb.DMatrix(X_test.values)
-	pred = np.exp(clf.predict(dtest))
-	tmp = pd.DataFrame(pred, columns=sample.columns[1:])
-	submission.iloc[te[0],0] = pred
-	score[i]= mean_absolute_error(np.exp(y_test), pred)
-	print(score[i])
-	i+=1
+    pred = np.exp(clf.predict(dtest))
+    tmp = pd.DataFrame(pred, columns=sample.columns[1:])
+    submission.iloc[te[0],0] = pred
+    score[i]= mean_absolute_error(np.exp(y_test), pred)
+    print(score[i])
+    i+=1
 
 print("ave: "+ str(np.average(score)) + "stddev: " + str(np.std(score)))
 
