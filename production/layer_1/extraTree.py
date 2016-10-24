@@ -12,6 +12,10 @@ cache_path = '../../cache/layer_0/'
 cache_path_output = '../../cache/layer_1/'
 print("read training data")
 train = pd.read_csv(path+"train.csv")
+print("read test data")
+test  = pd.read_csv(path+"test.csv")
+ID = test['id']
+del test['id']
 
 #stack index
 skf_table = pd.read_csv('../../cache/stack_index.csv')
@@ -25,8 +29,9 @@ names_cat = ['cat' + str(i+1) for i in range(116)]
 for i in names_cat:
     print i
     le = LabelEncoder()
-    train[i] = le.fit_transform(train[i])
-
+    le.fit(np.concatenate([train[i].values, test[i].values]))
+    train[i] = le.transform(train[i])
+    test[i] = le.transform(test[i])
 
 label = np.log(train['loss'].values)
 trainID = train['id']
@@ -38,14 +43,6 @@ train = train.join(tsne)
 clf = ExtraTreesRegressor(n_jobs=-1, criterion='mse', n_estimators=300, verbose=3, random_state=6174)
 clf.fit(train.values, label)
 
-print("read test data")
-test  = pd.read_csv(path+"test.csv")
-ID = test['id']
-del test['id']
-for i in names_cat:
-    print i
-    le = LabelEncoder()
-    test[i] = le.fit_transform(test[i])
 tsne = pd.read_csv(cache_path+'test_tsne.csv')
 test = test.join(tsne)
 

@@ -3,6 +3,7 @@ library(data.table)
 library(Rtsne)
 library(Metrics)
 path <- "../../input/"
+out_path <- "../../cache/layer_0/"
 train <- read_csv(paste0(path,"train.csv"))
 train <- as.data.frame(train)
 dim(train)
@@ -67,5 +68,5 @@ test[,i] <- as.character(test[,i])
 }
 gc()
 
-write_csv(train,paste0(path,"train_tsne.csv"),col_names=T)
-write_csv(test,paste0(path,"test_tsne.csv"),col_names=T)
+write_csv(train,paste0(out_path,"train_tsne.csv"),col_names=T)
+write_csv(test,paste0(out_path,"test_tsne.csv"),col_names=T)

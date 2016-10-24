@@ -67,6 +67,19 @@ MEMB_NUM = 1000000000
 # **************************************
 setwd("~/Documents/github/kaggle-allstate/script/")
 df_train = read_csv("../input/train.csv")
+df_test = read_csv("../input/test.csv")
+df_train['loss'] = NULL
+names(df_train)
+names(df_test)
+
+for (i in names(df_train)){
+  if (sum(unique(df_train[,i]) %in% unique(df_train[,j])) != length(unique(df_train[,i]))){
+    print(i)
+  }
+  
+}
+
+
 
 for (i in names(df_train)){
   if (grepl('cat', i)){

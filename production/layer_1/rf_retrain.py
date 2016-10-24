@@ -21,11 +21,18 @@ nfold = 10
 for i in range(nfold):
     skf += [[[(skf_table['stack_index']!=i).values],[(skf_table['stack_index']==i).values]]]
 
+print("read test data")
+test  = pd.read_csv(path+"test.csv")
+ID = test['id']
+del test['id']
+
 names_cat = ['cat' + str(i+1) for i in range(116)]
 for i in names_cat:
     print i
     le = LabelEncoder()
-    train[i] = le.fit_transform(train[i])
+    le.fit(np.concatenate([train[i].values, test[i].values]))
+    train[i] = le.transform(train[i])
+    test[i] = le.transform(test[i])
 
 
 label = np.log(train['loss'].values)
@@ -38,14 +45,6 @@ train = train.join(tsne)
 clf = RandomForestRegressor(n_jobs=-1, criterion='mse', n_estimators=300, verbose=3, random_state=6174)
 clf.fit(train.values, label)
 
-print("read test data")
-test  = pd.read_csv(path+"test.csv")
-ID = test['id']
-del test['id']
-for i in names_cat:
-    print i
-    le = LabelEncoder()
-    test[i] = le.fit_transform(test[i])
 tsne = pd.read_csv(cache_path+'test_tsne.csv')
 test = test.join(tsne)
 
@@ -76,4 +75,4 @@ print("ave: "+ str(np.average(score)) + "stddev: " + str(np.std(score)))
 
 
 print(mean_absolute_error(label,submission.values))
-submission.to_csv(path+"rf_retrain.csv",index_label='id')
+submission.to_csv(cache_path+"rf_retrain.csv",index_label='id')

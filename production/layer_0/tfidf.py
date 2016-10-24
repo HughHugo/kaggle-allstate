@@ -12,12 +12,17 @@ id=train['id']
 del train['id']
 del train['loss']
 
+test  = pd.read_csv("../../input/test.csv")
+id = test['id']
+del test['id']
+
 names_cat = ['cat' + str(i+1) for i in range(116)]
 for i in names_cat:
     print i
     le = LabelEncoder()
-    train[i] = le.fit_transform(train[i])
-
+    le.fit(np.concatenate([train[i].values, test[i].values]))
+    train[i] = le.transform(train[i])
+    test[i] = le.transform(test[i])
 
 transformer = TfidfTransformer()
 train = transformer.fit_transform(train)
@@ -26,14 +31,6 @@ train=pd.DataFrame(train.toarray())
 train.columns=NAME[1:-1]
 train=pd.concat([id,train,target],axis=1)
 train.to_csv("../../cache/layer_0/train_tfidf.csv",index=False)
-
-test  = pd.read_csv("../../input/test.csv")
-id = test['id']
-del test['id']
-for i in names_cat:
-    print i
-    le = LabelEncoder()
-    test[i] = le.fit_transform(test[i])
 
 test = transformer.transform(test)
 test=pd.DataFrame(test.toarray())

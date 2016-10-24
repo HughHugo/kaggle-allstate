@@ -23,11 +23,18 @@ nfold = 10
 for i in range(nfold):
     skf += [[[(skf_table['stack_index']!=i).values],[(skf_table['stack_index']==i).values]]]
 
+print("read test data")
+test  = pd.read_csv(path+"test.csv")
+ID = test['id']
+del test['id']
+
 names_cat = ['cat' + str(i+1) for i in range(116)]
 for i in names_cat:
     print i
     le = LabelEncoder()
-    train[i] = le.fit_transform(train[i])
+    le.fit(np.concatenate([train[i].values, test[i].values]))
+    train[i] = le.transform(train[i])
+    test[i] = le.transform(test[i])
 
 
 label = np.log(train['loss'].values)
@@ -66,18 +73,10 @@ print('CV-Mean: {0}+{1}'.format(cv_mean, cv_std))
 
 clf = xgb.train(xgb_params, dtrain, best_nrounds)
 
-print("read test data")
-test  = pd.read_csv(path+"test.csv")
-ID = test['id']
-del test['id']
-for i in names_cat:
-    print i
-    le = LabelEncoder()
-    test[i] = le.fit_transform(test[i])
 tsne = pd.read_csv(cache_path+'test_tsne.csv')
 test = test.join(tsne)
 
-dtest = xgb.DMatrix(test)
+dtest = xgb.DMatrix(test.values)
 
 clf_probs = np.exp(clf.predict(dtest))
 sample = pd.read_csv(path+'sample_submission.csv')
@@ -93,9 +92,9 @@ score = np.zeros(nfold)
 i=0
 for tr, te in skf:
     X_train, X_test, y_train, y_test = train.values[tr], train.values[te], label[tr], label[te]
-    dtrain = xgb.DMatrix(X_train.values, label=y_train)
+    dtrain = xgb.DMatrix(X_train, label=y_train)
     clf = xgb.train(xgb_params, dtrain, best_nrounds)
-    dtest = xgb.DMatrix(X_test.values)
+    dtest = xgb.DMatrix(X_test)
     pred = np.exp(clf.predict(dtest))
     tmp = pd.DataFrame(pred, columns=sample.columns[1:])
     submission.iloc[te[0],0] = pred
@@ -106,5 +105,5 @@ for tr, te in skf:
 print("ave: "+ str(np.average(score)) + "stddev: " + str(np.std(score)))
 
 
-print(mean_absolute_error(label,submission.values))
-submission.to_csv(path+"xgb_retrain.csv",index_label='id')
+print(mean_absolute_error(np.exp(label),submission.values))
+submission.to_csv(cache_path_output+"xgb_retrain.csv",index_label='id')
