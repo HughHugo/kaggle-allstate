@@ -73,7 +73,7 @@ names(df_train)
 names(df_test)
 
 for (i in names(df_train)){
-  if (sum(unique(df_train[,i]) %in% unique(df_train[,j])) != length(unique(df_train[,i]))){
+  if (sum(unique(df_train[,i]) %in% unique(df_test[,i])) != length(unique(df_train[,i]))){
     print(i)
   }
   

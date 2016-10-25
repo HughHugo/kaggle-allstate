@@ -28,7 +28,6 @@ del test['id']
 
 names_cat = ['cat' + str(i+1) for i in range(116)]
 for i in names_cat:
-    print i
     le = LabelEncoder()
     le.fit(np.concatenate([train[i].values, test[i].values]))
     train[i] = le.transform(train[i])
@@ -75,4 +74,4 @@ print("ave: "+ str(np.average(score)) + "stddev: " + str(np.std(score)))
 
 
 print(mean_absolute_error(label,submission.values))
-submission.to_csv(cache_path+"rf_retrain.csv",index_label='id')
+submission.to_csv(cache_path_output+"rf_retrain.csv",index_label='id')

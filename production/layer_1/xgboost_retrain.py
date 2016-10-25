@@ -30,7 +30,6 @@ del test['id']
 
 names_cat = ['cat' + str(i+1) for i in range(116)]
 for i in names_cat:
-    print i
     le = LabelEncoder()
     le.fit(np.concatenate([train[i].values, test[i].values]))
     train[i] = le.transform(train[i])

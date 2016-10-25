@@ -31,14 +31,7 @@ theta = 0.5, check_duplicates = F, pca = T, verbose=TRUE, max_iter = 500)
 colors = rainbow(length(unique(tmp)))
 names(colors) = unique(tmp)
 
-if(TsneDim==2){
-  plot(tsne$Y[1:N,], t='n', main="tsne")
-  text(tsne$Y[1:N,], labels=tmp, col=colors[tmp])
-}
-if(TsneDim==3){
-  library(rgl)
-  plot3d(tsne$Y[1:N,1],tsne$Y[1:N,2],tsne$Y[1:N,3],col=colors[tmp])
-}
+
 
 train <- tsne$Y[1:N,]
 test <- tsne$Y[(N+1):nrow(tsne$Y),]
