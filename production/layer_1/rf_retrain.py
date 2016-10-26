@@ -73,5 +73,5 @@ for tr, te in skf:
 print("ave: "+ str(np.average(score)) + "stddev: " + str(np.std(score)))
 
 
-print(mean_absolute_error(label,submission.values))
+print(mean_absolute_error(np.exp(label),submission.values))
 submission.to_csv(cache_path_output+"rf_retrain.csv",index_label='id')
