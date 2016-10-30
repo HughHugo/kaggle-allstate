@@ -27,7 +27,6 @@ for i in range(nfold):
     skf += [[(skf_table['stack_index']!=i).values, (skf_table['stack_index']==i).values]]
 print skf
 print len(skf)
-
 label = np.log(train['loss'].values + SHIFT)
 ################################################################################
 
@@ -55,9 +54,16 @@ x_test = np.array(train_test.iloc[ntrain:,:])
 
 print("{},{}".format(train.shape, test.shape))
 
-
 dtrain = xgb.DMatrix(x_train, label=y_train)
 dtest = xgb.DMatrix(x_test)
+
+def logregobj(preds, dtrain):
+    labels = dtrain.get_label()
+    con =2
+    x =preds-labels
+    grad =con*x / (np.abs(x)+con)
+    hess =con**2 / (np.abs(x)+con)**2
+    return grad, hess
 
 xgb_params = {
     'min_child_weight': 1,
@@ -69,9 +75,8 @@ xgb_params = {
     'gamma': 1,
     'silent': 1,
     'verbose_eval': True,
-    'seed': 6174
+    'seed': 6174,
 }
-
 
 def xg_eval_mae(yhat, dtrain):
     y = dtrain.get_label()
@@ -80,7 +85,7 @@ def xg_eval_mae(yhat, dtrain):
 res = xgb.cv(xgb_params, dtrain, num_boost_round=999999999,
              nfold=4,
              seed=SEED,
-             stratified=False, #obj=logregobj,
+             stratified=False, obj=logregobj,
              early_stopping_rounds=300,
              verbose_eval=10,
              show_stdv=True,
@@ -92,10 +97,10 @@ cv_mean = res.iloc[-1, 0]
 cv_std = res.iloc[-1, 1]
 print('CV-Mean: {0}+{1}'.format(cv_mean, cv_std))
 
-gbdt = xgb.train(xgb_params, dtrain, best_nrounds)#obj=logregobj
+gbdt = xgb.train(xgb_params, dtrain, best_nrounds, obj=logregobj)
 
 submission = pd.read_csv(SUBMISSION_FILE)
-submission.iloc[:, 1] = np.exp(gbdt.predict(dtest))  - SHIFT
+submission.iloc[:, 1] = np.exp(gbdt.predict(dtest)) - SHIFT
 submission.to_csv('XGB_1.csv', index=None)
 
 ########################################################################################
@@ -108,9 +113,9 @@ for tr, te in skf:
     te = np.where(te)
     X_train, X_test, y_train, y_test = x_train[tr], x_train[te], label[tr], label[te]
     dtrain = xgb.DMatrix(X_train, label=y_train)
-    clf = xgb.train(xgb_params, dtrain, best_nrounds)#obj=logregobj
+    clf = xgb.train(xgb_params, dtrain, best_nrounds, obj=logregobj)
     dtest = xgb.DMatrix(X_test)
-    pred = np.exp(clf.predict(dtest))  - SHIFT
+    pred = np.exp(clf.predict(dtest)) - SHIFT
     tmp = pd.DataFrame(pred, columns=sample.columns[1:])
     submission.iloc[te[0],0] = pred
     score[i]= mean_absolute_error(np.exp(y_test), pred)

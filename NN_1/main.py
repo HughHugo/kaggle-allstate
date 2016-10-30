@@ -135,7 +135,7 @@ pred_oob = np.zeros(xtrain.shape[0])
 pred_test = np.zeros(xtest.shape[0])
 
 early_stopping = EarlyStopping(monitor='val_loss',
-                               patience=5,
+                               patience=3,
                                mode="min")
 
 for inTr, inTe in folds:

@@ -25,7 +25,7 @@ library(tidyr)
 
 options(scipen=100)
 options(dplyr.width = Inf)
-#options(dplyr.print_max = Inf)
+options(dplyr.print_max = Inf)
 
 # **************************************
 # functions
@@ -68,7 +68,29 @@ MEMB_NUM = 1000000000
 setwd("~/Documents/github/kaggle-allstate/script/")
 df_train = read_csv("../input/train.csv")
 df_test = read_csv("../input/test.csv")
-df_train['loss'] = NULL
+#df_train['loss'] = NULL
+df_test['loss'] = -1
+df = rbind(df_train, df_test)
+df = df[order(df$id),]
+df[df[,'cat112'] == "C","loss"][1:1000,]
+
+df[df[,'cat112'] == "E" & df[,"loss"] != -1,c("id", "loss")][1:1000,]
+
+tmp = df[df[,'cat112'] == "E" & df[,"loss"] != -1,]
+head(tmp[order(tmp$cont13),], 20)
+autocor(tmp[order(tmp$cont13),]$loss)
+
+acf(tmp[order(tmp$cont9),]$loss, 10)
+acf(tmp[order(tmp$cont11),]$loss, 10)
+acf(tmp[order(tmp$cont12),]$loss, 10)
+acf(tmp[order(tmp$cont13),]$loss, 10)
+acf(tmp[order(tmp$cont14),]$loss, 10)
+
+acf(df_train[order(df_train$cont7),]$loss, 10)
+plot(df_train[order(df_train$cont7),]$loss)
+
+summary(df$cont)
+
 names(df_train)
 names(df_test)
 
