@@ -101,10 +101,10 @@ gbdt = xgb.train(xgb_params, dtrain, best_nrounds, obj=logregobj)
 
 submission = pd.read_csv(SUBMISSION_FILE)
 submission.iloc[:, 1] = np.exp(gbdt.predict(dtest)) - SHIFT
-submission.to_csv('XGB_1.csv', index=None)
+submission.to_csv('XGB_2.csv', index=None)
 
 ########################################################################################
-sample = pd.read_csv(path+'sample_submission.csv')
+sample = pd.read_csv('../input/sample_submission.csv')
 submission = pd.DataFrame(index=trainID, columns=sample.columns[1:])
 score = np.zeros(nfold)
 i=0
@@ -125,5 +125,5 @@ for tr, te in skf:
 print("ave: "+ str(np.average(score)) + "stddev: " + str(np.std(score)))
 print(mean_absolute_error(np.exp(label) - SHIFT,submission.values))
 
-submission.to_csv("XGB_retrain_1.csv", index_label='id')
+submission.to_csv("XGB_retrain_2.csv", index_label='id')
 ########################################################################################

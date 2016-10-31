@@ -99,7 +99,7 @@ submission.iloc[:, 1] = np.exp(gbdt.predict(dtest))  - SHIFT
 submission.to_csv('XGB_1.csv', index=None)
 
 ########################################################################################
-sample = pd.read_csv(path+'sample_submission.csv')
+sample = pd.read_csv('../input/sample_submission.csv')
 submission = pd.DataFrame(index=trainID, columns=sample.columns[1:])
 score = np.zeros(nfold)
 i=0
