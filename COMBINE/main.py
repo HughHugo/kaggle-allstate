@@ -34,4 +34,7 @@ print np.mean(pred_1)
 print np.mean(pred_2)
 
 pred = ((10000-save_i)*pred_1 + save_i*pred_2)/10000.0
+#1123.63547286
 pred.to_csv("pred_retrain.csv", index_label='id')
+
+#3
