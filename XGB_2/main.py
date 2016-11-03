@@ -28,6 +28,7 @@ for i in range(nfold):
 print skf
 print len(skf)
 label = np.log(train['loss'].values + SHIFT)
+trainID = train['id']
 ################################################################################
 
 
@@ -82,7 +83,7 @@ def xg_eval_mae(yhat, dtrain):
     y = dtrain.get_label()
     return 'mae', mean_absolute_error(np.exp(y) - SHIFT, np.exp(yhat) - SHIFT)
 
-res = xgb.cv(xgb_params, dtrain, num_boost_round=999999999,
+res = xgb.cv(xgb_params, dtrain, num_boost_round=9999999,
              nfold=4,
              seed=SEED,
              stratified=False, obj=logregobj,
@@ -118,7 +119,7 @@ for tr, te in skf:
     pred = np.exp(clf.predict(dtest)) - SHIFT
     tmp = pd.DataFrame(pred, columns=sample.columns[1:])
     submission.iloc[te[0],0] = pred
-    score[i]= mean_absolute_error(np.exp(y_test), pred)
+    score[i]= mean_absolute_error(np.exp(y_test) - SHIFT, pred)
     print(score[i])
     i+=1
 
