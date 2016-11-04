@@ -9,10 +9,9 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.cross_validation import KFold
 from keras.models import Sequential
 from keras.layers import Dense, Dropout, Activation
-from keras.layers.advanced_activations import PReLU, LeakyReLU, ELU, ParametricSoftplus, ThresholdedReLU, SReLU
+from keras.layers.advanced_activations import PReLU
 from keras.callbacks import EarlyStopping
 from keras.layers.normalization import BatchNormalization
-from keras.optimizers import SGD, RMSprop, Adadelta
 
 ## Batch generators ##################################################################################################################################
 
@@ -108,23 +107,20 @@ del(xtr_te, sparse_data, tmp)
 ## neural net
 def nn_model():
     model = Sequential()
-    model.add(Dense(400, input_dim = xtrain.shape[1], init = 'he_normal'))
+    model.add(Dense(1600, input_dim = xtrain.shape[1], init = 'he_normal'))
     model.add(BatchNormalization())
     model.add(PReLU())
     model.add(Dropout(0.4))
-    model.add(Dense(200, init = 'he_normal'))
+    model.add(Dense(400, init = 'he_normal'))
     model.add(BatchNormalization())
-    model.add(ThresholdedReLU())
+    model.add(PReLU())
     model.add(Dropout(0.2))
-    model.add(Dense(50, init = 'he_normal'))
+    model.add(Dense(100, init = 'he_normal'))
     model.add(BatchNormalization())
-    model.add(SReLU())
+    model.add(PReLU())
     model.add(Dropout(0.1))
     model.add(Dense(1, init = 'he_normal'))
-    rmsprop = RMSprop(lr=0.001, rho=0.9, epsilon=1e-08, decay=0.0)
-    sgd = SGD(lr=0.01, momentum=0.0, decay=0.0, nesterov=False)
-    adadelta = Adadelta(lr=1.0, rho=0.95, epsilon=1e-08, decay=0.0)
-    model.compile(loss = 'mae', optimizer = adadelta)
+    model.compile(loss = 'mae', optimizer = 'adadelta')
     return(model)
 
 ## cv-folds
@@ -156,7 +152,7 @@ for inTr, inTe in folds:
     pred = np.zeros(xte.shape[0])
     for j in range(nbags):
         model = nn_model()
-        fit = model.fit_generator(generator = batch_generator(xtr, ytr, 1280, True),
+        fit = model.fit_generator(generator = batch_generator(xtr, ytr, 128, True),
                                   nb_epoch = nepochs,
                                   samples_per_epoch = xtr.shape[0],
                                   validation_data = (xte.todense(), yte),

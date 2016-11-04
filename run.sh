@@ -1,5 +1,5 @@
-cd XGB_2
+cd NN_2
 python main.py
 cd ..
-cd XGB_1
+cd NN_3
 python main.py
