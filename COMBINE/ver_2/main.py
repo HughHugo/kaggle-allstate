@@ -33,10 +33,12 @@ print "\n"
 print mean_absolute_error(train['loss'], pred_nn_1_retrain)
 print mean_absolute_error(train['loss'], pred_nn_2_retrain)
 print mean_absolute_error(train['loss'], pred_nn_retrain)
-print mean(pred_nn_1_retrain)
-print mean(pred_nn_2_retrain)
-print mean(pred_nn_retrain)
-
+print np.mean(pred_nn_1_retrain)
+print np.mean(pred_nn_2_retrain)
+print np.mean(pred_nn_retrain)
+print np.mean(pred_nn_1)
+print np.mean(pred_nn_2)
+print np.mean(pred_nn)
 #1133.0687374
 #1133.48770365
 #1131.88010317
@@ -59,6 +61,12 @@ print "\n"
 print mean_absolute_error(train['loss'], pred_xgb_1_retrain)
 print mean_absolute_error(train['loss'], pred_xgb_2_retrain)
 print mean_absolute_error(train['loss'], pred_xgb_retrain)
+print np.mean(pred_xgb_1_retrain)
+print np.mean(pred_xgb_2_retrain)
+print np.mean(pred_xgb_retrain)
+print np.mean(pred_xgb_1)
+print np.mean(pred_xgb_2)
+print np.mean(pred_xgb)
 
 #1130.39688
 #1128.13875418
