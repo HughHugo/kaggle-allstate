@@ -58,6 +58,9 @@ print("{},{}".format(train.shape, test.shape))
 dtrain = xgb.DMatrix(x_train, label=y_train)
 dtest = xgb.DMatrix(x_test)
 
+#import time
+#time.sleep(60)
+
 def logregobj(preds, dtrain):
     labels = dtrain.get_label()
     con =2
