@@ -89,8 +89,8 @@ def xgb_evaluate(min_child_weight,
 
     cv_result = xgb.cv(xgb_params,
                              dtrain,
-                             num_boost_round=20,
-                             nfold=4,
+                             num_boost_round=999999,
+                             nfold=5,
                              seed=SEED,
                              stratified=False, obj=logregobj,
                              early_stopping_rounds=50,
@@ -110,8 +110,8 @@ xgbBO = BayesianOptimization(xgb_evaluate, {'min_child_weight': (0.5, 1.5),
                                             'alpha': (0, 2),
                                             })
 
-num_iter = 100
-init_points = 1
+num_iter = 1
+init_points = 30
 xgbBO.maximize(init_points=init_points, n_iter=num_iter)
 
 while True:
