@@ -115,7 +115,7 @@ def nn_model():
     model.add(BatchNormalization())
     model.add(PReLU())
     model.add(Dropout(0.2))
-    model.add(Dense(100, init = 'he_normal'))
+    model.add(Dense(200, init = 'he_normal'))
     model.add(BatchNormalization())
     model.add(PReLU())
     model.add(Dropout(0.1))
