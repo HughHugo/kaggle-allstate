@@ -1,5 +1,8 @@
-cd NN_2
+cd NN_1_fix
 python main.py
 cd ..
-cd NN_3
+cd NN_2_fix
+python main.py
+cd ..
+cd NN_3_fix
 python main.py
