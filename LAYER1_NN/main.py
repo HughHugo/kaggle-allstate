@@ -5,10 +5,11 @@ import xgboost as xgb
 from sklearn.metrics import mean_absolute_error
 
 # Main
-pred_nn_1_retrain = pd.read_csv('../NN_1/NN_retrain_1.csv', index_col=0)
-pred_nn_2_retrain = pd.read_csv('../NN_2/NN_retrain_2.csv', index_col=0)
-pred_nn_1 = pd.read_csv('../NN_1/NN_1.csv', index_col=0)
-pred_nn_2 = pd.read_csv('../NN_2/NN_2.csv', index_col=0)
+pred_nn_1_retrain = pd.read_csv('../NN_1_fix/NN_retrain_1.csv', index_col=0)
+pred_nn_2_retrain = pd.read_csv('../NN_2_fix/NN_retrain_2.csv', index_col=0)
+#pred_nn_3_retrain = pd.read_csv('../NN_3_fix/NN_retrain_3.csv', index_col=0)
+pred_nn_1 = pd.read_csv('../NN_1_fix/NN_1.csv', index_col=0)
+pred_nn_2 = pd.read_csv('../NN_2_fix/NN_2.csv', index_col=0)
 train = pd.read_csv('../input/train.csv', index_col=0)
 
 # optimize NN

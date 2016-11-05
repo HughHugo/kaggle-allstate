@@ -170,9 +170,11 @@ for inTr, inTe in folds:
                                   samples_per_epoch = xtr.shape[0],
                                   validation_data = (x_cv_te.todense(), y_cv_te),
                                   callbacks=[early_stopping],
-                                  verbose = 1)
+                                  verbose = 0)
         tmp_iter = tmp_iter + fit.history['val_loss'].index(min(fit.history['val_loss'])) - 1
-    tmp_iter = tmp_iter/float(tmp_n_folds)
+        print tmp_iter
+    tmp_iter = int(round(tmp_iter/float(tmp_n_folds)))
+    print tmp_iter
 
     # Train
     for j in range(nbags):
@@ -181,7 +183,7 @@ for inTr, inTe in folds:
                                   nb_epoch = tmp_iter,
                                   samples_per_epoch = xtr.shape[0],
                                   validation_data = (xte.todense(), yte),
-                                  verbose = 1)
+                                  verbose = 0)
         pred += model.predict_generator(generator = batch_generatorp(xte, 800, False), val_samples = xte.shape[0])[:,0]
         pred_test += model.predict_generator(generator = batch_generatorp(xtest, 800, False), val_samples = xtest.shape[0])[:,0]
 
