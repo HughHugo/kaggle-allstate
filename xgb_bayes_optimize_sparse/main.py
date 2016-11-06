@@ -105,7 +105,7 @@ def xgb_evaluate(min_child_weight,
                  alpha):
 
     xgb_params = {
-        'eta': 0.1,
+        'eta': 0.3,
         'silent': 1,
         'verbose_eval': True,
         'seed': SEED
@@ -121,12 +121,12 @@ def xgb_evaluate(min_child_weight,
 
     cv_result = xgb.cv(xgb_params,
                              dtrain,
-                             num_boost_round=5000,
+                             num_boost_round=1000,
                              nfold=5,
                              seed=SEED,
                              stratified=False, obj=logregobj,
                              early_stopping_rounds=50,
-                             verbose_eval=10,
+                             verbose_eval=100,
                              show_stdv=True,
                              feval=xg_eval_mae,
                              maximize=False
@@ -134,12 +134,12 @@ def xgb_evaluate(min_child_weight,
     print (-cv_result['test-mae-mean'].values[-1] + 2000)/1000.
     return (-cv_result['test-mae-mean'].values[-1] + 2000)/1000.
 
-xgbBO = BayesianOptimization(xgb_evaluate, {'min_child_weight': (0.5, 10.0),
+xgbBO = BayesianOptimization(xgb_evaluate, {'min_child_weight': (0.5, 2.0),
                                             'colsample_bytree': (0.3, 0.9),
                                             'max_depth': (10, 25),
                                             'subsample': (0.5, 1.0),
-                                            'gamma': (0.5, 10.0),
-                                            'alpha': (0.0, 10.0),
+                                            'gamma': (0.5, 5.0),
+                                            'alpha': (0.0, 5.0),
                                             })
 
 num_iter = 1
