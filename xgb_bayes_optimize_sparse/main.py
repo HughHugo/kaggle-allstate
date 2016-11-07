@@ -138,12 +138,12 @@ xgbBO = BayesianOptimization(xgb_evaluate, {'min_child_weight': (0.5, 2.0),
                                             'colsample_bytree': (0.3, 0.9),
                                             'max_depth': (10, 25),
                                             'subsample': (0.5, 1.0),
-                                            'gamma': (0.5, 5.0),
-                                            'alpha': (0.0, 5.0),
+                                            'gamma': (0.5, 3.0),
+                                            'alpha': (0.0, 3.0),
                                             })
 
 num_iter = 1
-init_points = 30
+init_points = 20
 xgbBO.maximize(init_points=init_points, n_iter=num_iter)
 
 while True:
