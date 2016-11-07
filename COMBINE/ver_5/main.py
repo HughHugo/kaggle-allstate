@@ -100,58 +100,27 @@ from scipy.optimize import minimize
 
 # ======================== NN optimize ======================== #
 def f(coord,args):
-    pred_1,pred_2,pred_3,r = args
-    return np.mean( np.abs(coord[0]*pred_1 + coord[1]*pred_2 + coord[2]*pred_3 - r))
+    pred_1,pred_2,pred_3,pred_4,pred_5,pred_6,r = args
+    return np.mean( np.abs(coord[0]*pred_1 + coord[1]*pred_2 + coord[2]*pred_3
+                          +coord[3]*pred_4 + coord[4]*pred_5 + coord[5]*pred_6  - r))
 
 
-initial_guess = np.array([0.333,0.333,0.333])
+initial_guess = np.array([0.2,0.2,0.2,0.2,0.2,0.2])
 
-bnds = ((0, 1), (0, 1), (0, 1))
 
 res = minimize(f,initial_guess,args = [pred_nn_1_retrain['loss'].values,
                                        pred_nn_2_retrain['loss'].values,
                                        pred_nn_3_retrain['loss'].values,
-                                       train['loss'].values]
-                              #,bounds=bnds
-                              ,method='SLSQP')
-
-
-print mean_absolute_error(train['loss'], res.x[0]*pred_nn_1_retrain + res.x[1]*pred_nn_2_retrain + res.x[2]*pred_nn_3_retrain)
-pred_nn = res.x[0]*pred_nn_1 + res.x[1]*pred_nn_2 + res.x[2]*pred_nn_3
-pred_nn_retrain = res.x[0]*pred_nn_1_retrain + res.x[1]*pred_nn_2_retrain + res.x[2]*pred_nn_3_retrain
-
-# ======================== XGB optimize ======================== #
-res = minimize(f,initial_guess,args = [pred_xgb_1_retrain['loss'].values,
+                                       pred_xgb_1_retrain['loss'].values,
                                        pred_xgb_2_retrain['loss'].values,
                                        pred_xgb_3_retrain['loss'].values,
                                        train['loss'].values]
-                              #,bounds=bnds
                               ,method='SLSQP')
 
 
-print mean_absolute_error(train['loss'], res.x[0]*pred_xgb_1_retrain + res.x[1]*pred_xgb_2_retrain + res.x[2]*pred_xgb_3_retrain)
-pred_xgb = res.x[0]*pred_xgb_1 + res.x[1]*pred_xgb_2 + res.x[2]*pred_xgb_3
-pred_xgb_retrain = res.x[0]*pred_xgb_1_retrain + res.x[1]*pred_xgb_2_retrain + res.x[2]*pred_xgb_3_retrain
-
-# ======================== Ensemble optimize ======================== #
-
-def f(coord,args):
-    pred_1,pred_2,r = args
-    return np.mean( np.abs(coord[0]*pred_1 + coord[1]*pred_2 - r))
-
-
-initial_guess = np.array([0.5,0.5])
-
-bnds = ((0, 1), (0, 1))
-
-res = minimize(f,initial_guess,args = [pred_nn_retrain['loss'].values,
-                                       pred_xgb_retrain['loss'].values,
-                                       train['loss'].values]
-                              #,bounds=bnds
-                              ,method='SLSQP')
-
-print mean_absolute_error(train['loss'], res.x[0]*pred_nn_retrain + res.x[1]*pred_xgb_retrain)
-pred_ensemble = res.x[0]*pred_nn + res.x[1]*pred_xgb
+print res
+pred_ensemble = (res.x[0]*pred_nn_1 + res.x[1]*pred_nn_2 + res.x[2]*pred_nn_3
+              + res.x[3]*pred_xgb_1 + res.x[4]*pred_xgb_2 + res.x[5]*pred_xgb_3)
 
 
 pred_ensemble.to_csv("pred_retrain.csv", index_label='id')
