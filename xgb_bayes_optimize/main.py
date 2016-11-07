@@ -73,7 +73,7 @@ def xgb_evaluate(min_child_weight,
                  alpha):
 
     xgb_params = {
-        'eta': 0.1,
+        'eta': 0.3,
         'silent': 1,
         'verbose_eval': True,
         'seed': SEED
@@ -94,7 +94,7 @@ def xgb_evaluate(min_child_weight,
                              seed=SEED,
                              stratified=False, obj=logregobj,
                              early_stopping_rounds=50,
-                             verbose_eval=10,
+                             verbose_eval=100,
                              show_stdv=True,
                              feval=xg_eval_mae,
                              maximize=False
