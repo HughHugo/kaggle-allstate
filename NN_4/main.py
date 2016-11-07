@@ -142,7 +142,7 @@ pred_oob = np.zeros(xtrain.shape[0])
 pred_test = np.zeros(xtest.shape[0])
 
 early_stopping = EarlyStopping(monitor='val_loss',
-                               patience=5,
+                               patience=3,
                                mode="min")
 
 for inTr, inTe in folds:
@@ -157,39 +157,16 @@ for inTr, inTe in folds:
     xte = xtrain[inTe]
     yte = y[inTe]
     pred = np.zeros(xte.shape[0])
-
-    # Find best iter
-    tmp_iter = 0
-    tmp_n_folds = 5
-    tmp_folds = KFold(len(ytr), n_folds = tmp_n_folds, shuffle = True, random_state = 6174)
-    for (cv_Tr, cv_Te) in tmp_folds:
-        x_cv_tr = xtr[cv_Tr]
-        y_cv_tr = ytr[cv_Tr]
-        x_cv_te = xtr[cv_Te]
-        y_cv_te = ytr[cv_Te]
-        model = nn_model()
-        fit = model.fit_generator(generator = batch_generator(x_cv_tr, y_cv_tr, 128, True),
-                                  nb_epoch = nepochs,
-                                  samples_per_epoch = xtr.shape[0],
-                                  validation_data = (x_cv_te.todense(), y_cv_te),
-                                  callbacks=[early_stopping],
-                                  verbose = 1)
-        tmp_iter = tmp_iter + fit.history['val_loss'].index(min(fit.history['val_loss'])) - 1
-        print tmp_iter
-    tmp_iter = int(round(tmp_iter/float(tmp_n_folds)))
-    print tmp_iter
-
-    # Train
     for j in range(nbags):
         model = nn_model()
         fit = model.fit_generator(generator = batch_generator(xtr, ytr, 128, True),
-                                  nb_epoch = tmp_iter,
+                                  nb_epoch = nepochs,
                                   samples_per_epoch = xtr.shape[0],
                                   validation_data = (xte.todense(), yte),
-                                  verbose = 0)
+                                  callbacks=[early_stopping],
+                                  verbose = 1)
         pred += model.predict_generator(generator = batch_generatorp(xte, 800, False), val_samples = xte.shape[0])[:,0]
         pred_test += model.predict_generator(generator = batch_generatorp(xtest, 800, False), val_samples = xtest.shape[0])[:,0]
-
     pred /= nbags
     pred_oob[inTe] = pred
     score = mean_absolute_error(yte, pred)
