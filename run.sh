@@ -1,8 +1,3 @@
-cd NN_4
-python main.py
-cd ..
-cd NN_5
-python main.py
-cd ..
-cd NN_6
+sleep 18000
+cd XGB_7
 python main.py
