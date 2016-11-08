@@ -83,6 +83,7 @@ xgb_params = {
     'silent': 1,
     'verbose_eval': True,
     'seed': 6174,
+    'nthread': 4
 }
 
 def xg_eval_mae(yhat, dtrain):
@@ -97,8 +98,7 @@ res = xgb.cv(xgb_params, dtrain, num_boost_round=9999999,
              verbose_eval=10,
              show_stdv=True,
              feval=xg_eval_mae,
-             maximize=False,
-             nthread=4)
+             maximize=False)
 
 best_nrounds = res.shape[0] - 1
 cv_mean = res.iloc[-1, 0]
