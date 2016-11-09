@@ -70,23 +70,27 @@ def logregobj(preds, dtrain):
     return grad, hess
 
 xgb_params = {
-    'min_child_weight': 1.369072038783186951,
+    'min_child_weight': 1.67716876833,
     'eta': 0.001,
-    'colsample_bytree': 3.439419466150554494e-01,
-    'max_depth': 10,
-    'subsample': 9.900079853408508823e-01,
-    'alpha': 1.308670949597413147,
-    'gamma': 1.956001112195988823,
+    'colsample_bytree': 0.386429092389,
+    'colsample_bylevel': 0.531511475084,
+    'max_depth': 20,
+    'subsample': 0.933532466173,
+    'max_delta_step': 0.101858504044,
+    'alpha': 0,
+    'lambda': 3.71201252724,
+    'gamma': 3.39312939426,
     'silent': 1,
     'verbose_eval': True,
     'seed': 6174,
+    'nthread': 4
 }
 
 def xg_eval_mae(yhat, dtrain):
     y = dtrain.get_label()
     return 'mae', mean_absolute_error(np.exp(y) - SHIFT, np.exp(yhat) - SHIFT)
 
-res = xgb.cv(xgb_params, dtrain, num_boost_round=999999,
+res = xgb.cv(xgb_params, dtrain, num_boost_round=9999999,
              nfold=5,
              seed=SEED,
              stratified=False, obj=logregobj,
