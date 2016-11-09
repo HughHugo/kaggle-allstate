@@ -1,18 +1,8 @@
-"""
-Baysian hyperparameter optimization [https://github.com/fmfn/BayesianOptimization]
-"""
-import numpy as np
+# -*- coding: utf-8 -*-
 import pandas as pd
+import numpy as np
 import xgboost as xgb
-from sklearn.preprocessing import LabelEncoder
 from sklearn.metrics import mean_absolute_error
-from bayes_opt import BayesianOptimization
-import pickle
-import subprocess
-from scipy.sparse import csr_matrix, hstack
-from sklearn.metrics import mean_absolute_error
-from sklearn.preprocessing import StandardScaler
-from sklearn.cross_validation import KFold
 
 ID = 'id'
 TARGET = 'loss'
@@ -23,12 +13,11 @@ TRAIN_FILE = "{0}/train.csv".format(DATA_DIR)
 TEST_FILE = "{0}/test.csv".format(DATA_DIR)
 SUBMISSION_FILE = "{0}/sample_submission.csv".format(DATA_DIR)
 
-SHIFT = 200
-##########################################################################################
-## read data
-train = pd.read_csv('../input/train.csv')
-test = pd.read_csv('../input/test.csv')
 
+train = pd.read_csv(TRAIN_FILE)
+test = pd.read_csv(TEST_FILE)
+
+SHIFT = 200
 ################################################################################
 skf_table = pd.read_csv('../cache/stack_index.csv')
 skf_table = pd.merge(train, skf_table, on='id')
@@ -38,64 +27,39 @@ for i in range(nfold):
     skf += [[(skf_table['stack_index']!=i).values, (skf_table['stack_index']==i).values]]
 print skf
 print len(skf)
-label = np.log(train['loss'].values)
+label = np.log(train['loss'].values + SHIFT)
+trainID = train['id']
 ################################################################################
 
-## set test loss to NaN
-test['loss'] = np.nan
 
-## response and IDs
-y_train = np.log(train['loss'].values + SHIFT)
-id_train = train['id'].values
-id_test = test['id'].values
+y_train = np.log(train[TARGET].ravel() + SHIFT)
 
-trainID = id_train
+train.drop([ID, TARGET], axis=1, inplace=True)
+test.drop([ID], axis=1, inplace=True)
 
+print("{},{}".format(train.shape, test.shape))
 
-## stack train test
 ntrain = train.shape[0]
-tr_te = pd.concat((train, test), axis = 0)
+train_test = pd.concat((train, test)).reset_index(drop=True)
 
-## Preprocessing and transforming to sparse data
-sparse_data = []
+features = train.columns
 
-f_cat = [f for f in tr_te.columns if 'cat' in f]
-for f in f_cat:
-    dummy = pd.get_dummies(tr_te[f].astype('category'))
-    tmp = csr_matrix(dummy)
-    sparse_data.append(tmp)
+cats = [feat for feat in features if 'cat' in feat]
+for feat in cats:
+    train_test[feat] = pd.factorize(train_test[feat], sort=True)[0]
 
-######## Add continuous #########
-for f in f_cat:
-    tr_te[f] = pd.factorize(tr_te[f], sort=True)[0]
-scaler = StandardScaler()
-tmp = csr_matrix(scaler.fit_transform(tr_te[f_cat]))
-#################################
+print(train_test.head())
 
-f_num = [f for f in tr_te.columns if 'cont' in f]
-scaler = StandardScaler()
-tmp = csr_matrix(scaler.fit_transform(tr_te[f_num]))
-sparse_data.append(tmp)
+x_train = np.array(train_test.iloc[:ntrain,:])
+x_test = np.array(train_test.iloc[ntrain:,:])
 
-del(tr_te, train, test)
+print("{},{}".format(train.shape, test.shape))
 
-## sparse train and test data
-xtr_te = hstack(sparse_data, format = 'csr')
-xtrain = xtr_te[:ntrain, :]
-xtest = xtr_te[ntrain:, :]
+dtrain = xgb.DMatrix(x_train, label=y_train)
+dtest = xgb.DMatrix(x_test)
 
-print('Dim train', xtrain.shape)
-print('Dim test', xtest.shape)
-
-del(xtr_te, sparse_data, tmp)
-
-#x_train = np.array(train_test.iloc[:ntrain,:])
-#x_test = np.array(train_test.iloc[ntrain:,:])
-#print("{},{}".format(train.shape, test.shape))
-
-dtrain = xgb.DMatrix(xtrain, label=y_train)
-dtest = xgb.DMatrix(xtest)
-##########################################################################################
+#import time
+#time.sleep(60)
 
 def logregobj(preds, dtrain):
     labels = dtrain.get_label()
@@ -105,15 +69,14 @@ def logregobj(preds, dtrain):
     hess =con**2 / (np.abs(x)+con)**2
     return grad, hess
 
-
 xgb_params = {
-    'min_child_weight': 1.565476680604359849e+00,
-    'eta': 0.001,
-    'colsample_bytree': 3.772917715015777218e-01,
-    'max_depth': 10,
-    'subsample': 7.100797852877329674e-01,
-    'alpha': 1.391915270438097929e+00,
-    'gamma': 2.981406304821155206e+00,
+    'min_child_weight': 1,
+    'eta': 0.0005,
+    'colsample_bytree': 0.5,
+    'max_depth': 12,
+    'subsample': 0.8,
+    'alpha': 1,
+    'gamma': 1,
     'silent': 1,
     'verbose_eval': True,
     'seed': 6174,
@@ -123,19 +86,17 @@ def xg_eval_mae(yhat, dtrain):
     y = dtrain.get_label()
     return 'mae', mean_absolute_error(np.exp(y) - SHIFT, np.exp(yhat) - SHIFT)
 
-res = xgb.cv(xgb_params, dtrain, num_boost_round=9999999,
-             nfold=5,
-             seed=SEED,
-             stratified=False, obj=logregobj,
-             early_stopping_rounds=2000,
-             verbose_eval=10,
-             show_stdv=True,
-             feval=xg_eval_mae,
-             maximize=False)
+# res = xgb.cv(xgb_params, dtrain, num_boost_round=999999,
+#              nfold=4,
+#              seed=SEED,
+#              stratified=False, obj=logregobj,
+#              early_stopping_rounds=300,
+#              verbose_eval=10,
+#              show_stdv=True,
+#              feval=xg_eval_mae,
+#              maximize=False)
 
-best_nrounds = res.shape[0] - 1
-cv_mean = res.iloc[-1, 0]
-cv_std = res.iloc[-1, 1]
+best_nrounds = 100000
 print('CV-Mean: {0}+{1}'.format(cv_mean, cv_std))
 
 gbdt = xgb.train(xgb_params, dtrain, best_nrounds, obj=logregobj)
@@ -152,7 +113,7 @@ i=0
 for tr, te in skf:
     tr = np.where(tr)
     te = np.where(te)
-    X_train, X_test, y_train, y_test = xtrain[tr], xtrain[te], label[tr], label[te]
+    X_train, X_test, y_train, y_test = x_train[tr], x_train[te], label[tr], label[te]
     dtrain = xgb.DMatrix(X_train, label=y_train)
     clf = xgb.train(xgb_params, dtrain, best_nrounds, obj=logregobj)
     dtest = xgb.DMatrix(X_test)
