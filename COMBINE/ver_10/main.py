@@ -42,12 +42,12 @@ pred_xgb_3 = pd.read_csv('../../XGB_3/XGB_3.csv', index_col=0)
 train = pd.read_csv('../../input/train.csv', index_col=0)
 
 # Check MAE Local
-print mean_absolute_error(train['loss'], pred_nn_1_retrain)
-print mean_absolute_error(train['loss'], pred_nn_2_retrain)
-print mean_absolute_error(train['loss'], pred_nn_3_retrain)
-print mean_absolute_error(train['loss'], pred_nn_4_retrain)
-print mean_absolute_error(train['loss'], pred_nn_5_retrain)
-print mean_absolute_error(train['loss'], pred_nn_6_retrain)
+#print mean_absolute_error(train['loss'], pred_nn_1_retrain)
+#print mean_absolute_error(train['loss'], pred_nn_2_retrain)
+#print mean_absolute_error(train['loss'], pred_nn_3_retrain)
+#print mean_absolute_error(train['loss'], pred_nn_4_retrain)
+#print mean_absolute_error(train['loss'], pred_nn_5_retrain)
+#print mean_absolute_error(train['loss'], pred_nn_6_retrain)
 
 print mean_absolute_error(train['loss'], pred_nn_1_fix_retrain)
 print mean_absolute_error(train['loss'], pred_nn_2_fix_retrain)
