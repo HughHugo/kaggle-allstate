@@ -63,14 +63,14 @@ print len(skf)
 label = np.log(train['loss'].values)
 ################################################################################
 
-
+SHIFT = 200
 
 
 ## set test loss to NaN
 test['loss'] = np.nan
 
 ## response and IDs
-y = train['loss'].values
+y = np.log(train['loss'].values + SHIFT)
 id_train = train['id'].values
 id_test = test['id'].values
 
@@ -140,7 +140,7 @@ folds = skf
 
 ## train models
 i = 0
-nbags = 10
+nbags = 5
 nepochs = 55
 pred_oob = np.zeros(xtrain.shape[0])
 pred_test = np.zeros(xtest.shape[0])
@@ -168,11 +168,13 @@ for inTr, inTe in folds:
                                   samples_per_epoch = xtr.shape[0],
                                   validation_data = (xte.todense(), yte),
                                   verbose = 1)
-        pred += model.predict_generator(generator = batch_generatorp(xte, 800, False), val_samples = xte.shape[0])[:,0]
-        pred_test += model.predict_generator(generator = batch_generatorp(xtest, 800, False), val_samples = xtest.shape[0])[:,0]
+        pred += np.exp(model.predict_generator(generator = batch_generatorp(xte, 800, False),
+                                        val_samples = xte.shape[0])[:,0]) -SHIFT
+        pred_test += np.exp(model.predict_generator(generator = batch_generatorp(xtest, 800, False),
+                                        val_samples = xtest.shape[0])[:,0]) -SHIFT
     pred /= nbags
     pred_oob[inTe] = pred
-    score = mean_absolute_error(yte, pred)
+    score = mean_absolute_error(np.exp(yte)-SHIFT, pred)
     i += 1
     print('Fold ', i, '- MAE:', score)
 
@@ -180,9 +182,9 @@ print('Total - MAE:', mean_absolute_error(y, pred_oob))
 
 ## train predictions
 df = pd.DataFrame({'id': id_train, 'loss': pred_oob})
-df.to_csv('NN_retrain_6.csv', index = False)
+df.to_csv('NN_retrain_3.csv', index = False)
 
 ## test predictions
 pred_test /= (nfolds*nbags)
 df = pd.DataFrame({'id': id_test, 'loss': pred_test})
-df.to_csv('NN_6.csv', index = False)
+df.to_csv('NN_3.csv', index = False)

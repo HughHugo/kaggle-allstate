@@ -86,20 +86,20 @@ def xg_eval_mae(yhat, dtrain):
     y = dtrain.get_label()
     return 'mae', mean_absolute_error(np.exp(y) - SHIFT, np.exp(yhat) - SHIFT)
 
-res = xgb.cv(xgb_params, dtrain, num_boost_round=999999,
-             nfold=5,
-             seed=SEED,
-             stratified=False, obj=logregobj,
-             early_stopping_rounds=2000,
-             verbose_eval=10,
-             show_stdv=True,
-             feval=xg_eval_mae,
-             maximize=False)
+# res = xgb.cv(xgb_params, dtrain, num_boost_round=999999,
+#              nfold=5,
+#              seed=SEED,
+#              stratified=False, obj=logregobj,
+#              early_stopping_rounds=2000,
+#              verbose_eval=10,
+#              show_stdv=True,
+#              feval=xg_eval_mae,
+#              maximize=False)
 
-best_nrounds = res.shape[0] - 1
-cv_mean = res.iloc[-1, 0]
-cv_std = res.iloc[-1, 1]
-print('CV-Mean: {0}+{1}'.format(cv_mean, cv_std))
+best_nrounds = 60000
+#cv_mean = res.iloc[-1, 0]
+#cv_std = res.iloc[-1, 1]
+#print('CV-Mean: {0}+{1}'.format(cv_mean, cv_std))
 
 gbdt = xgb.train(xgb_params, dtrain, best_nrounds, obj=logregobj)
 

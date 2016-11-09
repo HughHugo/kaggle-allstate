@@ -97,7 +97,7 @@ def xg_eval_mae(yhat, dtrain):
 #              maximize=False)
 
 best_nrounds = 100000
-print('CV-Mean: {0}+{1}'.format(cv_mean, cv_std))
+#print('CV-Mean: {0}+{1}'.format(cv_mean, cv_std))
 
 gbdt = xgb.train(xgb_params, dtrain, best_nrounds, obj=logregobj)
 

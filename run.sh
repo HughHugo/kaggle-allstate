@@ -1,5 +1,5 @@
-cd NN_7
+cd NEW_NN_1
 python main.py
 cd ..
-cd NN_8
+cd NEW_NN_2
 python main.py
