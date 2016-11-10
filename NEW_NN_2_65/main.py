@@ -87,6 +87,13 @@ for f in f_cat:
     tmp = csr_matrix(dummy)
     sparse_data.append(tmp)
 
+######## Add continuous #########
+for f in f_cat:
+    tr_te[f] = pd.factorize(tr_te[f], sort=True)[0]
+scaler = StandardScaler()
+tmp = csr_matrix(scaler.fit_transform(tr_te[f_cat]))
+#################################
+
 f_num = [f for f in tr_te.columns if 'cont' in f]
 scaler = StandardScaler()
 tmp = csr_matrix(scaler.fit_transform(tr_te[f_num]))
@@ -134,7 +141,7 @@ folds = skf
 ## train models
 i = 0
 nbags = 5
-nepochs = 55
+nepochs = 70
 pred_oob = np.zeros(xtrain.shape[0])
 pred_test = np.zeros(xtest.shape[0])
 
@@ -175,9 +182,9 @@ print('Total - MAE:', mean_absolute_error(y, pred_oob))
 
 ## train predictions
 df = pd.DataFrame({'id': id_train, 'loss': pred_oob})
-df.to_csv('NN_retrain_1.csv', index = False)
+df.to_csv('NN_retrain_3.csv', index = False)
 
 ## test predictions
 pred_test /= (nfolds*nbags)
 df = pd.DataFrame({'id': id_test, 'loss': pred_test})
-df.to_csv('NN_1.csv', index = False)
+df.to_csv('NN_3.csv', index = False)
