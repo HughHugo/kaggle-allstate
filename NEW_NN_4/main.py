@@ -107,22 +107,22 @@ del(xtr_te, sparse_data, tmp)
 ## neural net
 def nn_model():
     model = Sequential()
+
     model.add(Dense(400, input_dim = xtrain.shape[1], init = 'he_normal'))
-    model.add(BatchNormalization())
     model.add(PReLU())
+    model.add(BatchNormalization())
     model.add(Dropout(0.4))
+
     model.add(Dense(200, init = 'he_normal'))
-    model.add(BatchNormalization())
     model.add(PReLU())
-    model.add(Dropout(0.3))
-    model.add(Dense(100, init = 'he_normal'))
     model.add(BatchNormalization())
-    model.add(PReLU())
     model.add(Dropout(0.2))
+
     model.add(Dense(50, init = 'he_normal'))
-    model.add(BatchNormalization())
     model.add(PReLU())
-    model.add(Dropout(0.1))
+    model.add(BatchNormalization())
+    model.add(Dropout(0.2))
+
     model.add(Dense(1, init = 'he_normal'))
     model.compile(loss = 'mae', optimizer = 'adadelta')
     return(model)
@@ -134,7 +134,7 @@ folds = skf
 ## train models
 i = 0
 nbags = 5
-nepochs = 55
+nepochs = 60
 pred_oob = np.zeros(xtrain.shape[0])
 pred_test = np.zeros(xtest.shape[0])
 
