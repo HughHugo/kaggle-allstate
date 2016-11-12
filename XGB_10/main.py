@@ -35,8 +35,8 @@ trainID = train['id']
 
 y_train = np.log(train[TARGET].ravel() + SHIFT)
 
-train.drop([ID, TARGET], axis=1, inplace=True)
-test.drop([ID], axis=1, inplace=True)
+#train.drop([ID, TARGET], axis=1, inplace=True)
+#test.drop([ID], axis=1, inplace=True)
 
 print("{},{}".format(train.shape, test.shape))
 
@@ -58,7 +58,7 @@ for cat in cats:
 
 ### reorder
 train_test=train_test.sort_values(ID)
-gc.collect()
+#gc.collect()
 
 print(train_test.head())
 
@@ -79,13 +79,13 @@ train_test["cont14"]=(np.maximum(train_test["cont14"]-0.179722,0)/0.665122)**0.2
 
 ####
 
-
+train_test.drop([ID, TARGET], axis=1, inplace=True)
 
 
 x_train = np.array(train_test.iloc[:ntrain,:])
 x_test = np.array(train_test.iloc[ntrain:,:])
 
-print("{},{}".format(train.shape, test.shape))
+print("{},{}".format(x_train.shape, x_test.shape))
 
 dtrain = xgb.DMatrix(x_train, label=y_train)
 dtest = xgb.DMatrix(x_test)
