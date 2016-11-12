@@ -233,15 +233,18 @@ pred_xgb = (res.x[pe*0]*pred_xgb_test_list[0] + res.x[pe*0+1]*(pred_xgb_test_lis
 
 ##############################
 
+def safe_ln(x):
+    return np.log(x + 20000.0)
+
 pe= 5
 def f(coord,args):
     #pred_1,pred_2,pred_3,pred_4,pred_5,pred_6,pred_7,pred_8,pred_9,pred_10,pred_11,pred_12,pred_13,pred_14,pred_15,pred_16,pred_17,pred_18,r = args
     return np.mean( np.abs(coord[pe*0]*args[0] + coord[pe*0+1]*(args[0] ** 2) + coord[pe*0+2]*np.log(args[0]) + coord[pe*0+3]*1/(1.0+args[0]) + coord[pe*0+4]*(args[0] ** 0.5)
                          + coord[pe*1]*args[1] + coord[pe*1+1]*(args[1] ** 2) + coord[pe*1+2]*np.log(args[1]) + coord[pe*1+3]*1/(1.0+args[1]) + coord[pe*1+4]*(args[1] ** 0.5)
-                         + coord[pe*2]*(args[0] - args[1]) + coord[pe*2+1]*((args[0]-args[1]) ** 2) + coord[pe*2+2]*np.log(args[0]-args[1]) + coord[pe*2+3]*1/(1.0+args[0]-args[1]) + coord[pe*2+4]*(args[0]-args[1] ** 0.5)
-                         + coord[pe*3]*(args[0] + args[1]) + coord[pe*3+1]*((args[0]+args[1]) ** 2) + coord[pe*3+2]*np.log(args[0]+args[1]) + coord[pe*3+3]*1/(1.0+args[0]+args[1]) + coord[pe*3+4]*(args[0]+args[1] ** 0.5)
-                         + coord[pe*4]*(args[0]*args[1]) + coord[pe*4+1]*((args[0]*args[1]) ** 2) + coord[pe*4+2]*np.log(args[0]*args[1]) + coord[pe*4+3]*1/(1.0+args[0]*args[1]) + coord[pe*4+4]*(args[0]*args[1] ** 0.5)
-                         + coord[pe*5]*(args[0]/args[1]) + coord[pe*5+1]*((args[0]/args[1]) ** 2) + coord[pe*5+2]*np.log(args[0]/args[1]) + coord[pe*5+3]*1/(1.0+args[0]/args[1]) + coord[pe*5+4]*(args[0]/args[1] ** 0.5)
+                         + coord[pe*2]*(args[0] - args[1]) + coord[pe*2+1]*((args[0]-args[1]) ** 2) + coord[pe*2+2]*np.log(abs(args[0]-args[1])) + coord[pe*2+3]*1/(1.0+args[0]-args[1]) + coord[pe*2+4]*(abs(args[0]-args[1]) ** 0.5)
+                         #+ coord[pe*3]*(args[0] + args[1]) + coord[pe*3+1]*((args[0]+args[1]) ** 2) + coord[pe*3+2]*np.log(args[0]+args[1]) + coord[pe*3+3]*1/(1.0+args[0]+args[1]) + coord[pe*3+4]*(args[0]+args[1] ** 0.5)
+                         #+ coord[pe*4]*(args[0]*args[1]) + coord[pe*4+1]*((args[0]*args[1]) ** 0.1) + coord[pe*4+2]*np.log(args[0]*args[1]) + coord[pe*4+3]*1/(1.0+args[0]*args[1]) + coord[pe*4+4]*(args[0]*args[1] ** 0.5)
+                         #+ coord[pe*5]*(args[0]/args[1]) + coord[pe*5+1]*((args[0]/args[1]) ** 2) + coord[pe*5+2]*np.log(args[0]/args[1]) + coord[pe*5+3]*1/(1.0+args[0]/args[1]) + coord[pe*5+4]*(args[0]/args[1] ** 0.5)
                 - args[-1]) )
 
 
@@ -251,10 +254,6 @@ initial_guess = np.array([0.1 for x in range(pe * 6)])
 res = minimize(f,initial_guess,args = [
                                        pred_xgb_retrain.values, #2
                                        pred_nn_retrain.values, #3
-                                       pred_xgb_retrain.values - pred_nn_retrain.values,
-                                       pred_xgb_retrain.values + pred_nn_retrain.values,
-                                       pred_xgb_retrain.values * pred_nn_retrain.values,
-                                       pred_xgb_retrain.values / pred_nn_retrain.values,
                                        train['loss'].values
                                        ]
                               ,method='SLSQP', options={"maxiter":1000000,"disp":True})
@@ -265,16 +264,22 @@ print res
 
 
 pred_ensemble_list = [
-                                       pred_nn, #1
-                                       pred_xgb_retrain
+                                       pred_xgb, #1
+                                       pred_nn,
+                                       pred_xgb - pred_nn,
+                                       #pred_xgb + pred_nn,
+                                       #pred_xgb * pred_nn,
+                                       #pred_xgb / pred_nn,
         ]
 
 pred_ensemble = (res.x[pe*0]*pred_ensemble_list[0] + res.x[pe*0+1]*(pred_ensemble_list[0] ** 2) + res.x[pe*0+2]*np.log(pred_ensemble_list[0]) + res.x[pe*0+3]*1/(1.0+pred_ensemble_list[0]) + res.x[pe*0+4]*(pred_ensemble_list[0] ** 0.5)
               + res.x[pe*1]*pred_ensemble_list[1] + res.x[pe*1+1]*(pred_ensemble_list[1] ** 2) + res.x[pe*1+2]*np.log(pred_ensemble_list[1]) + res.x[pe*1+3]*1/(1.0+pred_ensemble_list[1]) + res.x[pe*1+4]*(pred_ensemble_list[1] ** 0.5)
-              + res.x[pe*2]*pred_ensemble_list[2] + res.x[pe*2+1]*(pred_ensemble_list[2] ** 2) + res.x[pe*2+2]*np.log(pred_ensemble_list[2]) + res.x[pe*2+3]*1/(1.0+pred_ensemble_list[2]) + res.x[pe*2+4]*(pred_ensemble_list[2] ** 0.5)
-              + res.x[pe*3]*pred_ensemble_list[3] + res.x[pe*3+1]*(pred_ensemble_list[3] ** 2) + res.x[pe*3+2]*np.log(pred_ensemble_list[3]) + res.x[pe*3+3]*1/(1.0+pred_ensemble_list[3]) + res.x[pe*3+4]*(pred_ensemble_list[3] ** 0.5)
-              + res.x[pe*4]*pred_ensemble_list[4] + res.x[pe*4+1]*(pred_ensemble_list[4] ** 2) + res.x[pe*4+2]*np.log(pred_ensemble_list[4]) + res.x[pe*4+3]*1/(1.0+pred_ensemble_list[4]) + res.x[pe*4+4]*(pred_ensemble_list[4] ** 0.5)
-              + res.x[pe*5]*pred_ensemble_list[5] + res.x[pe*5+1]*(pred_ensemble_list[5] ** 2) + res.x[pe*5+2]*np.log(pred_ensemble_list[5]) + res.x[pe*5+3]*1/(1.0+pred_ensemble_list[5]) + res.x[pe*5+4]*(pred_ensemble_list[5] ** 0.5))
+              + res.x[pe*2]*pred_ensemble_list[2] + res.x[pe*2+1]*(pred_ensemble_list[2] ** 2) + res.x[pe*2+2]*np.log(abs(pred_ensemble_list[2])) + res.x[pe*2+3]*1/(1.0+pred_ensemble_list[2]) + res.x[pe*2+4]*(abs(pred_ensemble_list[2]) ** 0.5)
+              )
+              #+ res.x[pe*3]*pred_ensemble_list[3] + res.x[pe*3+1]*(pred_ensemble_list[3] ** 2) + res.x[pe*3+2]*np.log(pred_ensemble_list[3]) + res.x[pe*3+3]*1/(1.0+pred_ensemble_list[3]) + res.x[pe*3+4]*(pred_ensemble_list[3] ** 0.5)
+              #+ res.x[pe*4]*pred_ensemble_list[4] + res.x[pe*4+1]*(pred_ensemble_list[4] ** 0.1) + res.x[pe*4+2]*np.log(pred_ensemble_list[4]) + res.x[pe*4+3]*1/(1.0+pred_ensemble_list[4]) + res.x[pe*4+4]*(pred_ensemble_list[4] ** 0.5)
+              #+ res.x[pe*5]*pred_ensemble_list[5] + res.x[pe*5+1]*(pred_ensemble_list[5] ** 2) + res.x[pe*5+2]*np.log(pred_ensemble_list[5]) + res.x[pe*5+3]*1/(1.0+pred_ensemble_list[5]) + res.x[pe*5+4]*(pred_ensemble_list[5] ** 0.5))
 
-
+pred_ensemble = pd.DataFrame(pred_ensemble)
+#pred_ensemble.columns = ["loss"]
 pred_ensemble.to_csv("pred_retrain.csv", index_label='id')

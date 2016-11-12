@@ -45,9 +45,20 @@ train_test = pd.concat((train, test)).reset_index(drop=True)
 
 features = train.columns
 
-cats = [feat for feat in features if 'cat' in feat]
-for feat in cats:
-    train_test[feat] = pd.factorize(train_test[feat], sort=True)[0]
+### remeber the order
+train_test[ID]=pd.Categorical(train_test[ID], train_test[ID].values.tolist())
+
+### factorize
+cats = [feat for feat in train.columns if 'cat' in feat]
+for cat in cats:
+    sorting_list=np.unique(sorted(train_test[cat],key=lambda x:(str.lower(x),x)))
+    train_test[cat]=pd.Categorical(train_test[cat], sorting_list)
+    train_test=train_test.sort_values(cat)
+    train_test[cat] = pd.factorize(train_test[cat], sort=True)[0]
+
+### reorder
+train_test=train_test.sort_values(ID)
+gc.collect()
 
 print(train_test.head())
 
