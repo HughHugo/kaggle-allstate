@@ -155,3 +155,8 @@ pred_ensemble = res.x[0]*pred_nn + res.x[1]*pred_xgb
 
 
 pred_ensemble.to_csv("pred_retrain.csv", index_label='id')
+
+
+
+tmp = res.x[0]*pred_nn_retrain + res.x[1]*pred_xgb_retrain
+tmp.to_csv("retrain.csv")

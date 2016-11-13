@@ -12,7 +12,7 @@ print np.mean(pred_1)
 print np.mean(pred_2)
 
 pred = (pred_1 + pred_2)/2.0
-pred.to_csv("pred.csv", index_label='id')
+#pred.to_csv("pred.csv", index_label='id')
 
 #2
 pred_1_retrain = pd.read_csv('../../NN_1/NN_retrain_1.csv', index_col=0)
@@ -36,3 +36,6 @@ print np.mean(pred_2)
 pred = ((10000-save_i)*pred_1 + save_i*pred_2)/10000.0
 #1122.8428089
 pred.to_csv("pred_retrain.csv", index_label='id')
+
+tmp = ((10000-save_i)*pred_1_retrain + save_i*pred_2_retrain)/10000.0
+tmp.to_csv("retrain.csv", index_label='id')
