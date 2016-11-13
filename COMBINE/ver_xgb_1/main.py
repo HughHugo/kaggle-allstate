@@ -121,10 +121,10 @@ def logregobj(preds, dtrain):
 
 xgb_params = {
     'min_child_weight': 1,
-    'eta': 0.3,
-    'colsample_bytree': 0.7,
-    'max_depth': 3,
-    'subsample': 0.9,
+    'eta': 0.001,
+    'colsample_bytree': 0.3,
+    'max_depth': 8,
+    'subsample': 0.6,
     #'alpha': 1,
     #'gamma': 1,
     'silent': 1,
@@ -137,17 +137,53 @@ def xg_eval_mae(yhat, dtrain):
     y = dtrain.get_label()
     return 'mae', mean_absolute_error(np.exp(y) - SHIFT, np.exp(yhat) - SHIFT)
 
-res = xgb.cv(xgb_params, dtrain, num_boost_round=999999,
-             nfold=5,
-             seed=SEED,
-             stratified=False, obj=logregobj,
-             early_stopping_rounds=2000,
-             verbose_eval=10,
-             show_stdv=True,
-             feval=xg_eval_mae,
-             maximize=False)
+# res = xgb.cv(xgb_params, dtrain, num_boost_round=999999,
+#              nfold=5,
+#              seed=SEED,
+#              stratified=False, obj=logregobj,
+#              early_stopping_rounds=2000,
+#              verbose_eval=10,
+#              show_stdv=True,
+#              feval=xg_eval_mae,
+#              maximize=False)
+#
+# best_nrounds = res.shape[0] - 1
+# cv_mean = res.iloc[-1, 0]
+# cv_std = res.iloc[-1, 1]
+# print('CV-Mean: {0}+{1}'.format(cv_mean, cv_std))
 
-best_nrounds = res.shape[0] - 1
-cv_mean = res.iloc[-1, 0]
-cv_std = res.iloc[-1, 1]
-print('CV-Mean: {0}+{1}'.format(cv_mean, cv_std))
+gbdt = xgb.train(xgb_params, dtrain, 700)#obj=logregobj
+
+df_test = pd.concat([
+                           pred_nn_1_fix['loss'],    #1
+                           pred_nn_2_fix['loss'],    #2
+                           pred_nn_3_fix['loss'],    #3
+                           pred_nn_4_fix['loss'],    #4
+                           pred_nn_5_fix['loss'],    #5
+                           pred_nn_6_fix['loss'],    #6
+                           pred_new_nn_1['loss'],    #7
+                           pred_new_nn_2['loss'],    #8
+                           pred_new_nn_3['loss'],    #9
+                           pred_new_nn_4['loss'],    #10
+                           pred_new_nn_1_65['loss'], #11
+                           pred_xgb_1['loss'],       #12
+                           pred_xgb_2['loss'],       #13
+                           pred_xgb_3['loss'],       #14
+                           pred_nn_1['loss'],        #15
+                           pred_nn_2['loss'],        #16
+                           pred_nn_3['loss'],        #17
+                           pred_nn_4['loss'],        #18
+                           pred_nn_5['loss'],        #19
+                           pred_nn_6['loss'],        #20
+                           ], axis=1)
+
+df_test.columns = ["f_" + str(i) for i in range(20)]
+dtest= xgb.DMatrix(df_test)
+
+
+tmp = np.exp(gbdt.predict(dtest))  - SHIFT
+DATA_DIR = "../../input"
+SUBMISSION_FILE = "{0}/sample_submission.csv".format(DATA_DIR)
+submission = pd.read_csv(SUBMISSION_FILE)
+submission.iloc[:, 1] = tmp
+submission.to_csv('pred_retrain.csv', index=None)

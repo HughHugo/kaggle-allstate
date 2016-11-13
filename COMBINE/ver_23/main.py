@@ -114,22 +114,21 @@ def f(coord,args):
                          + coord[pe*13]*args[13] + coord[pe*13+1]*(args[13] ** 2) + coord[pe*13+2]*np.log(args[13]) + coord[pe*13+3]*1/(1.0+args[13]) + coord[pe*13+4]*(args[13] ** 0.5)
                          + coord[pe*14]*args[14] + coord[pe*14+1]*(args[14] ** 2) + coord[pe*14+2]*np.log(args[14]) + coord[pe*14+3]*1/(1.0+args[14]) + coord[pe*14+4]*(args[14] ** 0.5)
                          + coord[pe*15]*args[15] + coord[pe*15+1]*(args[15] ** 2) + coord[pe*15+2]*np.log(args[15]) + coord[pe*15+3]*1/(1.0+args[15]) + coord[pe*15+4]*(args[15] ** 0.5)
-                         + coord[pe*16]*args[16] + coord[pe*16+1]*(args[16] ** 2) + coord[pe*16+2]*np.log(args[16]) + coord[pe*16+3]*1/(1.0+args[16]) + coord[pe*16+4]*(args[16] ** 0.5)
-                         + coord[pe*17]*args[17] + coord[pe*17+1]*(args[17] ** 2) + coord[pe*17+2]*np.log(args[17]) + coord[pe*17+3]*1/(1.0+args[17]) + coord[pe*17+4]*(args[17] ** 0.5)
-                         + coord[pe*18]*args[18] + coord[pe*18+1]*(args[18] ** 2) + coord[pe*18+2]*np.log(args[18]) + coord[pe*18+3]*1/(1.0+args[18]) + coord[pe*18+4]*(args[18] ** 0.5)
-                         + coord[pe*19]*args[19] + coord[pe*19+1]*(args[19] ** 2) + coord[pe*19+2]*np.log(args[19]) + coord[pe*19+3]*1/(1.0+args[19]) + coord[pe*19+4]*(args[19] ** 0.5)
-                         + coord[pe*20]*args[20] + coord[pe*20+1]*(args[20] ** 2) + coord[pe*20+2]*np.log(args[20]) + coord[pe*20+3]*1/(1.0+args[20]) + coord[pe*20+4]*(args[20] ** 0.5)
-                         + coord[pe*21]*args[21] + coord[pe*21+1]*(args[21] ** 2) + coord[pe*21+2]*np.log(args[21]) + coord[pe*21+3]*1/(1.0+args[21]) + coord[pe*21+4]*(args[21] ** 0.5)
+                         #+ coord[pe*16]*args[16] + coord[pe*16+1]*(args[16] ** 2) + coord[pe*16+2]*np.log(args[16]) + coord[pe*16+3]*1/(1.0+args[16]) + coord[pe*16+4]*(args[16] ** 0.5)
+                         #+ coord[pe*17]*args[17] + coord[pe*17+1]*(args[17] ** 2) + coord[pe*17+2]*np.log(args[17]) + coord[pe*17+3]*1/(1.0+args[17]) + coord[pe*17+4]*(args[17] ** 0.5)
+                         #+ coord[pe*18]*args[18] + coord[pe*18+1]*(args[18] ** 2) + coord[pe*18+2]*np.log(args[18]) + coord[pe*18+3]*1/(1.0+args[18]) + coord[pe*18+4]*(args[18] ** 0.5)
+                         #+ coord[pe*19]*args[19] + coord[pe*19+1]*(args[19] ** 2) + coord[pe*19+2]*np.log(args[19]) + coord[pe*19+3]*1/(1.0+args[19]) + coord[pe*19+4]*(args[19] ** 0.5)
+                         #+ coord[pe*20]*args[20] + coord[pe*20+1]*(args[20] ** 2) + coord[pe*20+2]*np.log(args[20]) + coord[pe*20+3]*1/(1.0+args[20]) + coord[pe*20+4]*(args[20] ** 0.5)
+                         #+ coord[pe*21]*args[21] + coord[pe*21+1]*(args[21] ** 2) + coord[pe*21+2]*np.log(args[21]) + coord[pe*21+3]*1/(1.0+args[21]) + coord[pe*21+4]*(args[21] ** 0.5)
                          + coord[pe*22]*(args[15] - args[10])
                          + coord[pe*22+1]*((args[15]-args[10]) ** 2)
                          + coord[pe*22+2]*np.log(abs(args[15]-args[10]))
-                         + coord[pe*22+3]*1/(1.0+abs(args[15]-args[10]))
+                         + coord[pe*22+3]*1/(1.0+args[15]-args[10])
                          + coord[pe*22+4]*(abs(args[15]-args[10]) ** 0.5)
-                         + coord[pe*22+5]
                          - args[-1]) )
 
 
-initial_guess = np.array([0.1 for x in range(pe * 22 + 6)])
+initial_guess = np.array([0.1 for x in range(pe * 22 + 5)])
 
 
 res = minimize(f,initial_guess,args = [
@@ -174,18 +173,18 @@ args = [
                                        pred_new_nn_2['loss'], #8
                                        pred_new_nn_3['loss'], #9
                                        pred_new_nn_4['loss'], #10
-                                       pred_new_nn_5['loss'], #11
-                                       pred_new_nn_1_65['loss'], #12
-                                       pred_new_nn_2_65['loss'], #13
-                                       pred_xgb_1['loss'],    #14
-                                       pred_xgb_2['loss'],    #15
-                                       pred_xgb_3['loss'],    #16
-                                       pred_nn_1['loss'],     #17
-                                       pred_nn_2['loss'],     #18
-                                       pred_nn_3['loss'],     #19
-                                       pred_nn_4['loss'],     #20
-                                       pred_nn_5['loss'],     #21
-                                       pred_nn_6['loss'],     #22
+                                       pred_new_nn_5['loss'], #10
+                                       pred_new_nn_1_65['loss'], #11
+                                       pred_new_nn_2_65['loss'], #11
+                                       pred_xgb_1['loss'],    #12
+                                       pred_xgb_2['loss'],    #13
+                                       pred_xgb_3['loss'],    #14
+                                       pred_nn_1['loss'],     #15
+                                       pred_nn_2['loss'],     #16
+                                       pred_nn_3['loss'],     #17
+                                       pred_nn_4['loss'],     #18
+                                       pred_nn_5['loss'],     #19
+                                       pred_nn_6['loss'],     #20
         ]
 
 pred_ensemble = (res.x[pe*0]*args[0] + res.x[pe*0+1]*(args[0] ** 2) + res.x[pe*0+2]*np.log(args[0]) + res.x[pe*0+3]*1/(1.0+args[0]) + res.x[pe*0+4]*(args[0] ** 0.5)
@@ -207,15 +206,14 @@ pred_ensemble = (res.x[pe*0]*args[0] + res.x[pe*0+1]*(args[0] ** 2) + res.x[pe*0
               + res.x[pe*16]*args[16] + res.x[pe*16+1]*(args[16] ** 2) + res.x[pe*16+2]*np.log(args[16]) + res.x[pe*16+3]*1/(1.0+args[16]) + res.x[pe*16+4]*(args[16] ** 0.5)
               + res.x[pe*17]*args[17] + res.x[pe*17+1]*(args[17] ** 2) + res.x[pe*17+2]*np.log(args[17]) + res.x[pe*17+3]*1/(1.0+args[17]) + res.x[pe*17+4]*(args[17] ** 0.5)
               + res.x[pe*18]*args[18] + res.x[pe*18+1]*(args[18] ** 2) + res.x[pe*18+2]*np.log(args[18]) + res.x[pe*18+3]*1/(1.0+args[18]) + res.x[pe*18+4]*(args[18] ** 0.5)
-              + res.x[pe*19]*args[19] + res.x[pe*19+1]*(args[19] ** 2) + res.x[pe*19+2]*np.log(args[19]) + res.x[pe*19+3]*1/(1.0+args[19]) + res.x[pe*19+4]*(args[19] ** 0.5)
-           + res.x[pe*20]*args[20] + res.x[pe*20+1]*(args[20] ** 2) + res.x[pe*20+2]*np.log(args[20]) + res.x[pe*20+3]*1/(1.0+args[20]) + res.x[pe*20+4]*(args[20] ** 0.5)
-           + res.x[pe*21]*args[21] + res.x[pe*21+1]*(args[21] ** 2) + res.x[pe*21+2]*np.log(args[21]) + res.x[pe*21+3]*1/(1.0+args[21]) + res.x[pe*21+4]*(args[21] ** 0.5)
-           + res.x[pe*22]*(args[15] - args[10])
-           + res.x[pe*22+1]*((args[15]-args[10]) ** 2)
-           + res.x[pe*22+2]*np.log(abs(args[15]-args[10]))
-           + res.x[pe*22+3]*1/(1.0+args[15]-args[10])
-           + res.x[pe*22+4]*(abs(args[15]-args[10]) ** 0.5)
-           + res.x[pe*22+5]
+               + res.x[pe*19]*args[19] + res.x[pe*19+1]*(args[19] ** 2) + res.x[pe*19+2]*np.log(args[19]) + res.x[pe*19+3]*1/(1.0+args[19]) + res.x[pe*19+4]*(args[19] ** 0.5)
+               + res.x[pe*20]*args[20] + res.x[pe*20+1]*(args[20] ** 2) + res.x[pe*20+2]*np.log(args[20]) + res.x[pe*20+3]*1/(1.0+args[20]) + res.x[pe*20+4]*(args[20] ** 0.5)
+               + res.x[pe*21]*args[21] + res.x[pe*21+1]*(args[21] ** 2) + res.x[pe*21+2]*np.log(args[21]) + res.x[pe*21+3]*1/(1.0+args[21]) + res.x[pe*21+4]*(args[21] ** 0.5)
+               + res.x[pe*22]*(args[15] - args[10])
+               + res.x[pe*22+1]*((args[15]-args[10]) ** 2)
+               + res.x[pe*22+2]*np.log(abs(args[15]-args[10]))
+               + res.x[pe*22+3]*1/(1.0+args[15]-args[10])
+               + res.x[pe*22+4]*(abs(args[15]-args[10]) ** 0.5)
             )
 
 pred_ensemble = pd.DataFrame(pred_ensemble)
@@ -249,6 +247,7 @@ args = [
                                        train['loss']
                                        ]
 
+
 tmp = (res.x[pe*0]*args[0] + res.x[pe*0+1]*(args[0] ** 2) + res.x[pe*0+2]*np.log(args[0]) + res.x[pe*0+3]*1/(1.0+args[0]) + res.x[pe*0+4]*(args[0] ** 0.5)
               + res.x[pe*1]*args[1] + res.x[pe*1+1]*(args[1] ** 2) + res.x[pe*1+2]*np.log(args[1]) + res.x[pe*1+3]*1/(1.0+args[1]) + res.x[pe*1+4]*(args[1] ** 0.5)
               + res.x[pe*2]*args[2] + res.x[pe*2+1]*(args[2] ** 2) + res.x[pe*2+2]*np.log(args[2]) + res.x[pe*2+3]*1/(1.0+args[2]) + res.x[pe*2+4]*(args[2] ** 0.5)
@@ -268,15 +267,15 @@ tmp = (res.x[pe*0]*args[0] + res.x[pe*0+1]*(args[0] ** 2) + res.x[pe*0+2]*np.log
               + res.x[pe*16]*args[16] + res.x[pe*16+1]*(args[16] ** 2) + res.x[pe*16+2]*np.log(args[16]) + res.x[pe*16+3]*1/(1.0+args[16]) + res.x[pe*16+4]*(args[16] ** 0.5)
               + res.x[pe*17]*args[17] + res.x[pe*17+1]*(args[17] ** 2) + res.x[pe*17+2]*np.log(args[17]) + res.x[pe*17+3]*1/(1.0+args[17]) + res.x[pe*17+4]*(args[17] ** 0.5)
               + res.x[pe*18]*args[18] + res.x[pe*18+1]*(args[18] ** 2) + res.x[pe*18+2]*np.log(args[18]) + res.x[pe*18+3]*1/(1.0+args[18]) + res.x[pe*18+4]*(args[18] ** 0.5)
-              + res.x[pe*19]*args[19] + res.x[pe*19+1]*(args[19] ** 2) + res.x[pe*19+2]*np.log(args[19]) + res.x[pe*19+3]*1/(1.0+args[19]) + res.x[pe*19+4]*(args[19] ** 0.5)
-           + res.x[pe*20]*args[20] + res.x[pe*20+1]*(args[20] ** 2) + res.x[pe*20+2]*np.log(args[20]) + res.x[pe*20+3]*1/(1.0+args[20]) + res.x[pe*20+4]*(args[20] ** 0.5)
-           + res.x[pe*21]*args[21] + res.x[pe*21+1]*(args[21] ** 2) + res.x[pe*21+2]*np.log(args[21]) + res.x[pe*21+3]*1/(1.0+args[21]) + res.x[pe*21+4]*(args[21] ** 0.5)
-           + res.x[pe*22]*(args[15] - args[10])
-           + res.x[pe*22+1]*((args[15]-args[10]) ** 2)
-           + res.x[pe*22+2]*np.log(abs(args[15]-args[10]))
-           + res.x[pe*22+3]*1/(1.0+abs(args[15]-args[10]))
-           + res.x[pe*22+4]*(abs(args[15]-args[10]) ** 0.5)
-           + res.x[pe*22+5]
+               + res.x[pe*19]*args[19] + res.x[pe*19+1]*(args[19] ** 2) + res.x[pe*19+2]*np.log(args[19]) + res.x[pe*19+3]*1/(1.0+args[19]) + res.x[pe*19+4]*(args[19] ** 0.5)
+               + res.x[pe*20]*args[20] + res.x[pe*20+1]*(args[20] ** 2) + res.x[pe*20+2]*np.log(args[20]) + res.x[pe*20+3]*1/(1.0+args[20]) + res.x[pe*20+4]*(args[20] ** 0.5)
+               + res.x[pe*21]*args[21] + res.x[pe*21+1]*(args[21] ** 2) + res.x[pe*21+2]*np.log(args[21]) + res.x[pe*21+3]*1/(1.0+args[21]) + res.x[pe*21+4]*(args[21] ** 0.5)
+               + res.x[pe*22]*(args[15] - args[10])
+               + res.x[pe*22+1]*((args[15]-args[10]) ** 2)
+               + res.x[pe*22+2]*np.log(abs(args[15]-args[10]))
+               + res.x[pe*22+3]*1/(1.0+args[15]-args[10])
+               + res.x[pe*22+4]*(abs(args[15]-args[10]) ** 0.5)
             )
+
 tmp = pd.DataFrame(tmp)
 tmp.to_csv("retrain.csv")
