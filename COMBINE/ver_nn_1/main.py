@@ -1,10 +1,53 @@
 # -*- coding: utf-8 -*-
-import pandas as pd
 import numpy as np
-import xgboost as xgb
+np.random.seed(6174)
+import pandas as pd
+import subprocess
+from scipy.sparse import csr_matrix, hstack
 from sklearn.metrics import mean_absolute_error
+from sklearn.preprocessing import StandardScaler
+from sklearn.cross_validation import KFold
+from keras.models import Sequential
+from keras.layers import Dense, Dropout, Activation
+from keras.layers.advanced_activations import PReLU
+from keras.callbacks import EarlyStopping
+from keras.layers.normalization import BatchNormalization
 
-train = pd.read_csv('../../input/train.csv', index_col=0)
+## Batch generators ##################################################################################################################################
+
+def batch_generator(X, y, batch_size, shuffle):
+    #chenglong code for fiting from generator (https://www.kaggle.com/c/talkingdata-mobile-user-demographics/forums/t/22567/neural-network-for-sparse-matrices)
+    number_of_batches = np.ceil(X.shape[0]/batch_size)
+    counter = 0
+    sample_index = np.arange(X.shape[0])
+    if shuffle:
+        np.random.shuffle(sample_index)
+    while True:
+        batch_index = sample_index[batch_size*counter:batch_size*(counter+1)]
+        X_batch = X[batch_index,:].toarray()
+        y_batch = y[batch_index]
+        counter += 1
+        yield X_batch, y_batch
+        if (counter == number_of_batches):
+            if shuffle:
+                np.random.shuffle(sample_index)
+            counter = 0
+
+def batch_generatorp(X, batch_size, shuffle):
+    number_of_batches = X.shape[0] / np.ceil(X.shape[0]/batch_size)
+    counter = 0
+    sample_index = np.arange(X.shape[0])
+    while True:
+        batch_index = sample_index[batch_size * counter:batch_size * (counter + 1)]
+        X_batch = X[batch_index, :].toarray()
+        counter += 1
+        yield X_batch
+        if (counter == number_of_batches):
+            counter = 0
+
+########################################################################################################################################################
+
+train = pd.read_csv('../../input/train.csv')
 MAX_VALUE = np.max(train['loss'])
 # Main
 pred_nn_1_retrain = pd.read_csv('../../NN_1/NN_retrain_1.csv', index_col=0)
@@ -101,53 +144,74 @@ df_retrain = pd.concat([
                            pred_nn_6_retrain['loss'],        #20
                            ], axis=1)
 
+scaler = StandardScaler()
+df_retrain = scaler.fit_transform(df_retrain)
+
 SHIFT = 200
 SEED = 6174
-df_retrain_y = np.log(train['loss'].values + SHIFT)
-df_retrain.columns = ["f_" + str(i) for i in range(20)]
-
+df_retrain_y = train['loss'].values
+#df_retrain.columns = ["f_" + str(i) for i in range(20)]
 y_train = df_retrain_y
+## neural net
 
-dtrain = xgb.DMatrix(df_retrain, label=y_train)
+def nn_model():
+    model = Sequential()
+
+    model.add(Dense(100, input_dim = xtrain.shape[1], init = 'he_normal'))
+    model.add(PReLU())
+    model.add(BatchNormalization())
+    model.add(Dropout(0.2))
+
+    model.add(Dense(50, init = 'he_normal'))
+    model.add(PReLU())
+    model.add(BatchNormalization())
+    model.add(Dropout(0.1))
+
+    model.add(Dense(25, init = 'he_normal'))
+    model.add(PReLU())
+    model.add(BatchNormalization())
+    model.add(Dropout(0.1))
+
+    model.add(Dense(1, init = 'he_normal'))
+    model.compile(loss = 'mae', optimizer = 'adadelta')
+    return(model)
 
 
-def logregobj(preds, dtrain):
-    labels = dtrain.get_label()
-    con =2
-    x =preds-labels
-    grad =con*x / (np.abs(x)+con)
-    hess =con**2 / (np.abs(x)+con)**2
-    return grad, hess
-
-xgb_params = {
-    'min_child_weight': 1,
-    'eta': 0.3,
-    'colsample_bytree': 0.7,
-    'max_depth': 3,
-    'subsample': 0.9,
-    #'alpha': 1,
-    #'gamma': 1,
-    'silent': 1,
-    'verbose_eval': True,
-    'seed': 6174,
-}
+skf_table = pd.read_csv('../../cache/stack_index.csv')
+skf_table = pd.merge(train, skf_table, on='id')
+skf = []
+nfold = 10
+for i in range(nfold):
+    skf += [[(skf_table['stack_index']!=i).values, (skf_table['stack_index']==i).values]]
+print skf
+print len(skf)
+folds = skf
+nfolds = nfold
 
 
-def xg_eval_mae(yhat, dtrain):
-    y = dtrain.get_label()
-    return 'mae', mean_absolute_error(np.exp(y) - SHIFT, np.exp(yhat) - SHIFT)
 
-res = xgb.cv(xgb_params, dtrain, num_boost_round=999999,
-             nfold=5,
-             seed=SEED,
-             stratified=False, obj=logregobj,
-             early_stopping_rounds=2000,
-             verbose_eval=10,
-             show_stdv=True,
-             feval=xg_eval_mae,
-             maximize=False)
+## train models
+i = 0
+nbags = 5
+nepochs = 75
+xtrain=np.array(df_retrain)
+y=df_retrain_y
+pred_oob = np.zeros(xtrain.shape[0])
 
-best_nrounds = res.shape[0] - 1
-cv_mean = res.iloc[-1, 0]
-cv_std = res.iloc[-1, 1]
-print('CV-Mean: {0}+{1}'.format(cv_mean, cv_std))
+early_stopping = EarlyStopping(monitor='val_loss',
+                               patience=3,
+                               mode="min")
+
+for inTr, inTe in folds:
+    print inTr
+    print inTe
+    inTr = np.where(inTr)
+    inTe = np.where(inTe)
+    print inTr
+    print inTe
+    xtr = xtrain[inTr]
+    ytr = y[inTr]
+    xte = xtrain[inTe]
+    yte = y[inTe]
+    model = nn_model()
+    model.fit(xtr, ytr, nb_epoch=200, batch_size=128, validation_data = (xte, yte), verbose = 1)

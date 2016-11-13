@@ -112,7 +112,7 @@ sample = pd.read_csv('../input/sample_submission.csv')
 submission = pd.DataFrame(index=trainID, columns=sample.columns[1:])
 score = np.zeros(nfold)
 i=0
-
+best_nrounds = 1000000
 for tr, te in skf:
     tr = np.where(tr)
     te = np.where(te)
@@ -120,17 +120,30 @@ for tr, te in skf:
     dtrain = xgb.DMatrix(X_train, label=y_train)
     dval = xgb.DMatrix(X_test, label=y_test)
     watchlist  = [ (dtrain,'train'),(dval,'eval')]
-    clf = xgb.train(xgb_params, dtrain, best_nrounds, watchlist=watchlist, obj=logregobj, early_stopping_rounds=1000)
+    clf = xgb.train(xgb_params,
+                    dtrain,
+                    best_nrounds,
+                    evals=watchlist,
+                    obj=logregobj,
+                    feval=xg_eval_mae,
+                    early_stopping_rounds=1000,
+                    verbose_eval=100,
+                    maximize=False)
     pred_val = np.exp(clf.predict(dval)) - SHIFT
     pred_ALL = np.exp(clf.predict(dtest)) - SHIFT
-    tmp = pd.DataFrame(pred, columns=sample.columns[1:])
-    submission.iloc[te[0],0] = pred
-    score[i]= mean_absolute_error(np.exp(y_test) - SHIFT, pred)
+    submission.iloc[te[0],0] = pred_val
+    submission_ALL.iloc[:,1] = submission_ALL.iloc[:,1] + pred_ALL
+    score[i]= mean_absolute_error(np.exp(y_test) - SHIFT, pred_val)
     print(score[i])
     i+=1
+
 
 print("ave: "+ str(np.average(score)) + "stddev: " + str(np.std(score)))
 print(mean_absolute_error(np.exp(label) - SHIFT,submission.values))
 
-submission.to_csv("XGB_retrain_2.csv", index_label='id')
+submission.to_csv("XGB_retrain_3.csv", index_label='id')
+
+submission_ALL.iloc[:,1] = submission_ALL.iloc[:,1]/10.
+submission_ALL.to_csv("XGB_3.csv", index=None)
+
 ########################################################################################
