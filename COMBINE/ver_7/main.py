@@ -145,3 +145,11 @@ pred_ensemble = (res.x[0]*pred_nn_1 + res.x[1]*pred_nn_2 + res.x[2]*pred_nn_3
 
 
 pred_ensemble.to_csv("pred_retrain.csv", index_label='id')
+
+
+tmp = (res.x[0]*pred_nn_1_retrain + res.x[1]*pred_nn_2_retrain + res.x[2]*pred_nn_3_retrain
+              + res.x[3]*pred_nn_1_fix_retrain + res.x[4]*pred_nn_2_fix_retrain + res.x[5]*pred_nn_3_fix_retrain
+              + res.x[6]*pred_nn_4_fix_retrain + res.x[7]*pred_nn_5_fix_retrain + res.x[8]*pred_nn_6_fix_retrain
+              + res.x[9]*pred_xgb_1_retrain + res.x[10]*pred_xgb_2_retrain + res.x[11]*pred_xgb_3_retrain)
+
+tmp.to_csv("retrain.csv", index_label='id')

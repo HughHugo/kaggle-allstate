@@ -90,6 +90,9 @@ pred.to_csv("pred_retrain.csv", index_label='id')
 
 
 
+tmp = ((10000-save_i)*pred_nn_retrain + save_i*pred_xgb_retrain)/10000.0
+tmp.to_csv("retrain.csv", index_label='id')
+
 
 # xgboost
 #
