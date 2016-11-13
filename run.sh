@@ -1,5 +1,5 @@
-cd NEW_NN_5
+cd XGB_10
 python main.py
 cd ..
-cd NEW_NN_6
+cd XGB_10_LEAK
 python main.py
