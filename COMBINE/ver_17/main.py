@@ -281,5 +281,29 @@ pred_ensemble = (res.x[pe*0]*pred_ensemble_list[0] + res.x[pe*0+1]*(pred_ensembl
               #+ res.x[pe*5]*pred_ensemble_list[5] + res.x[pe*5+1]*(pred_ensemble_list[5] ** 2) + res.x[pe*5+2]*np.log(pred_ensemble_list[5]) + res.x[pe*5+3]*1/(1.0+pred_ensemble_list[5]) + res.x[pe*5+4]*(pred_ensemble_list[5] ** 0.5))
 
 pred_ensemble = pd.DataFrame(pred_ensemble)
-#pred_ensemble.columns = ["loss"]
 pred_ensemble.to_csv("pred_retrain.csv", index_label='id')
+
+
+
+#########################################
+
+
+pred_ensemble_list = [
+                                       pred_xgb_retrain, #1
+                                       pred_nn_retrain,
+                                       pred_xgb_retrain - pred_nn_retrain,
+                                       #pred_xgb + pred_nn,
+                                       #pred_xgb * pred_nn,
+                                       #pred_xgb / pred_nn,
+        ]
+
+pred_ensemble = (res.x[pe*0]*pred_ensemble_list[0] + res.x[pe*0+1]*(pred_ensemble_list[0] ** 2) + res.x[pe*0+2]*np.log(pred_ensemble_list[0]) + res.x[pe*0+3]*1/(1.0+pred_ensemble_list[0]) + res.x[pe*0+4]*(pred_ensemble_list[0] ** 0.5)
+              + res.x[pe*1]*pred_ensemble_list[1] + res.x[pe*1+1]*(pred_ensemble_list[1] ** 2) + res.x[pe*1+2]*np.log(pred_ensemble_list[1]) + res.x[pe*1+3]*1/(1.0+pred_ensemble_list[1]) + res.x[pe*1+4]*(pred_ensemble_list[1] ** 0.5)
+              + res.x[pe*2]*pred_ensemble_list[2] + res.x[pe*2+1]*(pred_ensemble_list[2] ** 2) + res.x[pe*2+2]*np.log(abs(pred_ensemble_list[2])) + res.x[pe*2+3]*1/(1.0+pred_ensemble_list[2]) + res.x[pe*2+4]*(abs(pred_ensemble_list[2]) ** 0.5)
+              )
+              #+ res.x[pe*3]*pred_ensemble_list[3] + res.x[pe*3+1]*(pred_ensemble_list[3] ** 2) + res.x[pe*3+2]*np.log(pred_ensemble_list[3]) + res.x[pe*3+3]*1/(1.0+pred_ensemble_list[3]) + res.x[pe*3+4]*(pred_ensemble_list[3] ** 0.5)
+              #+ res.x[pe*4]*pred_ensemble_list[4] + res.x[pe*4+1]*(pred_ensemble_list[4] ** 0.1) + res.x[pe*4+2]*np.log(pred_ensemble_list[4]) + res.x[pe*4+3]*1/(1.0+pred_ensemble_list[4]) + res.x[pe*4+4]*(pred_ensemble_list[4] ** 0.5)
+              #+ res.x[pe*5]*pred_ensemble_list[5] + res.x[pe*5+1]*(pred_ensemble_list[5] ** 2) + res.x[pe*5+2]*np.log(pred_ensemble_list[5]) + res.x[pe*5+3]*1/(1.0+pred_ensemble_list[5]) + res.x[pe*5+4]*(pred_ensemble_list[5] ** 0.5))
+
+pred_ensemble = pd.DataFrame(pred_ensemble)
+pred_ensemble.to_csv("retrain.csv", index_label='id')
