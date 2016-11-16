@@ -57,6 +57,9 @@ pred_new_nn_6_retrain = pd.read_csv('../../NEW_NN_6/NN_retrain_6.csv', index_col
 bound_df_retrain(pred_new_nn_6_retrain)
 pred_new_nn_7_retrain = pd.read_csv('../../NEW_NN_7/NN_retrain_7.csv', index_col=0)
 bound_df_retrain(pred_new_nn_7_retrain)
+pred_new_nn_7_early_stop_retrain = pd.read_csv('../../NEW_NN_7_EARLY_STOP/NN_retrain_7.csv', index_col=0)
+bound_df_retrain(pred_new_nn_7_early_stop_retrain)
+
 
 
 pred_new_nn_1_65_retrain = pd.read_csv('../../NEW_NN_1_65/NN_retrain_1.csv', index_col=0)
@@ -171,6 +174,7 @@ print mean_absolute_error(train['loss'], pred_new_nn_4_retrain)
 print mean_absolute_error(train['loss'], pred_new_nn_5_retrain)
 print mean_absolute_error(train['loss'], pred_new_nn_6_retrain)
 print mean_absolute_error(train['loss'], pred_new_nn_7_retrain)
+print mean_absolute_error(train['loss'], pred_new_nn_7_early_stop_retrain)
 print "#"
 print mean_absolute_error(train['loss'], pred_new_nn_1_65_retrain)
 print mean_absolute_error(train['loss'], pred_new_nn_2_65_retrain)
