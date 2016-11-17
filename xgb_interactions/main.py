@@ -68,7 +68,7 @@ def logregobj(preds, dtrain):
 
 xgb_params = {
     'min_child_weight': 1,
-    'eta': 0.1,
+    'eta': 0.01,
     'colsample_bytree': 0.5,
     'max_depth': 12,
     'subsample': 0.8,
