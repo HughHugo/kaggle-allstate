@@ -276,7 +276,7 @@ res = minimize(f,initial_guess, args = args
 
 print res
 
-pred_ensemble = (res.x[pe*0]*args[0] + res.x[pe*0+1]*(args[0] ** 2) + res.x[pe*0+2]*np.log(args[0]) + res.x[pe*0+3]*1/(1.0+args[0]) + res.x[pe*0+4]*(args[0] ** 0.5)
+pred_ensemble = (np.exp(res.x[pe*0]*args[0] + res.x[pe*0+1]*(args[0] ** 2) + res.x[pe*0+2]*np.log(args[0]) + res.x[pe*0+3]*1/(1.0+args[0]) + res.x[pe*0+4]*(args[0] ** 0.5)
  + res.x[pe*1]*args[1] + res.x[pe*1+1]*(args[1] ** 2) + res.x[pe*1+2]*np.log(args[1]) + res.x[pe*1+3]*1/(1.0+args[1]) + res.x[pe*1+4]*(args[1] ** 0.5)
  + res.x[pe*2]*args[2] + res.x[pe*2+1]*(args[2] ** 2) + res.x[pe*2+2]*np.log(args[2]) + res.x[pe*2+3]*1/(1.0+args[2]) + res.x[pe*2+4]*(args[2] ** 0.5)
  + res.x[pe*3]*args[3] + res.x[pe*3+1]*(args[3] ** 2) + res.x[pe*3+2]*np.log(args[3]) + res.x[pe*3+3]*1/(1.0+args[3]) + res.x[pe*3+4]*(args[3] ** 0.5)
@@ -308,9 +308,12 @@ pred_ensemble = (res.x[pe*0]*args[0] + res.x[pe*0+1]*(args[0] ** 2) + res.x[pe*0
  + res.x[pe*26+3]*1/(1.0+args[23]-args[16])
  + res.x[pe*26+4]*(abs(args[23]-args[16]) ** 0.5)
  + res.x[pe*26+5]
-)
+))
 
 pred_ensemble = pd.DataFrame(pred_ensemble)
+pred_ensemble.columns = ['loss']
+bound_df_retrain(pred_ensemble)
+print mean_absolute_error(train['loss'], pred_ensemble.values)
 pred_ensemble.columns = ['loss']
 bound_df_retrain(pred_ensemble)
 pred_ensemble.to_csv("retrain.csv")
