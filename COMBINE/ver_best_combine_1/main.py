@@ -49,25 +49,28 @@ args = [
 ]
 
 print len(args)-1
-pe= 5
+pe= 7
 
 def f(coord,args):
     #pred_1,pred_2,pred_3,pred_4,pred_5,pred_6,pred_7,pred_8,pred_9,pred_10,pred_11,pred_12,pred_13,pred_14,pred_15,pred_16,pred_17,pred_18,r = args
     return np.mean( np.abs(coord[pe*0]*args[0] + coord[pe*0+1]*(args[0] ** 2) + coord[pe*0+2]*np.log(args[0]) + coord[pe*0+3]*1/(1.0+args[0]) + coord[pe*0+4]*(args[0] ** 0.5)
-     + coord[pe*1]*args[1] + coord[pe*1+1]*(args[1] ** 2) + coord[pe*1+2]*np.log(args[1]) + coord[pe*1+3]*1/(1.0+args[1]) + coord[pe*1+4]*(args[1] ** 0.5)
+      + coord[pe*0+5]*np.sin(args[0]) + coord[pe*0+6]*np.cos(args[0])
+      + coord[pe*1]*args[1] + coord[pe*1+1]*(args[1] ** 2) + coord[pe*1+2]*np.log(args[1]) + coord[pe*1+3]*1/(1.0+args[1]) + coord[pe*1+4]*(args[1] ** 0.5)
+      + coord[pe*1+5]*np.sin(args[1]) + coord[pe*0+6]*np.cos(args[1])
       + coord[pe*2+0]*(args[0] - args[1])
       + coord[pe*2+1]*((args[0]-args[1]) ** 2)
       + coord[pe*2+2]*np.log(abs(args[0]-args[1]))
       + coord[pe*2+3]*1/(1.0+args[0]-args[1])
       + coord[pe*2+4]*(abs(args[0]-args[1]) ** 0.5)
-      #+ coord[pe*2+5]*(abs(args[0]-args[1]) ** 0.1)
+      + coord[pe*2+5]*((args[0]-args[1])>0)
       + coord[pe*2+6]*(np.sin(args[0]-args[1]) )
       + coord[pe*2+7]*(np.cos(args[0]-args[1]) )
+      + coord[pe*2+8]*(np.tan(args[0]-args[1]) )
       #+  coord[pe*2+6]
      - args[-1]) )
 
 
-initial_guess = np.array([0.1 for x in range(pe * 2 +8)])
+initial_guess = np.array([0.1 for x in range(pe * 2 +9)])
 
 Nfeval = 1
 def callbackF(Xi):
