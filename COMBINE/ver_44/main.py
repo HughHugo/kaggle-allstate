@@ -198,55 +198,11 @@ print mean_absolute_error(train['loss'], pred_new_nn_2_65_retrain)
 print "#"
 #
 
-pred_nn_retrain = np.mean([pred_nn_1_retrain.values,
-                pred_nn_2_retrain.values,
-                pred_nn_3_retrain.values,
-                pred_nn_4_retrain.values,
-                pred_nn_5_retrain.values,
-                pred_nn_6_retrain.values,
-                pred_nn_1_fix_retrain.values,
-                pred_nn_2_fix_retrain.values,
-                pred_nn_3_fix_retrain.values,
-                pred_nn_4_fix_retrain.values,
-                pred_nn_5_fix_retrain.values,
-                pred_nn_6_fix_retrain.values,
-                pred_new_nn_1_retrain.values,
-                pred_new_nn_2_retrain.values,
-                pred_new_nn_3_retrain.values,
-                pred_new_nn_4_retrain.values,
-                pred_new_nn_5_retrain.values,
-                pred_new_nn_6_retrain.values,
-                pred_new_nn_7_retrain.values,
-                pred_new_nn_1_65_retrain.values,
-                pred_new_nn_2_65_retrain.values,
-                ],axis=0)
-pred_nn_retrain = np.array([x[0] for x in pred_nn_retrain])
+pred_nn_retrain = pd.read_csv('../ver_best_nn_1/retrain.csv', index_col=0)
 print mean_absolute_error(train['loss'], pred_nn_retrain)
 print "##"
 
-pred_nn = np.mean([pred_nn_1['loss'],
-                     pred_nn_2['loss'],
-                     pred_nn_3['loss'],
-                     pred_nn_4['loss'],
-                     pred_nn_5['loss'],
-                     pred_nn_6['loss'],
-                     pred_nn_1_fix['loss'],
-                     pred_nn_2_fix['loss'],
-                     pred_nn_3_fix['loss'],
-                     pred_nn_4_fix['loss'],
-                     pred_nn_5_fix['loss'],
-                     pred_nn_6_fix['loss'],
-                     pred_new_nn_1['loss'],
-                     pred_new_nn_2['loss'],
-                     pred_new_nn_3['loss'],
-                     pred_new_nn_4['loss'],
-                     pred_new_nn_5['loss'],
-                     pred_new_nn_6['loss'],
-                     pred_new_nn_7['loss'],
-                     pred_new_nn_1_65['loss'],
-                     pred_new_nn_2_65['loss'],
-                ],axis=0)
-pred_nn = pd.DataFrame(pred_nn, columns=['loss'], index=pred_nn_1.index)
+pred_nn = pd.read_csv('../ver_best_nn_1/pred_retrain.csv', index_col=0)
 
 #
 print mean_absolute_error(train['loss'], pred_xgb_1_retrain)
@@ -261,36 +217,12 @@ print mean_absolute_error(train['loss'], pred_xgb_15_retrain)
 print mean_absolute_error(train['loss'], pred_xgb_17_retrain)
 print mean_absolute_error(train['loss'], pred_xgb_18_retrain)
 
-pred_xgb_retrain = np.mean([pred_xgb_1_retrain.values,
-                pred_xgb_2_retrain.values,
-                pred_xgb_3_retrain.values,
-                pred_xgb_6_retrain.values,
-                pred_xgb_9_retrain.values,
-                pred_xgb_10_retrain.values,
-                pred_xgb_11_retrain.values,
-                pred_xgb_13_retrain.values,
-                pred_xgb_15_retrain.values,
-                pred_xgb_17_retrain.values,
-                pred_xgb_18_retrain.values,
-                ],axis=0)
-pred_xgb_retrain = np.array([x[0] for x in pred_xgb_retrain])
+pred_xgb_retrain = pd.read_csv('../ver_best_xgb_1/retrain.csv', index_col=0)
 
 print mean_absolute_error(train['loss'], pred_xgb_retrain)
 print "##"
 
-pred_xgb = np.mean([pred_xgb_1['loss'],
-                      pred_xgb_2['loss'],
-                      pred_xgb_3['loss'],
-                      pred_xgb_6['loss'],
-                      pred_xgb_9['loss'],
-                      pred_xgb_10['loss'],
-                      pred_xgb_11['loss'],
-                      pred_xgb_13['loss'],
-                      pred_xgb_15['loss'],
-                      pred_xgb_17['loss'],
-                      pred_xgb_18['loss'],
-                ],axis=0)
-pred_xgb = pd.DataFrame(pred_xgb, columns=['loss'], index=pred_xgb_1.index)
+pred_xgb = pd.read_csv('../ver_best_xgb_1/pred_retrain.csv', index_col=0)
 
 # ======================== optimize ======================== #
 from scipy.optimize import minimize
@@ -329,13 +261,13 @@ args = [
     pred_xgb_15_retrain['loss'].values,         #30
     pred_xgb_17_retrain['loss'].values,         #31
     pred_xgb_18_retrain['loss'].values,         #32
-    pred_nn_retrain,                            #33
-    pred_xgb_retrain,                           #34
+    pred_nn_retrain['loss'].values,             #33
+    pred_xgb_retrain['loss'].values,            #34
     train['loss'].values
 ]
 
 print len(args)-1-2
-pe= 7
+pe= 5
 
 def f(coord,args):
     #pred_1,pred_2,pred_3,pred_4,pred_5,pred_6,pred_7,pred_8,pred_9,pred_10,pred_11,pred_12,pred_13,pred_14,pred_15,pred_16,pred_17,pred_18,r = args
@@ -371,17 +303,19 @@ def f(coord,args):
      + coord[pe*29]*args[29] + coord[pe*29+1]*(args[29] ** 2) + coord[pe*29+2]*np.log(args[29]) + coord[pe*29+3]*1/(1.0+args[29]) + coord[pe*29+4]*(args[29] ** 0.5)
      + coord[pe*30]*args[30] + coord[pe*30+1]*(args[30] ** 2) + coord[pe*30+2]*np.log(args[30]) + coord[pe*30+3]*1/(1.0+args[30]) + coord[pe*30+4]*(args[30] ** 0.5)
      + coord[pe*31]*args[31] + coord[pe*31+1]*(args[31] ** 2) + coord[pe*31+2]*np.log(args[31]) + coord[pe*31+3]*1/(1.0+args[31]) + coord[pe*31+4]*(args[31] ** 0.5)
-     + coord[pe*32+0]*( args[32] - args[33] )
-     + coord[pe*32+1]*( (args[32] - args[33]) ** 2 )
-     + coord[pe*32+2]*( np.log(abs(args[32] - args[33])) )
-     + coord[pe*32+3]*( 1/(1.0+args[32]-args[33]) )
-     + coord[pe*32+4]*( abs(args[32]-args[33]) ** 0.5 )
-     + coord[pe*32+5]*( np.sin(args[32]-args[33]) )
-     + coord[pe*32+6]*( np.cos(args[32]-args[33]) )
+     + coord[pe*32]*args[32] + coord[pe*32+1]*(args[32] ** 2) + coord[pe*32+2]*np.log(args[32]) + coord[pe*32+3]*1/(1.0+args[32]) + coord[pe*32+4]*(args[32] ** 0.5)
+     + coord[pe*33]*args[33] + coord[pe*33+1]*(args[33] ** 2) + coord[pe*33+2]*np.log(args[33]) + coord[pe*33+3]*1/(1.0+args[33]) + coord[pe*33+4]*(args[33] ** 0.5)
+     + coord[pe*34+0]*( args[32] - args[33] )
+     + coord[pe*34+1]*( (args[32] - args[33]) ** 2 )
+     + coord[pe*34+2]*( np.log(abs(args[32] - args[33])) )
+     + coord[pe*34+3]*( 1/(1.0+args[32]-args[33]) )
+     + coord[pe*34+4]*( abs(args[32]-args[33]) ** 0.5 )
+     + coord[pe*34+5]*( np.sin(args[32]-args[33]) )
+     + coord[pe*34+6]*( np.cos(args[32]-args[33]) )
      - args[-1]) )
 
 
-initial_guess = np.array([0.1 for x in range(pe * 32 + 7)])
+initial_guess = np.array([0.1 for x in range(pe * 34 + 7)])
 
 Nfeval = 1
 def callbackF(Xi):
@@ -429,14 +363,16 @@ pred_ensemble = (res.x[pe*0]*args[0] + res.x[pe*0+1]*(args[0] ** 2) + res.x[pe*0
  + res.x[pe*29]*args[29] + res.x[pe*29+1]*(args[29] ** 2) + res.x[pe*29+2]*np.log(args[29]) + res.x[pe*29+3]*1/(1.0+args[29]) + res.x[pe*29+4]*(args[29] ** 0.5)
  + res.x[pe*30]*args[30] + res.x[pe*30+1]*(args[30] ** 2) + res.x[pe*30+2]*np.log(args[30]) + res.x[pe*30+3]*1/(1.0+args[30]) + res.x[pe*30+4]*(args[30] ** 0.5)
  + res.x[pe*31]*args[31] + res.x[pe*31+1]*(args[31] ** 2) + res.x[pe*31+2]*np.log(args[31]) + res.x[pe*31+3]*1/(1.0+args[31]) + res.x[pe*31+4]*(args[31] ** 0.5)
- + res.x[pe*32+0]*( args[32] - args[33] )
- + res.x[pe*32+1]*( (args[32] - args[33]) ** 2 )
- + res.x[pe*32+2]*( np.log(abs(args[32] - args[33])) )
- + res.x[pe*32+3]*( 1/(1.0+args[32]-args[33]) )
- + res.x[pe*32+4]*( abs(args[32]-args[33]) ** 0.5 )
- + res.x[pe*32+5]*( np.sin(args[32]-args[33]) )
- + res.x[pe*32+6]*( np.cos(args[32]-args[33]) )
- )
+ + res.x[pe*32]*args[32] + res.x[pe*32+1]*(args[32] ** 2) + res.x[pe*32+2]*np.log(args[32]) + res.x[pe*32+3]*1/(1.0+args[32]) + res.x[pe*32+4]*(args[32] ** 0.5)
+ + res.x[pe*33]*args[33] + res.x[pe*33+1]*(args[33] ** 2) + res.x[pe*33+2]*np.log(args[33]) + res.x[pe*33+3]*1/(1.0+args[33]) + res.x[pe*33+4]*(args[33] ** 0.5)
+ + res.x[pe*34+0]*( args[32] - args[33] )
+ + res.x[pe*34+1]*( (args[32] - args[33]) ** 2 )
+ + res.x[pe*34+2]*( np.log(abs(args[32] - args[33])) )
+ + res.x[pe*34+3]*( 1/(1.0+args[32]-args[33]) )
+ + res.x[pe*34+4]*( abs(args[32]-args[33]) ** 0.5 )
+ + res.x[pe*34+5]*( np.sin(args[32]-args[33]) )
+ + res.x[pe*34+6]*( np.cos(args[32]-args[33]) )
+)
 
 pred_ensemble = pd.DataFrame(pred_ensemble)
 pred_ensemble.columns = ['loss']
@@ -515,14 +451,16 @@ pred_ensemble = (res.x[pe*0]*args[0] + res.x[pe*0+1]*(args[0] ** 2) + res.x[pe*0
  + res.x[pe*29]*args[29] + res.x[pe*29+1]*(args[29] ** 2) + res.x[pe*29+2]*np.log(args[29]) + res.x[pe*29+3]*1/(1.0+args[29]) + res.x[pe*29+4]*(args[29] ** 0.5)
  + res.x[pe*30]*args[30] + res.x[pe*30+1]*(args[30] ** 2) + res.x[pe*30+2]*np.log(args[30]) + res.x[pe*30+3]*1/(1.0+args[30]) + res.x[pe*30+4]*(args[30] ** 0.5)
  + res.x[pe*31]*args[31] + res.x[pe*31+1]*(args[31] ** 2) + res.x[pe*31+2]*np.log(args[31]) + res.x[pe*31+3]*1/(1.0+args[31]) + res.x[pe*31+4]*(args[31] ** 0.5)
- + res.x[pe*32+0]*( args[32] - args[33] )
- + res.x[pe*32+1]*( (args[32] - args[33]) ** 2 )
- + res.x[pe*32+2]*( np.log(abs(args[32] - args[33])) )
- + res.x[pe*32+3]*( 1/(1.0+args[32]-args[33]) )
- + res.x[pe*32+4]*( abs(args[32]-args[33]) ** 0.5 )
- + res.x[pe*32+5]*( np.sin(args[32]-args[33]) )
- + res.x[pe*32+6]*( np.cos(args[32]-args[33]) )
- )
+ + res.x[pe*32]*args[32] + res.x[pe*32+1]*(args[32] ** 2) + res.x[pe*32+2]*np.log(args[32]) + res.x[pe*32+3]*1/(1.0+args[32]) + res.x[pe*32+4]*(args[32] ** 0.5)
+ + res.x[pe*33]*args[33] + res.x[pe*33+1]*(args[33] ** 2) + res.x[pe*33+2]*np.log(args[33]) + res.x[pe*33+3]*1/(1.0+args[33]) + res.x[pe*33+4]*(args[33] ** 0.5)
+ + res.x[pe*34+0]*( args[32] - args[33] )
+ + res.x[pe*34+1]*( (args[32] - args[33]) ** 2 )
+ + res.x[pe*34+2]*( np.log(abs(args[32] - args[33])) )
+ + res.x[pe*34+3]*( 1/(1.0+args[32]-args[33]) )
+ + res.x[pe*34+4]*( abs(args[32]-args[33]) ** 0.5 )
+ + res.x[pe*34+5]*( np.sin(args[32]-args[33]) )
+ + res.x[pe*34+6]*( np.cos(args[32]-args[33]) )
+)
 
 
 pred_ensemble = pd.DataFrame(pred_ensemble)
