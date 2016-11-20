@@ -84,7 +84,7 @@ def xg_eval_mae(yhat, dtrain):
     return 'mae', mean_absolute_error(np.exp(y) - SHIFT, np.exp(yhat) - SHIFT)
 
 
-gbdt = xgb.train(xgb_params, dtrain, 1000, obj=logregobj)
+gbdt = xgb.train(xgb_params, dtrain, 35000, obj=logregobj)
 
 def create_feature_map(fmap_filename, features):
     """

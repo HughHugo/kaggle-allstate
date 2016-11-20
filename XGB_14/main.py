@@ -157,7 +157,7 @@ if __name__ == "__main__":
         'colsample_bytree': 0.7,
         'silent': 1,
         'subsample': 0.7,
-        'learning_rate': 0.0005,
+        'learning_rate': 0.001,
         'objective': 'reg:linear',
         'max_depth': 12,
         'min_child_weight': 100,
