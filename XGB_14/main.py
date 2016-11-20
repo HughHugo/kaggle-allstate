@@ -157,7 +157,11 @@ if __name__ == "__main__":
         'colsample_bytree': 0.7,
         'silent': 1,
         'subsample': 0.7,
+<<<<<<< HEAD
         'learning_rate': 0.001,
+=======
+        'learning_rate': 0.0005,
+>>>>>>> b9d5663588f2ce2f0f1f9226c403c9dbfafa494e
         'objective': 'reg:linear',
         'max_depth': 12,
         'min_child_weight': 100,
