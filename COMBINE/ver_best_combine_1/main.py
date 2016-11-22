@@ -62,15 +62,20 @@ def f(coord,args):
       + coord[pe*2+2]*np.log(abs(args[0]-args[1]))
       + coord[pe*2+3]*1/(1.0+args[0]-args[1])
       + coord[pe*2+4]*(abs(args[0]-args[1]) ** 0.5)
-      + coord[pe*2+5]*((args[0]-args[1])>0)
-      + coord[pe*2+6]*(np.sin(args[0]-args[1]) )
-      + coord[pe*2+7]*(np.cos(args[0]-args[1]) )
-      + coord[pe*2+8]*(np.tan(args[0]-args[1]) )
-      #+  coord[pe*2+6]
+      + coord[pe*2+5]*(np.sin(args[0]-args[1]) )
+      + coord[pe*2+6]*(np.cos(args[0]-args[1]) )
+      + coord[pe*2+7]*(np.tan(args[0]-args[1]) )
+     + coord[pe*2+8]*( np.arcsinh(args[0]-args[1]) )
+     + coord[pe*2+9]*( np.arctan(args[0]-args[1]) )
+     + coord[pe*2+10]*( np.deg2rad(args[0]-args[1]) )
+     + coord[pe*2+11]*( np.rad2deg(args[0]-args[1]) )
+      + coord[pe*2+12]*( 1/(args[0]+args[1]) )
+       + coord[pe*2+13]*( 1/((args[0]-args[1])**2 ))
+       + coord[pe*2+14]*( 1/((args[0]*args[1])))
      - args[-1]) )
 
 
-initial_guess = np.array([0.1 for x in range(pe * 2 +9)])
+initial_guess = np.array([0.1 for x in range(pe * 2 +16)])
 
 Nfeval = 1
 def callbackF(Xi):

@@ -131,10 +131,13 @@ if __name__ == "__main__":
     train_test["cont13"] = np.log(preprocessing.minmax_scale(train_test["cont13"]) + 0000.1)
     train_test["cont14"] = (np.maximum(train_test["cont14"] - 0.179722, 0) / 0.665122) ** 0.25
 
-
+    np.random.seed(6174)
     for comb in itertools.combinations(COMB_FEATURE, 3):
-        feat = comb[0] + "_" + comb[1]
-        train_test[feat] = train_test[comb[0]] + train_test[comb[1]]
+        if np.random.uniform(0,1) < 0.65:
+            print "#"
+            continue
+        feat = comb[0] + "_" + comb[1] + "_" + comb[2]
+        train_test[feat] = train_test[comb[0]] + train_test[comb[1]] + train_test[comb[2]]
         train_test[feat] = train_test[feat].apply(encode)
         print(feat)
 
@@ -151,6 +154,7 @@ if __name__ == "__main__":
     train.drop('loss', inplace=True, axis=1)
     test = train_test.iloc[ntrain:, :].copy()
     test.drop('loss', inplace=True, axis=1)
+    del train_test
 
     xgb_params = {
         'seed': 6174,
@@ -168,13 +172,15 @@ if __name__ == "__main__":
     }
 
     x_train = np.array(train)
+    del train
     x_test = np.array(test)
+    del test
 
     dtrain = xgb.DMatrix(x_train,
                           label=label)
     dtest = xgb.DMatrix(x_test)
 
-    res = xgb.cv(xgb_params, dtrain, num_boost_round=999999,
+    res = xgb.cv(xgb_params, dtrain, num_boost_round=50000,
              nfold=4,
              seed=SEED,
              stratified=False, obj=logregobj,
