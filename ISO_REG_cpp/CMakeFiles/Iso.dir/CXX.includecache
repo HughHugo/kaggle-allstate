@@ -1,0 +1,28 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/Users/achm/Documents/github/kaggle-allstate/ISO_REG_cpp/main.cpp
+cmath
+-
+string.h
+-
+iostream
+-
+iomanip
+-
+deque
+-
+vector
+-
+map
+-
+algorithm
+-
+fstream
+-
+
