@@ -132,10 +132,12 @@ if __name__ == "__main__":
     train_test["cont14"] = (np.maximum(train_test["cont14"] - 0.179722, 0) / 0.665122) ** 0.25
 
     np.random.seed(6174)
+    k=0
     for comb in itertools.combinations(COMB_FEATURE, 3):
         if np.random.uniform(0,1) < 0.95:
             print "#"
             continue
+        k+=1    
         feat = comb[0] + "_" + comb[1] + "_" + comb[2]
         train_test[feat] = train_test[comb[0]] + train_test[comb[1]] + train_test[comb[2]]
         train_test[feat] = train_test[feat].apply(encode)
