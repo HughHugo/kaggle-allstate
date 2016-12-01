@@ -83,7 +83,6 @@ remove(ts)
 
 
 #-------------------------------------- feature engineering -------------------------------
-
 # new categorical features
 # a bit straightforward approach so you can try to improve it
 
@@ -92,8 +91,7 @@ for (f in 1:nrow(new.cat.raw)) {
   f1 <- new.cat.raw[f, f1]
   f2 <- new.cat.raw[f, f2]
 
-  ttl[, eval(as.name(paste(f1, f2, sep = "_"))) :=
-        paste0(ttl[, eval(as.name(f1))], ttl[, eval(as.name(f2))])]
+  ttl[, eval(as.name(paste(f1, f2, sep = "_"))) := paste0(ttl[, eval(as.name(f1))], ttl[, eval(as.name(f2))])]
 }
 
 # categorical features to range ones
@@ -138,7 +136,7 @@ for (f in colnames(ttl)[colnames(ttl) %like% "^cont"]) {
 # save
 
 save(ttl, file="~/Documents/github/kaggle-allstate/cache/ttl.pipe.Rda")
-
+load("~/Documents/github/kaggle-allstate/cache/ttl.pipe.Rda")
 
 
 #-------------------------------------- convert to matrices -------------------------------
@@ -168,7 +166,8 @@ ts.m<-ttl.m[which(!(ttl[,loss] %in% tr.label)),]
 save(tr.m, file="~/Documents/github/kaggle-allstate/cache/tr.m.pipe.Rda")
 save(ts.m, file="~/Documents/github/kaggle-allstate/cache/ts.m.pipe.Rda")
 
-
+load("~/Documents/github/kaggle-allstate/cache/tr.m.pipe.Rda")
+load("~/Documents/github/kaggle-allstate/cache/ts.m.pipe.Rda")
 
 #------------------------------------------ prepare model ---------------------------------
                
@@ -194,7 +193,7 @@ df_stack_index = fread("~/Documents/github/kaggle-allstate/cache/stack_index.csv
 #head(df_stack_index)
 #length(df_stack_index[df_stack_index$stack_index == 1, ]$id)
 for (i in 1:10){
-  flds[[i]] = df_stack_index[df_stack_index$stack_index == i, ]$id
+  flds[[i]] = (1:length(tr.key))[tr.key %in%  df_stack_index[df_stack_index$stack_index == i, ]$id]
 }
 head(flds[[1]])
 ########################################################

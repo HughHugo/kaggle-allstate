@@ -269,7 +269,7 @@ folds = skf
 
 ## train models
 i = 0
-nbags = 5
+nbags = 2
 nepochs = 70
 pred_oob = np.zeros(xtrain.shape[0])
 pred_test = np.zeros(xtest.shape[0])
