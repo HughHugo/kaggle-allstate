@@ -137,22 +137,22 @@ def xg_eval_mae(yhat, dtrain):
     y = dtrain.get_label()
     return 'mae', mean_absolute_error(np.exp(y) - SHIFT, np.exp(yhat) - SHIFT)
 
-# res = xgb.cv(xgb_params, dtrain, num_boost_round=999999,
-#              nfold=5,
-#              seed=SEED,
-#              stratified=False, obj=logregobj,
-#              early_stopping_rounds=2000,
-#              verbose_eval=10,
-#              show_stdv=True,
-#              feval=xg_eval_mae,
-#              maximize=False)
-#
-# best_nrounds = res.shape[0] - 1
-# cv_mean = res.iloc[-1, 0]
-# cv_std = res.iloc[-1, 1]
-# print('CV-Mean: {0}+{1}'.format(cv_mean, cv_std))
+res = xgb.cv(xgb_params, dtrain, num_boost_round=999999,
+             nfold=10,
+             seed=SEED,
+             stratified=False, obj=logregobj,
+             early_stopping_rounds=2000,
+             verbose_eval=10,
+             show_stdv=True,
+             feval=xg_eval_mae,
+             maximize=False)
 
-gbdt = xgb.train(xgb_params, dtrain, 700)#obj=logregobj
+best_nrounds = res.shape[0] - 1
+cv_mean = res.iloc[-1, 0]
+cv_std = res.iloc[-1, 1]
+print('CV-Mean: {0}+{1}'.format(cv_mean, cv_std))
+
+gbdt = xgb.train(xgb_params, dtrain, best_nrounds)#obj=logregobj
 
 df_test = pd.concat([
                            pred_nn_1_fix['loss'],    #1
