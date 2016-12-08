@@ -63,6 +63,10 @@ pred_new_nn_5_interaction_65_retrain = pd.read_csv('../../NEW_NN_5_interaction_6
 bound_df_retrain(pred_new_nn_5_interaction_65_retrain)
 pred_new_nn_5_interaction_70_retrain = pd.read_csv('../../NEW_NN_5_interaction_70/NN_retrain_5.csv', index_col=0)
 bound_df_retrain(pred_new_nn_5_interaction_70_retrain)
+pred_new_nn_5_20_shift_retrain = pd.read_csv('../../NEW_NN_5_20_SHIFT/NN_retrain_5.csv', index_col=0)
+bound_df_retrain(pred_new_nn_5_20_shift_retrain)
+pred_new_nn_5_100_shift_retrain = pd.read_csv('../../NEW_NN_5_100_SHIFT/NN_retrain_5.csv', index_col=0)
+bound_df_retrain(pred_new_nn_5_100_shift_retrain)
 pred_new_nn_5_2000_shift_retrain = pd.read_csv('../../NEW_NN_5_2000_SHIFT/NN_retrain_5.csv', index_col=0)
 bound_df_retrain(pred_new_nn_5_2000_shift_retrain)
 pred_new_nn_5_20000_shift_retrain = pd.read_csv('../../NEW_NN_5_20000_SHIFT/NN_retrain_5.csv', index_col=0)
@@ -97,8 +101,18 @@ pred_xgb_11_retrain = pd.read_csv('../../XGB_11/XGB_retrain_11.csv', index_col=0
 bound_df_retrain(pred_xgb_11_retrain)
 pred_xgb_13_retrain = pd.read_csv('../../XGB_13/XGB_retrain_13.csv', index_col=0)
 bound_df_retrain(pred_xgb_13_retrain)
-pred_xgb_14_retrain = pd.read_csv('../../XGB_14/XGB_retrain_14.csv', index_col=0)
-bound_df_retrain(pred_xgb_14_retrain)
+#
+#pred_xgb_14_retrain = pd.read_csv('../../XGB_14/XGB_retrain_14.csv', index_col=0)
+#bound_df_retrain(pred_xgb_14_retrain)
+pred_xgb_14_obj_retrain = pd.read_csv('../../XGB_14/XGB_retrain_14.csv', index_col=0)
+bound_df_retrain(pred_xgb_14_obj_retrain)
+pred_xgb_14_obj_2_retrain = pd.read_csv('../../XGB_14/XGB_retrain_14.csv', index_col=0)
+bound_df_retrain(pred_xgb_14_obj_2_retrain)
+pred_xgb_14_obj_fast_retrain = pd.read_csv('../../XGB_14/XGB_retrain_14.csv', index_col=0)
+bound_df_retrain(pred_xgb_14_obj_fast_retrain)
+pred_xgb_14_obj_2_fast_retrain = pd.read_csv('../../XGB_14/XGB_retrain_14.csv', index_col=0)
+bound_df_retrain(pred_xgb_14_obj_2_fast_retrain)
+#
 pred_xgb_15_retrain = pd.read_csv('../../XGB_15/XGB_retrain_15.csv', index_col=0)
 bound_df_retrain(pred_xgb_15_retrain)
 pred_xgb_17_retrain = pd.read_csv('../../XGB_17/XGB_retrain_17.csv', index_col=0)
@@ -115,8 +129,31 @@ pred_xgb_21_retrain = pd.read_csv('../../XGB_21/XGB_retrain_21.csv', index_col=0
 bound_df_retrain(pred_xgb_21_retrain)
 pred_xgb_22_retrain = pd.read_csv('../../XGB_22/XGB_retrain_22.csv', index_col=0)
 bound_df_retrain(pred_xgb_22_retrain)
-pred_xgb_24_retrain = pd.read_csv('../../XGB_24/XGB_retrain_24.csv', index_col=0)
-bound_df_retrain(pred_xgb_24_retrain)
+#
+#pred_xgb_24_retrain = pd.read_csv('../../XGB_24/XGB_retrain_24.csv', index_col=0)
+#bound_df_retrain(pred_xgb_24_retrain)
+pred_xgb_24_obj_retrain = pd.read_csv('../../XGB_24/XGB_retrain_24.csv', index_col=0)
+bound_df_retrain(pred_xgb_24_obj_retrain)
+pred_xgb_24_obj_2_retrain = pd.read_csv('../../XGB_24/XGB_retrain_24.csv', index_col=0)
+bound_df_retrain(pred_xgb_24_obj_2_retrain)
+pred_xgb_24_obj_fast_retrain = pd.read_csv('../../XGB_24/XGB_retrain_24.csv', index_col=0)
+bound_df_retrain(pred_xgb_24_obj_fast_retrain)
+pred_xgb_24_obj_2_fast_retrain = pd.read_csv('../../XGB_24/XGB_retrain_24.csv', index_col=0)
+bound_df_retrain(pred_xgb_24_obj_2_fast_retrain)
+#
+#pred_xgb_25_retrain = pd.read_csv('../../XGB_25/XGB_retrain_25.csv', index_col=0)
+#bound_df_retrain(pred_xgb_25_retrain)
+pred_xgb_25_obj_retrain = pd.read_csv('../../XGB_25/XGB_retrain_25.csv', index_col=0)
+bound_df_retrain(pred_xgb_25_obj_retrain)
+pred_xgb_25_obj_2_retrain = pd.read_csv('../../XGB_25/XGB_retrain_25.csv', index_col=0)
+bound_df_retrain(pred_xgb_25_obj_2_retrain)
+pred_xgb_25_obj_fast_retrain = pd.read_csv('../../XGB_25/XGB_retrain_25.csv', index_col=0)
+bound_df_retrain(pred_xgb_25_obj_fast_retrain)
+pred_xgb_25_obj_2_fast_retrain = pd.read_csv('../../XGB_25/XGB_retrain_25.csv', index_col=0)
+bound_df_retrain(pred_xgb_25_obj_2_fast_retrain)
+#
+pred_r_xgb_1_retrain = pd.read_csv('../../R_XGB_1/XGB_retrain_1.csv', index_col=0)
+bound_df_retrain(pred_r_xgb_1_retrain)
 
 
 def bound_df_test(df):
@@ -174,7 +211,14 @@ pred_new_nn_5_interaction_65 = pd.read_csv('../../NEW_NN_5_interaction_65/NN_5.c
 bound_df_test(pred_new_nn_5_interaction_65)
 pred_new_nn_5_interaction_70 = pd.read_csv('../../NEW_NN_5_interaction_70/NN_5.csv', index_col=0)
 bound_df_test(pred_new_nn_5_interaction_70)
-
+pred_new_nn_5_20_shift = pd.read_csv('../../NEW_NN_5_20_SHIFT/NN_5.csv', index_col=0)
+bound_df_test(pred_new_nn_5_20_shift)
+pred_new_nn_5_100_shift = pd.read_csv('../../NEW_NN_5_100_SHIFT/NN_5.csv', index_col=0)
+bound_df_test(pred_new_nn_5_100_shift)
+pred_new_nn_5_2000_shift = pd.read_csv('../../NEW_NN_5_2000_SHIFT/NN_5.csv', index_col=0)
+bound_df_test(pred_new_nn_5_2000_shift)
+pred_new_nn_5_20000_shift = pd.read_csv('../../NEW_NN_5_20000_SHIFT/NN_5.csv', index_col=0)
+bound_df_test(pred_new_nn_5_20000_shift)
 
 
 pred_new_nn_6 = pd.read_csv('../../NEW_NN_6/NN_6.csv', index_col=0)
@@ -205,8 +249,18 @@ pred_xgb_11 = pd.read_csv('../../XGB_11/XGB_11.csv', index_col=0)
 bound_df_test(pred_xgb_11)
 pred_xgb_13 = pd.read_csv('../../XGB_13/XGB_13.csv', index_col=0)
 bound_df_test(pred_xgb_13)
-pred_xgb_14 = pd.read_csv('../../XGB_14/XGB_14.csv', index_col=0)
-bound_df_test(pred_xgb_14)
+#
+#pred_xgb_14 = pd.read_csv('../../XGB_14/XGB_14.csv', index_col=0)
+#bound_df_test(pred_xgb_14)
+pred_xgb_14_obj = pd.read_csv('../../XGB_14_obj/XGB_14.csv', index_col=0)
+bound_df_test(pred_xgb_14_obj)
+pred_xgb_14_obj_2 = pd.read_csv('../../XGB_14_obj_2/XGB_14.csv', index_col=0)
+bound_df_test(pred_xgb_14_obj_2)
+pred_xgb_14_obj_fast = pd.read_csv('../../XGB_14_obj/XGB_14.csv', index_col=0) ########
+bound_df_test(pred_xgb_14_obj_fast)
+pred_xgb_14_obj_2_fast = pd.read_csv('../../XGB_14_obj_2_fast/XGB_14.csv', index_col=0)
+bound_df_test(pred_xgb_14_obj_2_fast)
+#
 pred_xgb_15 = pd.read_csv('../../XGB_15/XGB_15.csv', index_col=0)
 bound_df_test(pred_xgb_15)
 pred_xgb_17 = pd.read_csv('../../XGB_17/XGB_17.csv', index_col=0)
@@ -223,9 +277,32 @@ pred_xgb_21 = pd.read_csv('../../XGB_21/XGB_21.csv', index_col=0)
 bound_df_test(pred_xgb_21)
 pred_xgb_22 = pd.read_csv('../../XGB_22/XGB_22.csv', index_col=0)
 bound_df_test(pred_xgb_22)
-pred_xgb_24 = pd.read_csv('../../XGB_24/XGB_24.csv', index_col=0)
-bound_df_test(pred_xgb_24)
+#
+#pred_xgb_24 = pd.read_csv('../../XGB_24/XGB_24.csv', index_col=0)
+#bound_df_test(pred_xgb_24)
+pred_xgb_24_obj = pd.read_csv('../../XGB_24_obj/XGB_24.csv', index_col=0)
+bound_df_test(pred_xgb_24_obj)
+pred_xgb_24_obj_2 = pd.read_csv('../../XGB_24_obj_2/XGB_24.csv', index_col=0)
+bound_df_test(pred_xgb_24_obj_2)
+pred_xgb_24_obj_fast = pd.read_csv('../../XGB_24_obj_fast/XGB_24.csv', index_col=0)
+bound_df_test(pred_xgb_24_obj_fast)
+pred_xgb_24_obj_2_fast = pd.read_csv('../../XGB_24_obj_2_fast/XGB_24.csv', index_col=0)
+bound_df_test(pred_xgb_24_obj_2_fast)
+#
+#pred_xgb_25 = pd.read_csv('../../XGB_25/XGB_25.csv', index_col=0)
+#bound_df_test(pred_xgb_25)
+pred_xgb_25_obj = pd.read_csv('../../XGB_25_obj/XGB_25.csv', index_col=0)
+bound_df_test(pred_xgb_25_obj)
+pred_xgb_25_obj_2 = pd.read_csv('../../XGB_25_obj_2/XGB_25.csv', index_col=0)
+bound_df_test(pred_xgb_25_obj_2)
+pred_xgb_25_obj_fast = pd.read_csv('../../XGB_25_obj_fast/XGB_25.csv', index_col=0)
+bound_df_test(pred_xgb_25_obj_fast)
+pred_xgb_25_obj_2_fast = pd.read_csv('../../XGB_25_obj_2_fast/XGB_25.csv', index_col=0)
+bound_df_test(pred_xgb_25_obj_2_fast)
 
+#
+pred_r_xgb_1 = pd.read_csv('../../R_XGB_1/XGB_1.csv', index_col=0)
+bound_df_test(pred_r_xgb_1)
 
 
 print "#"
@@ -252,6 +329,8 @@ print mean_absolute_error(train['loss'], pred_new_nn_5_10bag_retrain)
 print mean_absolute_error(train['loss'], pred_new_nn_5_double_retrain)
 print mean_absolute_error(train['loss'], pred_new_nn_5_interaction_65_retrain)
 print mean_absolute_error(train['loss'], pred_new_nn_5_interaction_70_retrain)
+print mean_absolute_error(train['loss'], pred_new_nn_5_2000_shift_retrain)
+print mean_absolute_error(train['loss'], pred_new_nn_5_20000_shift_retrain)
 print mean_absolute_error(train['loss'], pred_new_nn_5_2000_shift_retrain)
 print mean_absolute_error(train['loss'], pred_new_nn_5_20000_shift_retrain)
 print mean_absolute_error(train['loss'], pred_new_nn_6_retrain)
@@ -282,6 +361,10 @@ nn_retrain_pool = [pred_nn_1_retrain.values,
                 pred_new_nn_5_double_retrain.values,
                 pred_new_nn_5_interaction_65_retrain.values,
                 pred_new_nn_5_interaction_70_retrain.values,
+                pred_new_nn_5_20_shift_retrain.values,
+                pred_new_nn_5_100_shift_retrain.values,
+                pred_new_nn_5_2000_shift_retrain.values,
+                pred_new_nn_5_20000_shift_retrain.values,
                 pred_new_nn_6_retrain.values,
                 pred_new_nn_7_retrain.values,
                 pred_new_nn_1_65_retrain.values,
@@ -335,10 +418,14 @@ nn_pool = [pred_nn_1['loss'],
              pred_new_nn_3['loss'],
              pred_new_nn_4['loss'],
              pred_new_nn_5['loss'],
-            pred_new_nn_5_10bag['loss'],
-            pred_new_nn_5_double['loss'],
-            pred_new_nn_5_interaction_65['loss'],
-            pred_new_nn_5_interaction_70['loss'],
+             pred_new_nn_5_10bag['loss'],
+             pred_new_nn_5_double['loss'],
+             pred_new_nn_5_interaction_65['loss'],
+             pred_new_nn_5_interaction_70['loss'],
+             pred_new_nn_5_20_shift['loss'],
+             pred_new_nn_5_100_shift['loss'],
+             pred_new_nn_5_2000_shift['loss'],
+             pred_new_nn_5_20000_shift['loss'],
              pred_new_nn_6['loss'],
              pred_new_nn_7['loss'],
              pred_new_nn_1_65['loss'],
@@ -377,7 +464,11 @@ print mean_absolute_error(train['loss'], pred_xgb_9_retrain)
 print mean_absolute_error(train['loss'], pred_xgb_10_retrain)
 print mean_absolute_error(train['loss'], pred_xgb_11_retrain)
 print mean_absolute_error(train['loss'], pred_xgb_13_retrain)
-print mean_absolute_error(train['loss'], pred_xgb_14_retrain)
+#print mean_absolute_error(train['loss'], pred_xgb_14_retrain)
+print mean_absolute_error(train['loss'], pred_xgb_14_obj_retrain)
+print mean_absolute_error(train['loss'], pred_xgb_14_obj_2_retrain)
+print mean_absolute_error(train['loss'], pred_xgb_14_obj_fast_retrain)
+print mean_absolute_error(train['loss'], pred_xgb_14_obj_2_fast_retrain)
 print mean_absolute_error(train['loss'], pred_xgb_15_retrain)
 print mean_absolute_error(train['loss'], pred_xgb_17_retrain)
 print mean_absolute_error(train['loss'], pred_xgb_17_2way_retrain)
@@ -386,7 +477,18 @@ print mean_absolute_error(train['loss'], pred_xgb_19_retrain)
 print mean_absolute_error(train['loss'], pred_xgb_20_retrain)
 print mean_absolute_error(train['loss'], pred_xgb_21_retrain)
 print mean_absolute_error(train['loss'], pred_xgb_22_retrain)
-print mean_absolute_error(train['loss'], pred_xgb_24_retrain)
+#print mean_absolute_error(train['loss'], pred_xgb_24_retrain)
+print mean_absolute_error(train['loss'], pred_xgb_24_obj_retrain)
+print mean_absolute_error(train['loss'], pred_xgb_24_obj_2_retrain)
+print mean_absolute_error(train['loss'], pred_xgb_24_obj_fast_retrain)
+print mean_absolute_error(train['loss'], pred_xgb_24_obj_2_fast_retrain)
+#print mean_absolute_error(train['loss'], pred_xgb_25_retrain)
+print mean_absolute_error(train['loss'], pred_xgb_25_obj_retrain)
+print mean_absolute_error(train['loss'], pred_xgb_25_obj_2_retrain)
+print mean_absolute_error(train['loss'], pred_xgb_25_obj_fast_retrain)
+print mean_absolute_error(train['loss'], pred_xgb_25_obj_2_fast_retrain)
+print mean_absolute_error(train['loss'], pred_r_xgb_1_retrain)
+
 
 xgb_retrain_pool = [pred_xgb_1_retrain.values,
                 pred_xgb_2_retrain.values,
@@ -396,7 +498,11 @@ xgb_retrain_pool = [pred_xgb_1_retrain.values,
                 pred_xgb_10_retrain.values,
                 pred_xgb_11_retrain.values,
                 pred_xgb_13_retrain.values,
-                pred_xgb_14_retrain.values,
+                #pred_xgb_14_retrain.values,
+                pred_xgb_14_obj_retrain.values,
+                pred_xgb_14_obj_2_retrain.values,
+                pred_xgb_14_obj_fast_retrain.values,
+                pred_xgb_14_obj_2_fast_retrain.values,
                 pred_xgb_15_retrain.values,
                 pred_xgb_17_retrain.values,
                 pred_xgb_17_2way_retrain.values,
@@ -405,7 +511,18 @@ xgb_retrain_pool = [pred_xgb_1_retrain.values,
                 pred_xgb_20_retrain.values,
                 pred_xgb_21_retrain.values,
                 pred_xgb_22_retrain.values,
-                pred_xgb_24_retrain.values,
+                #pred_xgb_24_retrain.values,
+                #pred_xgb_14_retrain.values,
+                pred_xgb_24_obj_retrain.values,
+                pred_xgb_24_obj_2_retrain.values,
+                pred_xgb_24_obj_fast_retrain.values,
+                pred_xgb_24_obj_2_fast_retrain.values,
+                #pred_xgb_25_retrain.values,
+                pred_xgb_25_obj_retrain.values,
+                pred_xgb_25_obj_2_retrain.values,
+                pred_xgb_25_obj_fast_retrain.values,
+                pred_xgb_25_obj_2_fast_retrain.values,
+                pred_r_xgb_1_retrain.values,
                 ]
 
 print "#"
@@ -449,7 +566,11 @@ xgb_pool = [pred_xgb_1['loss'],
               pred_xgb_10['loss'],
               pred_xgb_11['loss'],
               pred_xgb_13['loss'],
-              pred_xgb_14['loss'],
+              #pred_xgb_14['loss'],
+              pred_xgb_14_obj['loss'],
+              pred_xgb_14_obj_2['loss'],
+              pred_xgb_14_obj_fast['loss'],
+              pred_xgb_14_obj_2_fast['loss'],
               pred_xgb_15['loss'],
               pred_xgb_17['loss'],
               pred_xgb_17_2way['loss'],
@@ -458,7 +579,17 @@ xgb_pool = [pred_xgb_1['loss'],
               pred_xgb_20['loss'],
               pred_xgb_21['loss'],
               pred_xgb_22['loss'],
-              pred_xgb_24['loss'],
+              #pred_xgb_24['loss'],
+              pred_xgb_24_obj['loss'],
+              pred_xgb_24_obj_2['loss'],
+              pred_xgb_24_obj_fast['loss'],
+              pred_xgb_24_obj_2_fast['loss'],
+              #pred_xgb_25['loss'],
+              pred_xgb_25_obj['loss'],
+              pred_xgb_25_obj_2['loss'],
+              pred_xgb_25_obj_fast['loss'],
+              pred_xgb_25_obj_2_fast['loss'],
+              pred_r_xgb_1['loss'],
         ]
 assert len(xgb_pool) == len(xgb_retrain_pool)
 
@@ -510,51 +641,70 @@ args = [
     pred_new_nn_5_double_retrain['loss'].values,        #19
     pred_new_nn_5_interaction_65_retrain['loss'].values,#20
     pred_new_nn_5_interaction_70_retrain['loss'].values,#21
-    pred_new_nn_6_retrain['loss'].values,       #22
-    pred_new_nn_7_retrain['loss'].values,       #23
-    pred_new_nn_1_65_retrain['loss'].values,    #24
-    pred_new_nn_2_65_retrain['loss'].values,    #25
-    pred_xgb_1_retrain['loss'].values,          #26
-    pred_xgb_2_retrain['loss'].values,          #27
-    pred_xgb_3_retrain['loss'].values,          #28
-    pred_xgb_6_retrain['loss'].values,          #29
-    pred_xgb_9_retrain['loss'].values,          #30
-    pred_xgb_10_retrain['loss'].values,         #31
-    pred_xgb_11_retrain['loss'].values,         #32
-    pred_xgb_13_retrain['loss'].values,         #33
-    pred_xgb_14_retrain['loss'].values,         #34
-    pred_xgb_15_retrain['loss'].values,         #35
-    pred_xgb_17_retrain['loss'].values,         #36
-    pred_xgb_17_2way_retrain['loss'].values,    #37
-    pred_xgb_18_retrain['loss'].values,         #38
-    pred_xgb_19_retrain['loss'].values,         #39
-    pred_xgb_20_retrain['loss'].values,         #40
-    pred_xgb_21_retrain['loss'].values,         #41
-    pred_xgb_22_retrain['loss'].values,         #42
-    pred_xgb_24_retrain['loss'].values,         #43 ####
-    pred_nn_retrain['loss'].values,             #44
-    pred_xgb_retrain['loss'].values,            #45
-    pred_nn_retrain_gmean['loss'].values,       #46
-    pred_xgb_retrain_gmean['loss'].values,      #47
-    pred_nn_retrain_sd['loss'].values,          #48
-    pred_xgb_retrain_sd['loss'].values,         #49
-    pred_nn_retrain_mean_sd_1['loss'].values,   #50
-    pred_xgb_retrain_mean_sd_1['loss'].values,  #51
-    pred_nn_retrain_mean_sd_2['loss'].values,   #52
-    pred_xgb_retrain_mean_sd_2['loss'].values,  #53
-    pred_nn_retrain_mean_sd_3['loss'].values,   #54
-    pred_xgb_retrain_mean_sd_3['loss'].values,  #55
-    pred_nn_retrain_mean_sd_4['loss'].values,   #56
-    pred_xgb_retrain_mean_sd_4['loss'].values,  #57
+    pred_new_nn_5_20_shift_retrain['loss'].values,    #22
+    pred_new_nn_5_100_shift_retrain['loss'].values,   #23
+    pred_new_nn_5_2000_shift_retrain['loss'].values,    #22
+    pred_new_nn_5_20000_shift_retrain['loss'].values,   #23
+    pred_new_nn_6_retrain['loss'].values,       #24
+    pred_new_nn_7_retrain['loss'].values,       #25
+    pred_new_nn_1_65_retrain['loss'].values,    #26
+    pred_new_nn_2_65_retrain['loss'].values,    #27
+    pred_xgb_1_retrain['loss'].values,          #28
+    pred_xgb_2_retrain['loss'].values,          #29
+    pred_xgb_3_retrain['loss'].values,          #30
+    pred_xgb_6_retrain['loss'].values,          #31
+    pred_xgb_9_retrain['loss'].values,          #32
+    pred_xgb_10_retrain['loss'].values,         #33
+    pred_xgb_11_retrain['loss'].values,         #34
+    pred_xgb_13_retrain['loss'].values,         #35
+    #pred_xgb_14_retrain['loss'].values,         #36
+    pred_xgb_14_obj_retrain['loss'].values,
+    pred_xgb_14_obj_2_retrain['loss'].values,
+    pred_xgb_14_obj_fast_retrain['loss'].values,
+    pred_xgb_14_obj_2_fast_retrain['loss'].values,
+    pred_xgb_15_retrain['loss'].values,         #37
+    pred_xgb_17_retrain['loss'].values,         #38
+    pred_xgb_17_2way_retrain['loss'].values,    #39
+    pred_xgb_18_retrain['loss'].values,         #40
+    pred_xgb_19_retrain['loss'].values,         #41
+    pred_xgb_20_retrain['loss'].values,         #42
+    pred_xgb_21_retrain['loss'].values,         #43
+    pred_xgb_22_retrain['loss'].values,         #44
+    #pred_xgb_24_retrain['loss'].values,         #45
+    pred_xgb_24_obj_retrain['loss'].values,
+    pred_xgb_24_obj_2_retrain['loss'].values,
+    pred_xgb_24_obj_fast_retrain['loss'].values,
+    pred_xgb_24_obj_2_fast_retrain['loss'].values,
+    #pred_xgb_25_retrain['loss'].values,         #46
+    pred_xgb_25_obj_retrain['loss'].values,
+    pred_xgb_25_obj_2_retrain['loss'].values,
+    pred_xgb_25_obj_fast_retrain['loss'].values,
+    pred_xgb_25_obj_2_fast_retrain['loss'].values,
+    pred_r_xgb_1_retrain['loss'].values,        #47 ####
+    pred_nn_retrain['loss'].values,             #48 14
+    pred_xgb_retrain['loss'].values,            #49 13
+    pred_nn_retrain_gmean['loss'].values,       #50 12
+    pred_xgb_retrain_gmean['loss'].values,      #51 11
+    pred_nn_retrain_sd['loss'].values,          #52 10
+    pred_xgb_retrain_sd['loss'].values,         #53 9
+    pred_nn_retrain_mean_sd_1['loss'].values,   #54 8
+    pred_xgb_retrain_mean_sd_1['loss'].values,  #55 7
+    pred_nn_retrain_mean_sd_2['loss'].values,   #56 6
+    pred_xgb_retrain_mean_sd_2['loss'].values,  #57 5
+    pred_nn_retrain_mean_sd_3['loss'].values,   #58 4
+    pred_xgb_retrain_mean_sd_3['loss'].values,  #59 3
+    pred_nn_retrain_mean_sd_4['loss'].values,   #60 2
+    pred_xgb_retrain_mean_sd_4['loss'].values,  #61 1
     train['loss'].values
 ]
 
-print len(args)-1
+print len(args)-1-14
 pe= 5
 
 def f(coord,args):
     #pred_1,pred_2,pred_3,pred_4,pred_5,pred_6,pred_7,pred_8,pred_9,pred_10,pred_11,pred_12,pred_13,pred_14,pred_15,pred_16,pred_17,pred_18,r = args
-    return np.mean( np.abs(coord[pe*0]*args[0] + coord[pe*0+1]*(args[0] ** 2) + coord[pe*0+2]*np.log(args[0]) + coord[pe*0+3]*1/(1.0+args[0]) + coord[pe*0+4]*(args[0] ** 0.5)
+    return np.mean( np.abs(
+       coord[pe*0]*args[0] + coord[pe*0+1]*(args[0] ** 2) + coord[pe*0+2]*np.log(args[0]) + coord[pe*0+3]*1/(1.0+args[0]) + coord[pe*0+4]*(args[0] ** 0.5)
      + coord[pe*1]*args[1] + coord[pe*1+1]*(args[1] ** 2) + coord[pe*1+2]*np.log(args[1]) + coord[pe*1+3]*1/(1.0+args[1]) + coord[pe*1+4]*(args[1] ** 0.5)
      + coord[pe*2]*args[2] + coord[pe*2+1]*(args[2] ** 2) + coord[pe*2+2]*np.log(args[2]) + coord[pe*2+3]*1/(1.0+args[2]) + coord[pe*2+4]*(args[2] ** 0.5)
      + coord[pe*3]*args[3] + coord[pe*3+1]*(args[3] ** 2) + coord[pe*3+2]*np.log(args[3]) + coord[pe*3+3]*1/(1.0+args[3]) + coord[pe*3+4]*(args[3] ** 0.5)
@@ -597,48 +747,50 @@ def f(coord,args):
      + coord[pe*40]*args[40] + coord[pe*40+1]*(args[40] ** 2) + coord[pe*40+2]*np.log(args[40]) + coord[pe*40+3]*1/(1.0+args[40]) + coord[pe*40+4]*(args[40] ** 0.5)
      + coord[pe*41]*args[41] + coord[pe*41+1]*(args[41] ** 2) + coord[pe*41+2]*np.log(args[41]) + coord[pe*41+3]*1/(1.0+args[41]) + coord[pe*41+4]*(args[41] ** 0.5)
      + coord[pe*42]*args[42] + coord[pe*42+1]*(args[42] ** 2) + coord[pe*42+2]*np.log(args[42]) + coord[pe*42+3]*1/(1.0+args[42]) + coord[pe*42+4]*(args[42] ** 0.5)
-     + coord[pe*43+0]*( args[-15] - args[-14] )
-     + coord[pe*43+1]*( (args[-15] - args[-14]) ** 2 )
-     + coord[pe*43+2]*( np.log(abs(args[-15] - args[-14])) )
-     + coord[pe*43+3]*( 1/(1.0+args[-15]-args[-14]) )
-     + coord[pe*43+4]*( abs(args[-15]-args[-14]) ** 0.5 )
-     + coord[pe*43+5]*( np.sin(args[-15]-args[-14]) )
-     + coord[pe*43+6]*( np.cos(args[-15]-args[-14]) )
-     + coord[pe*43+7]*( args[-13] - args[-12] )
-     + coord[pe*43+8]*( args[-11] - args[-10] )
-     + coord[pe*43+9]*( args[-9] - args[-8] )
-     + coord[pe*43+10]*( args[-7] - args[-6] )
-     + coord[pe*43+11]*( args[-5] - args[-4] )
-     + coord[pe*43+12]*( args[-3] - args[-2] )
-    #  + coord[pe*32+9]*( args[34] - args[35] )
-    #  + coord[pe*32+10]*( (args[34] - args[35]) ** 2 )
-    #  + coord[pe*32+11]*( np.log(abs(args[34] - args[35])) )
-    #  + coord[pe*32+12]*( 1/(1.0+args[34]-args[35]) )
-    #  + coord[pe*32+13]*( abs(args[34]-args[35]) ** 0.5 )
-    #  + coord[pe*32+14]*( np.sin(args[34]-args[35]) )
-    #  + coord[pe*32+15]*( np.cos(args[34]-args[35]) )
-    #  + coord[pe*32+16]*args[36]
-    #  + coord[pe*32+17]*args[37]
-    #  + coord[pe*32+18]*( args[36] - args[37] )
-    #  + coord[pe*32+19]*( (args[36] - args[37]) ** 2 )
-    #  + coord[pe*32+20]*( np.log(abs(args[36] - args[37])) )
-    #  + coord[pe*32+21]*( 1/(1.0+args[36]-args[37]) )
-    #  + coord[pe*32+22]*( abs(args[36]-args[37]) ** 0.5 )
-    #  + coord[pe*32+23]*( np.sin(args[36]-args[37]) )
-    #  + coord[pe*32+24]*( np.cos(args[36]-args[37]) )
-     - args[-1]) )
+     + coord[pe*43]*args[43] + coord[pe*43+1]*(args[43] ** 2) + coord[pe*43+2]*np.log(args[43]) + coord[pe*43+3]*1/(1.0+args[43]) + coord[pe*43+4]*(args[43] ** 0.5)
+     + coord[pe*44]*args[44] + coord[pe*44+1]*(args[44] ** 2) + coord[pe*44+2]*np.log(args[44]) + coord[pe*44+3]*1/(1.0+args[44]) + coord[pe*44+4]*(args[44] ** 0.5)
+     + coord[pe*45]*args[45] + coord[pe*45+1]*(args[45] ** 2) + coord[pe*45+2]*np.log(args[45]) + coord[pe*45+3]*1/(1.0+args[45]) + coord[pe*45+4]*(args[45] ** 0.5)
+     + coord[pe*46]*args[46] + coord[pe*46+1]*(args[46] ** 2) + coord[pe*46+2]*np.log(args[46]) + coord[pe*46+3]*1/(1.0+args[46]) + coord[pe*46+4]*(args[46] ** 0.5)
+     + coord[pe*47]*args[47] + coord[pe*47+1]*(args[47] ** 2) + coord[pe*47+2]*np.log(args[37]) + coord[pe*47+3]*1/(1.0+args[47]) + coord[pe*47+4]*(args[47] ** 0.5)
+     + coord[pe*48]*args[48] + coord[pe*48+1]*(args[48] ** 2) + coord[pe*48+2]*np.log(args[48]) + coord[pe*48+3]*1/(1.0+args[48]) + coord[pe*48+4]*(args[48] ** 0.5)
+     + coord[pe*49]*args[49] + coord[pe*49+1]*(args[49] ** 2) + coord[pe*49+2]*np.log(args[49]) + coord[pe*49+3]*1/(1.0+args[49]) + coord[pe*49+4]*(args[49] ** 0.5)
+     + coord[pe*50]*args[50] + coord[pe*50+1]*(args[50] ** 2) + coord[pe*50+2]*np.log(args[50]) + coord[pe*50+3]*1/(1.0+args[50]) + coord[pe*50+4]*(args[50] ** 0.5)
+     + coord[pe*51]*args[51] + coord[pe*51+1]*(args[51] ** 2) + coord[pe*51+2]*np.log(args[51]) + coord[pe*51+3]*1/(1.0+args[51]) + coord[pe*51+4]*(args[51] ** 0.5)
+     + coord[pe*52]*args[52] + coord[pe*52+1]*(args[52] ** 2) + coord[pe*52+2]*np.log(args[52]) + coord[pe*52+3]*1/(1.0+args[52]) + coord[pe*52+4]*(args[52] ** 0.5)
+     + coord[pe*53]*args[53] + coord[pe*53+1]*(args[53] ** 2) + coord[pe*53+2]*np.log(args[53]) + coord[pe*53+3]*1/(1.0+args[53]) + coord[pe*53+4]*(args[53] ** 0.5)
+     + coord[pe*54]*args[54] + coord[pe*54+1]*(args[54] ** 2) + coord[pe*54+2]*np.log(args[54]) + coord[pe*54+3]*1/(1.0+args[54]) + coord[pe*54+4]*(args[54] ** 0.5)
+     + coord[pe*55]*args[55] + coord[pe*55+1]*(args[55] ** 2) + coord[pe*55+2]*np.log(args[55]) + coord[pe*55+3]*1/(1.0+args[55]) + coord[pe*55+4]*(args[55] ** 0.5)
+     + coord[pe*56]*args[56] + coord[pe*56+1]*(args[56] ** 2) + coord[pe*56+2]*np.log(args[56]) + coord[pe*56+3]*1/(1.0+args[56]) + coord[pe*56+4]*(args[56] ** 0.5)
+     + coord[pe*57]*args[57] + coord[pe*57+1]*(args[57] ** 2) + coord[pe*57+2]*np.log(args[57]) + coord[pe*57+3]*1/(1.0+args[57]) + coord[pe*57+4]*(args[57] ** 0.5)
+     #+ coord[pe*58]*args[58] + coord[pe*58+1]*(args[58] ** 2) + coord[pe*58+2]*np.log(args[58]) + coord[pe*58+3]*1/(1.0+args[58]) + coord[pe*58+4]*(args[58] ** 0.5)
+     + coord[pe*47+0]*( args[-15] - args[-14] )
+     + coord[pe*47+1]*( (args[-15] - args[-14]) ** 2 )
+     + coord[pe*47+2]*( np.log(abs(args[-15] - args[-14])) )
+     + coord[pe*47+3]*( 1/(1.0+args[-15]-args[-14]) )
+     + coord[pe*47+4]*( abs(args[-15]-args[-14]) ** 0.5 )
+     + coord[pe*47+5]*( np.sin(args[-15]-args[-14]) )
+     + coord[pe*47+6]*( np.cos(args[-15]-args[-14]) )
+     + coord[pe*47+7]*( args[-13] - args[-12] )
+     + coord[pe*47+8]*( args[-11] - args[-10] )
+     + coord[pe*47+9]*( args[-9] - args[-8] )
+     + coord[pe*47+10]*( args[-7] - args[-6] )
+     + coord[pe*47+11]*( args[-5] - args[-4] )
+     + coord[pe*47+12]*( args[-3] - args[-2] )
+     - args[-1]
+     ))
 
 #SEED = 6174
+constant_seed = 8
 try:
     SEED = 6174 + int(sys.argv[1])
     np.random.seed(SEED) #3
     print "#1"
 except:
     print "#2"
-    SEED = 6174
+    SEED = 6174 + constant_seed
     np.random.seed(SEED)
 
-initial_guess = np.array([np.random.uniform(-0.01,0.01) for x in range(pe * 43 + 13)])
+initial_guess = np.array([np.random.uniform(-0.01,0.01) for x in range(pe * 58 + 13)])
 
 
 Nfeval = 1
@@ -655,7 +807,8 @@ res = minimize(f,initial_guess, args = args
 
 print res
 
-pred_ensemble = (res.x[pe*0]*args[0] + res.x[pe*0+1]*(args[0] ** 2) + res.x[pe*0+2]*np.log(args[0]) + res.x[pe*0+3]*1/(1.0+args[0]) + res.x[pe*0+4]*(args[0] ** 0.5)
+pred_ensemble = (
+   res.x[pe*0]*args[0] + res.x[pe*0+1]*(args[0] ** 2) + res.x[pe*0+2]*np.log(args[0]) + res.x[pe*0+3]*1/(1.0+args[0]) + res.x[pe*0+4]*(args[0] ** 0.5)
  + res.x[pe*1]*args[1] + res.x[pe*1+1]*(args[1] ** 2) + res.x[pe*1+2]*np.log(args[1]) + res.x[pe*1+3]*1/(1.0+args[1]) + res.x[pe*1+4]*(args[1] ** 0.5)
  + res.x[pe*2]*args[2] + res.x[pe*2+1]*(args[2] ** 2) + res.x[pe*2+2]*np.log(args[2]) + res.x[pe*2+3]*1/(1.0+args[2]) + res.x[pe*2+4]*(args[2] ** 0.5)
  + res.x[pe*3]*args[3] + res.x[pe*3+1]*(args[3] ** 2) + res.x[pe*3+2]*np.log(args[3]) + res.x[pe*3+3]*1/(1.0+args[3]) + res.x[pe*3+4]*(args[3] ** 0.5)
@@ -698,25 +851,42 @@ pred_ensemble = (res.x[pe*0]*args[0] + res.x[pe*0+1]*(args[0] ** 2) + res.x[pe*0
  + res.x[pe*40]*args[40] + res.x[pe*40+1]*(args[40] ** 2) + res.x[pe*40+2]*np.log(args[40]) + res.x[pe*40+3]*1/(1.0+args[40]) + res.x[pe*40+4]*(args[40] ** 0.5)
  + res.x[pe*41]*args[41] + res.x[pe*41+1]*(args[41] ** 2) + res.x[pe*41+2]*np.log(args[41]) + res.x[pe*41+3]*1/(1.0+args[41]) + res.x[pe*41+4]*(args[41] ** 0.5)
  + res.x[pe*42]*args[42] + res.x[pe*42+1]*(args[42] ** 2) + res.x[pe*42+2]*np.log(args[42]) + res.x[pe*42+3]*1/(1.0+args[42]) + res.x[pe*42+4]*(args[42] ** 0.5)
- + res.x[pe*43+0]*( args[-15] - args[-14] )
- + res.x[pe*43+1]*( (args[-15] - args[-14]) ** 2 )
- + res.x[pe*43+2]*( np.log(abs(args[-15] - args[-14])) )
- + res.x[pe*43+3]*( 1/(1.0+args[-15]-args[-14]) )
- + res.x[pe*43+4]*( abs(args[-15]-args[-14]) ** 0.5 )
- + res.x[pe*43+5]*( np.sin(args[-15]-args[-14]) )
- + res.x[pe*43+6]*( np.cos(args[-15]-args[-14]) )
- + res.x[pe*43+7]*( args[-13] - args[-12] )
- + res.x[pe*43+8]*( args[-11] - args[-10] )
- + res.x[pe*43+9]*( args[-9] - args[-8] )
- + res.x[pe*43+10]*( args[-7] - args[-6] )
- + res.x[pe*43+11]*( args[-5] - args[-4] )
- + res.x[pe*43+12]*( args[-3] - args[-2] )
+ + res.x[pe*43]*args[43] + res.x[pe*43+1]*(args[43] ** 2) + res.x[pe*43+2]*np.log(args[43]) + res.x[pe*43+3]*1/(1.0+args[43]) + res.x[pe*43+4]*(args[43] ** 0.5)
+ + res.x[pe*44]*args[44] + res.x[pe*44+1]*(args[44] ** 2) + res.x[pe*44+2]*np.log(args[44]) + res.x[pe*44+3]*1/(1.0+args[44]) + res.x[pe*44+4]*(args[44] ** 0.5)
+ + res.x[pe*45]*args[45] + res.x[pe*45+1]*(args[45] ** 2) + res.x[pe*45+2]*np.log(args[45]) + res.x[pe*45+3]*1/(1.0+args[45]) + res.x[pe*45+4]*(args[45] ** 0.5)
+ + res.x[pe*46]*args[46] + res.x[pe*46+1]*(args[46] ** 2) + res.x[pe*46+2]*np.log(args[46]) + res.x[pe*46+3]*1/(1.0+args[46]) + res.x[pe*46+4]*(args[46] ** 0.5)
+ + res.x[pe*47]*args[47] + res.x[pe*47+1]*(args[47] ** 2) + res.x[pe*47+2]*np.log(args[37]) + res.x[pe*47+3]*1/(1.0+args[47]) + res.x[pe*47+4]*(args[47] ** 0.5)
+ + res.x[pe*48]*args[48] + res.x[pe*48+1]*(args[48] ** 2) + res.x[pe*48+2]*np.log(args[48]) + res.x[pe*48+3]*1/(1.0+args[48]) + res.x[pe*48+4]*(args[48] ** 0.5)
+ + res.x[pe*49]*args[49] + res.x[pe*49+1]*(args[49] ** 2) + res.x[pe*49+2]*np.log(args[49]) + res.x[pe*49+3]*1/(1.0+args[49]) + res.x[pe*49+4]*(args[49] ** 0.5)
+ + res.x[pe*50]*args[50] + res.x[pe*50+1]*(args[50] ** 2) + res.x[pe*50+2]*np.log(args[50]) + res.x[pe*50+3]*1/(1.0+args[50]) + res.x[pe*50+4]*(args[50] ** 0.5)
+ + res.x[pe*51]*args[51] + res.x[pe*51+1]*(args[51] ** 2) + res.x[pe*51+2]*np.log(args[51]) + res.x[pe*51+3]*1/(1.0+args[51]) + res.x[pe*51+4]*(args[51] ** 0.5)
+ + res.x[pe*52]*args[52] + res.x[pe*52+1]*(args[52] ** 2) + res.x[pe*52+2]*np.log(args[52]) + res.x[pe*52+3]*1/(1.0+args[52]) + res.x[pe*52+4]*(args[52] ** 0.5)
+ + res.x[pe*53]*args[53] + res.x[pe*53+1]*(args[53] ** 2) + res.x[pe*53+2]*np.log(args[53]) + res.x[pe*53+3]*1/(1.0+args[53]) + res.x[pe*53+4]*(args[53] ** 0.5)
+ + res.x[pe*54]*args[54] + res.x[pe*54+1]*(args[54] ** 2) + res.x[pe*54+2]*np.log(args[54]) + res.x[pe*54+3]*1/(1.0+args[54]) + res.x[pe*54+4]*(args[54] ** 0.5)
+ + res.x[pe*55]*args[55] + res.x[pe*55+1]*(args[55] ** 2) + res.x[pe*55+2]*np.log(args[55]) + res.x[pe*55+3]*1/(1.0+args[55]) + res.x[pe*55+4]*(args[55] ** 0.5)
+ + res.x[pe*56]*args[56] + res.x[pe*56+1]*(args[56] ** 2) + res.x[pe*56+2]*np.log(args[56]) + res.x[pe*56+3]*1/(1.0+args[56]) + res.x[pe*56+4]*(args[56] ** 0.5)
+ + res.x[pe*57]*args[57] + res.x[pe*57+1]*(args[57] ** 2) + res.x[pe*57+2]*np.log(args[57]) + res.x[pe*57+3]*1/(1.0+args[57]) + res.x[pe*57+4]*(args[57] ** 0.5)
+ #+ res.x[pe*58]*args[58] + res.x[pe*58+1]*(args[58] ** 2) + res.x[pe*58+2]*np.log(args[58]) + res.x[pe*58+3]*1/(1.0+args[58]) + res.x[pe*58+4]*(args[58] ** 0.5)
+ + res.x[pe*47+0]*( args[-15] - args[-14] )
+ + res.x[pe*47+1]*( (args[-15] - args[-14]) ** 2 )
+ + res.x[pe*47+2]*( np.log(abs(args[-15] - args[-14])) )
+ + res.x[pe*47+3]*( 1/(1.0+args[-15]-args[-14]) )
+ + res.x[pe*47+4]*( abs(args[-15]-args[-14]) ** 0.5 )
+ + res.x[pe*47+5]*( np.sin(args[-15]-args[-14]) )
+ + res.x[pe*47+6]*( np.cos(args[-15]-args[-14]) )
+ + res.x[pe*47+7]*( args[-13] - args[-12] )
+ + res.x[pe*47+8]*( args[-11] - args[-10] )
+ + res.x[pe*47+9]*( args[-9] - args[-8] )
+ + res.x[pe*47+10]*( args[-7] - args[-6] )
+ + res.x[pe*47+11]*( args[-5] - args[-4] )
+ + res.x[pe*47+12]*( args[-3] - args[-2] )
  )
 
 pred_ensemble = pd.DataFrame(pred_ensemble)
 pred_ensemble.columns = ['loss']
-print mean_absolute_error(train['loss'], pred_ensemble.values)
 bound_df_retrain(pred_ensemble)
+print mean_absolute_error(train['loss'], pred_ensemble.values)
+
 pred_ensemble.to_csv("retrain_%s.csv"%SEED)
 
 
@@ -743,103 +913,138 @@ args = [
     pred_new_nn_5_double['loss'],        #19
     pred_new_nn_5_interaction_65['loss'],#20
     pred_new_nn_5_interaction_70['loss'],#21
-    pred_new_nn_6['loss'],       #22
-    pred_new_nn_7['loss'],       #23
-    pred_new_nn_1_65['loss'],    #24
-    pred_new_nn_2_65['loss'],    #25
-    pred_xgb_1['loss'],          #26
-    pred_xgb_2['loss'],          #27
-    pred_xgb_3['loss'],          #28
-    pred_xgb_6['loss'],          #29
-    pred_xgb_9['loss'],          #30
-    pred_xgb_10['loss'],         #31
-    pred_xgb_11['loss'],         #32
-    pred_xgb_13['loss'],         #33
-    pred_xgb_14['loss'],         #34
-    pred_xgb_15['loss'],         #35
-    pred_xgb_17['loss'],         #36
-    pred_xgb_17_2way['loss'],    #37
-    pred_xgb_18['loss'],         #38
-    pred_xgb_19['loss'],         #39
-    pred_xgb_20['loss'],         #40
-    pred_xgb_21['loss'],         #41
-    pred_xgb_22['loss'],         #42
-    pred_xgb_24['loss'],         #43 ####
-    pred_nn['loss'],             #44
-    pred_xgb['loss'],            #45
-    pred_nn_gmean['loss'],       #46
-    pred_xgb_gmean['loss'],      #47
-    pred_nn_sd['loss'],          #48
-    pred_xgb_sd['loss'],         #49
-    pred_nn_mean_sd_1['loss'],   #50
-    pred_xgb_mean_sd_1['loss'],  #51
-    pred_nn_mean_sd_2['loss'],   #52
-    pred_xgb_mean_sd_2['loss'],  #53
-    pred_nn_mean_sd_3['loss'],   #54
-    pred_xgb_mean_sd_3['loss'],  #55
-    pred_nn_mean_sd_4['loss'],   #56
-    pred_xgb_mean_sd_4['loss'],  #57
+    pred_new_nn_5_20_shift['loss'],    #22
+    pred_new_nn_5_100_shift['loss'],   #23
+    pred_new_nn_5_2000_shift['loss'],    #22
+    pred_new_nn_5_20000_shift['loss'],   #23
+    pred_new_nn_6['loss'],       #24
+    pred_new_nn_7['loss'],       #25
+    pred_new_nn_1_65['loss'],    #26
+    pred_new_nn_2_65['loss'],    #27
+    pred_xgb_1['loss'],          #28
+    pred_xgb_2['loss'],          #29
+    pred_xgb_3['loss'],          #30
+    pred_xgb_6['loss'],          #31
+    pred_xgb_9['loss'],          #32
+    pred_xgb_10['loss'],         #33
+    pred_xgb_11['loss'],         #34
+    pred_xgb_13['loss'],         #35
+    #pred_xgb_14['loss'],         #36
+    pred_xgb_14_obj['loss'],
+    pred_xgb_14_obj_2['loss'],
+    pred_xgb_14_obj_fast['loss'],
+    pred_xgb_14_obj_2_fast['loss'],
+    pred_xgb_15['loss'],         #37
+    pred_xgb_17['loss'],         #38
+    pred_xgb_17_2way['loss'],    #39
+    pred_xgb_18['loss'],         #40
+    pred_xgb_19['loss'],         #41
+    pred_xgb_20['loss'],         #42
+    pred_xgb_21['loss'],         #43
+    pred_xgb_22['loss'],         #44
+    #pred_xgb_24['loss'],         #45
+    pred_xgb_24_obj['loss'],
+    pred_xgb_24_obj_2['loss'],
+    pred_xgb_24_obj_fast['loss'],
+    pred_xgb_24_obj_2_fast['loss'],
+    #pred_xgb_25['loss'],         #46
+    pred_xgb_25_obj['loss'],
+    pred_xgb_25_obj_2['loss'],
+    pred_xgb_25_obj_fast['loss'],
+    pred_xgb_25_obj_2_fast['loss'],
+    pred_r_xgb_1['loss'],        #47 ####
+    pred_nn['loss'],             #48 14
+    pred_xgb['loss'],            #49 13
+    pred_nn_gmean['loss'],       #50 12
+    pred_xgb_gmean['loss'],      #51 11
+    pred_nn_sd['loss'],          #52 10
+    pred_xgb_sd['loss'],         #53 9
+    pred_nn_mean_sd_1['loss'],   #54 8
+    pred_xgb_mean_sd_1['loss'],  #55 7
+    pred_nn_mean_sd_2['loss'],   #56 6
+    pred_xgb_mean_sd_2['loss'],  #57 5
+    pred_nn_mean_sd_3['loss'],   #58 4
+    pred_xgb_mean_sd_3['loss'],  #59 3
+    pred_nn_mean_sd_4['loss'],   #60 2
+    pred_xgb_mean_sd_4['loss'],  #61 1
     train['loss']
 ]
 
 
 
-pred_ensemble = (res.x[pe*0]*args[0] + res.x[pe*0+1]*(args[0] ** 2) + res.x[pe*0+2]*np.log(args[0]) + res.x[pe*0+3]*1/(1.0+args[0]) + res.x[pe*0+4]*(args[0] ** 0.5)
- + res.x[pe*1]*args[1] + res.x[pe*1+1]*(args[1] ** 2) + res.x[pe*1+2]*np.log(args[1]) + res.x[pe*1+3]*1/(1.0+args[1]) + res.x[pe*1+4]*(args[1] ** 0.5)
- + res.x[pe*2]*args[2] + res.x[pe*2+1]*(args[2] ** 2) + res.x[pe*2+2]*np.log(args[2]) + res.x[pe*2+3]*1/(1.0+args[2]) + res.x[pe*2+4]*(args[2] ** 0.5)
- + res.x[pe*3]*args[3] + res.x[pe*3+1]*(args[3] ** 2) + res.x[pe*3+2]*np.log(args[3]) + res.x[pe*3+3]*1/(1.0+args[3]) + res.x[pe*3+4]*(args[3] ** 0.5)
- + res.x[pe*4]*args[4] + res.x[pe*4+1]*(args[4] ** 2) + res.x[pe*4+2]*np.log(args[4]) + res.x[pe*4+3]*1/(1.0+args[4]) + res.x[pe*4+4]*(args[4] ** 0.5)
- + res.x[pe*5]*args[5] + res.x[pe*5+1]*(args[5] ** 2) + res.x[pe*5+2]*np.log(args[5]) + res.x[pe*5+3]*1/(1.0+args[5]) + res.x[pe*5+4]*(args[5] ** 0.5)
- + res.x[pe*6]*args[6] + res.x[pe*6+1]*(args[6] ** 2) + res.x[pe*6+2]*np.log(args[6]) + res.x[pe*6+3]*1/(1.0+args[6]) + res.x[pe*6+4]*(args[6] ** 0.5)
- + res.x[pe*7]*args[7] + res.x[pe*7+1]*(args[7] ** 2) + res.x[pe*7+2]*np.log(args[7]) + res.x[pe*7+3]*1/(1.0+args[7]) + res.x[pe*7+4]*(args[7] ** 0.5)
- + res.x[pe*8]*args[8] + res.x[pe*8+1]*(args[8] ** 2) + res.x[pe*8+2]*np.log(args[8]) + res.x[pe*8+3]*1/(1.0+args[8]) + res.x[pe*8+4]*(args[8] ** 0.5)
- + res.x[pe*9]*args[9] + res.x[pe*9+1]*(args[9] ** 2) + res.x[pe*9+2]*np.log(args[9]) + res.x[pe*9+3]*1/(1.0+args[9]) + res.x[pe*9+4]*(args[9] ** 0.5)
- + res.x[pe*10]*args[10] + res.x[pe*10+1]*(args[10] ** 2) + res.x[pe*10+2]*np.log(args[10]) + res.x[pe*10+3]*1/(1.0+args[10]) + res.x[pe*10+4]*(args[10] ** 0.5)
- + res.x[pe*11]*args[11] + res.x[pe*11+1]*(args[11] ** 2) + res.x[pe*11+2]*np.log(args[11]) + res.x[pe*11+3]*1/(1.0+args[11]) + res.x[pe*11+4]*(args[11] ** 0.5)
- + res.x[pe*12]*args[12] + res.x[pe*12+1]*(args[12] ** 2) + res.x[pe*12+2]*np.log(args[12]) + res.x[pe*12+3]*1/(1.0+args[12]) + res.x[pe*12+4]*(args[12] ** 0.5)
- + res.x[pe*13]*args[13] + res.x[pe*13+1]*(args[13] ** 2) + res.x[pe*13+2]*np.log(args[13]) + res.x[pe*13+3]*1/(1.0+args[13]) + res.x[pe*13+4]*(args[13] ** 0.5)
- + res.x[pe*14]*args[14] + res.x[pe*14+1]*(args[14] ** 2) + res.x[pe*14+2]*np.log(args[14]) + res.x[pe*14+3]*1/(1.0+args[14]) + res.x[pe*14+4]*(args[14] ** 0.5)
- + res.x[pe*15]*args[15] + res.x[pe*15+1]*(args[15] ** 2) + res.x[pe*15+2]*np.log(args[15]) + res.x[pe*15+3]*1/(1.0+args[15]) + res.x[pe*15+4]*(args[15] ** 0.5)
- + res.x[pe*16]*args[16] + res.x[pe*16+1]*(args[16] ** 2) + res.x[pe*16+2]*np.log(args[16]) + res.x[pe*16+3]*1/(1.0+args[16]) + res.x[pe*16+4]*(args[16] ** 0.5)
- + res.x[pe*17]*args[17] + res.x[pe*17+1]*(args[17] ** 2) + res.x[pe*17+2]*np.log(args[17]) + res.x[pe*17+3]*1/(1.0+args[17]) + res.x[pe*17+4]*(args[17] ** 0.5)
- + res.x[pe*18]*args[18] + res.x[pe*18+1]*(args[18] ** 2) + res.x[pe*18+2]*np.log(args[18]) + res.x[pe*18+3]*1/(1.0+args[18]) + res.x[pe*18+4]*(args[18] ** 0.5)
- + res.x[pe*19]*args[19] + res.x[pe*19+1]*(args[19] ** 2) + res.x[pe*19+2]*np.log(args[19]) + res.x[pe*19+3]*1/(1.0+args[19]) + res.x[pe*19+4]*(args[19] ** 0.5)
- + res.x[pe*20]*args[20] + res.x[pe*20+1]*(args[20] ** 2) + res.x[pe*20+2]*np.log(args[20]) + res.x[pe*20+3]*1/(1.0+args[20]) + res.x[pe*20+4]*(args[20] ** 0.5)
- + res.x[pe*21]*args[21] + res.x[pe*21+1]*(args[21] ** 2) + res.x[pe*21+2]*np.log(args[21]) + res.x[pe*21+3]*1/(1.0+args[21]) + res.x[pe*21+4]*(args[21] ** 0.5)
- + res.x[pe*22]*args[22] + res.x[pe*22+1]*(args[22] ** 2) + res.x[pe*22+2]*np.log(args[22]) + res.x[pe*22+3]*1/(1.0+args[22]) + res.x[pe*22+4]*(args[22] ** 0.5)
- + res.x[pe*23]*args[23] + res.x[pe*23+1]*(args[23] ** 2) + res.x[pe*23+2]*np.log(args[23]) + res.x[pe*23+3]*1/(1.0+args[23]) + res.x[pe*23+4]*(args[23] ** 0.5)
- + res.x[pe*24]*args[24] + res.x[pe*24+1]*(args[24] ** 2) + res.x[pe*24+2]*np.log(args[24]) + res.x[pe*24+3]*1/(1.0+args[24]) + res.x[pe*24+4]*(args[24] ** 0.5)
- + res.x[pe*25]*args[25] + res.x[pe*25+1]*(args[25] ** 2) + res.x[pe*25+2]*np.log(args[25]) + res.x[pe*25+3]*1/(1.0+args[25]) + res.x[pe*25+4]*(args[25] ** 0.5)
- + res.x[pe*26]*args[26] + res.x[pe*26+1]*(args[26] ** 2) + res.x[pe*26+2]*np.log(args[26]) + res.x[pe*26+3]*1/(1.0+args[26]) + res.x[pe*26+4]*(args[26] ** 0.5)
- + res.x[pe*27]*args[27] + res.x[pe*27+1]*(args[27] ** 2) + res.x[pe*27+2]*np.log(args[27]) + res.x[pe*27+3]*1/(1.0+args[27]) + res.x[pe*27+4]*(args[27] ** 0.5)
- + res.x[pe*28]*args[28] + res.x[pe*28+1]*(args[28] ** 2) + res.x[pe*28+2]*np.log(args[28]) + res.x[pe*28+3]*1/(1.0+args[28]) + res.x[pe*28+4]*(args[28] ** 0.5)
- + res.x[pe*29]*args[29] + res.x[pe*29+1]*(args[29] ** 2) + res.x[pe*29+2]*np.log(args[29]) + res.x[pe*29+3]*1/(1.0+args[29]) + res.x[pe*29+4]*(args[29] ** 0.5)
- + res.x[pe*30]*args[30] + res.x[pe*30+1]*(args[30] ** 2) + res.x[pe*30+2]*np.log(args[30]) + res.x[pe*30+3]*1/(1.0+args[30]) + res.x[pe*30+4]*(args[30] ** 0.5)
- + res.x[pe*31]*args[31] + res.x[pe*31+1]*(args[31] ** 2) + res.x[pe*31+2]*np.log(args[31]) + res.x[pe*31+3]*1/(1.0+args[31]) + res.x[pe*31+4]*(args[31] ** 0.5)
- + res.x[pe*32]*args[32] + res.x[pe*32+1]*(args[32] ** 2) + res.x[pe*32+2]*np.log(args[32]) + res.x[pe*32+3]*1/(1.0+args[32]) + res.x[pe*32+4]*(args[32] ** 0.5)
- + res.x[pe*33]*args[33] + res.x[pe*33+1]*(args[33] ** 2) + res.x[pe*33+2]*np.log(args[33]) + res.x[pe*33+3]*1/(1.0+args[33]) + res.x[pe*33+4]*(args[33] ** 0.5)
- + res.x[pe*34]*args[34] + res.x[pe*34+1]*(args[34] ** 2) + res.x[pe*34+2]*np.log(args[34]) + res.x[pe*34+3]*1/(1.0+args[34]) + res.x[pe*34+4]*(args[34] ** 0.5)
- + res.x[pe*35]*args[35] + res.x[pe*35+1]*(args[35] ** 2) + res.x[pe*35+2]*np.log(args[35]) + res.x[pe*35+3]*1/(1.0+args[35]) + res.x[pe*35+4]*(args[35] ** 0.5)
- + res.x[pe*36]*args[36] + res.x[pe*36+1]*(args[36] ** 2) + res.x[pe*36+2]*np.log(args[36]) + res.x[pe*36+3]*1/(1.0+args[36]) + res.x[pe*36+4]*(args[36] ** 0.5)
- + res.x[pe*37]*args[37] + res.x[pe*37+1]*(args[37] ** 2) + res.x[pe*37+2]*np.log(args[37]) + res.x[pe*37+3]*1/(1.0+args[37]) + res.x[pe*37+4]*(args[37] ** 0.5)
- + res.x[pe*38]*args[38] + res.x[pe*38+1]*(args[38] ** 2) + res.x[pe*38+2]*np.log(args[38]) + res.x[pe*38+3]*1/(1.0+args[38]) + res.x[pe*38+4]*(args[38] ** 0.5)
- + res.x[pe*39]*args[39] + res.x[pe*39+1]*(args[39] ** 2) + res.x[pe*39+2]*np.log(args[39]) + res.x[pe*39+3]*1/(1.0+args[39]) + res.x[pe*39+4]*(args[39] ** 0.5)
- + res.x[pe*40]*args[40] + res.x[pe*40+1]*(args[40] ** 2) + res.x[pe*40+2]*np.log(args[40]) + res.x[pe*40+3]*1/(1.0+args[40]) + res.x[pe*40+4]*(args[40] ** 0.5)
- + res.x[pe*41]*args[41] + res.x[pe*41+1]*(args[41] ** 2) + res.x[pe*41+2]*np.log(args[41]) + res.x[pe*41+3]*1/(1.0+args[41]) + res.x[pe*41+4]*(args[41] ** 0.5)
- + res.x[pe*42]*args[42] + res.x[pe*42+1]*(args[42] ** 2) + res.x[pe*42+2]*np.log(args[42]) + res.x[pe*42+3]*1/(1.0+args[42]) + res.x[pe*42+4]*(args[42] ** 0.5)
- + res.x[pe*43+0]*( args[-15] - args[-14] )
- + res.x[pe*43+1]*( (args[-15] - args[-14]) ** 2 )
- + res.x[pe*43+2]*( np.log(abs(args[-15] - args[-14])) )
- + res.x[pe*43+3]*( 1/(1.0+args[-15]-args[-14]) )
- + res.x[pe*43+4]*( abs(args[-15]-args[-14]) ** 0.5 )
- + res.x[pe*43+5]*( np.sin(args[-15]-args[-14]) )
- + res.x[pe*43+6]*( np.cos(args[-15]-args[-14]) )
- + res.x[pe*43+7]*( args[-13] - args[-12] )
- + res.x[pe*43+8]*( args[-11] - args[-10] )
- + res.x[pe*43+9]*( args[-9] - args[-8] )
- + res.x[pe*43+10]*( args[-7] - args[-6] )
- + res.x[pe*43+11]*( args[-5] - args[-4] )
- + res.x[pe*43+12]*( args[-3] - args[-2] )
+pred_ensemble = (
+       res.x[pe*0]*args[0] + res.x[pe*0+1]*(args[0] ** 2) + res.x[pe*0+2]*np.log(args[0]) + res.x[pe*0+3]*1/(1.0+args[0]) + res.x[pe*0+4]*(args[0] ** 0.5)
+     + res.x[pe*1]*args[1] + res.x[pe*1+1]*(args[1] ** 2) + res.x[pe*1+2]*np.log(args[1]) + res.x[pe*1+3]*1/(1.0+args[1]) + res.x[pe*1+4]*(args[1] ** 0.5)
+     + res.x[pe*2]*args[2] + res.x[pe*2+1]*(args[2] ** 2) + res.x[pe*2+2]*np.log(args[2]) + res.x[pe*2+3]*1/(1.0+args[2]) + res.x[pe*2+4]*(args[2] ** 0.5)
+     + res.x[pe*3]*args[3] + res.x[pe*3+1]*(args[3] ** 2) + res.x[pe*3+2]*np.log(args[3]) + res.x[pe*3+3]*1/(1.0+args[3]) + res.x[pe*3+4]*(args[3] ** 0.5)
+     + res.x[pe*4]*args[4] + res.x[pe*4+1]*(args[4] ** 2) + res.x[pe*4+2]*np.log(args[4]) + res.x[pe*4+3]*1/(1.0+args[4]) + res.x[pe*4+4]*(args[4] ** 0.5)
+     + res.x[pe*5]*args[5] + res.x[pe*5+1]*(args[5] ** 2) + res.x[pe*5+2]*np.log(args[5]) + res.x[pe*5+3]*1/(1.0+args[5]) + res.x[pe*5+4]*(args[5] ** 0.5)
+     + res.x[pe*6]*args[6] + res.x[pe*6+1]*(args[6] ** 2) + res.x[pe*6+2]*np.log(args[6]) + res.x[pe*6+3]*1/(1.0+args[6]) + res.x[pe*6+4]*(args[6] ** 0.5)
+     + res.x[pe*7]*args[7] + res.x[pe*7+1]*(args[7] ** 2) + res.x[pe*7+2]*np.log(args[7]) + res.x[pe*7+3]*1/(1.0+args[7]) + res.x[pe*7+4]*(args[7] ** 0.5)
+     + res.x[pe*8]*args[8] + res.x[pe*8+1]*(args[8] ** 2) + res.x[pe*8+2]*np.log(args[8]) + res.x[pe*8+3]*1/(1.0+args[8]) + res.x[pe*8+4]*(args[8] ** 0.5)
+     + res.x[pe*9]*args[9] + res.x[pe*9+1]*(args[9] ** 2) + res.x[pe*9+2]*np.log(args[9]) + res.x[pe*9+3]*1/(1.0+args[9]) + res.x[pe*9+4]*(args[9] ** 0.5)
+     + res.x[pe*10]*args[10] + res.x[pe*10+1]*(args[10] ** 2) + res.x[pe*10+2]*np.log(args[10]) + res.x[pe*10+3]*1/(1.0+args[10]) + res.x[pe*10+4]*(args[10] ** 0.5)
+     + res.x[pe*11]*args[11] + res.x[pe*11+1]*(args[11] ** 2) + res.x[pe*11+2]*np.log(args[11]) + res.x[pe*11+3]*1/(1.0+args[11]) + res.x[pe*11+4]*(args[11] ** 0.5)
+     + res.x[pe*12]*args[12] + res.x[pe*12+1]*(args[12] ** 2) + res.x[pe*12+2]*np.log(args[12]) + res.x[pe*12+3]*1/(1.0+args[12]) + res.x[pe*12+4]*(args[12] ** 0.5)
+     + res.x[pe*13]*args[13] + res.x[pe*13+1]*(args[13] ** 2) + res.x[pe*13+2]*np.log(args[13]) + res.x[pe*13+3]*1/(1.0+args[13]) + res.x[pe*13+4]*(args[13] ** 0.5)
+     + res.x[pe*14]*args[14] + res.x[pe*14+1]*(args[14] ** 2) + res.x[pe*14+2]*np.log(args[14]) + res.x[pe*14+3]*1/(1.0+args[14]) + res.x[pe*14+4]*(args[14] ** 0.5)
+     + res.x[pe*15]*args[15] + res.x[pe*15+1]*(args[15] ** 2) + res.x[pe*15+2]*np.log(args[15]) + res.x[pe*15+3]*1/(1.0+args[15]) + res.x[pe*15+4]*(args[15] ** 0.5)
+     + res.x[pe*16]*args[16] + res.x[pe*16+1]*(args[16] ** 2) + res.x[pe*16+2]*np.log(args[16]) + res.x[pe*16+3]*1/(1.0+args[16]) + res.x[pe*16+4]*(args[16] ** 0.5)
+     + res.x[pe*17]*args[17] + res.x[pe*17+1]*(args[17] ** 2) + res.x[pe*17+2]*np.log(args[17]) + res.x[pe*17+3]*1/(1.0+args[17]) + res.x[pe*17+4]*(args[17] ** 0.5)
+     + res.x[pe*18]*args[18] + res.x[pe*18+1]*(args[18] ** 2) + res.x[pe*18+2]*np.log(args[18]) + res.x[pe*18+3]*1/(1.0+args[18]) + res.x[pe*18+4]*(args[18] ** 0.5)
+     + res.x[pe*19]*args[19] + res.x[pe*19+1]*(args[19] ** 2) + res.x[pe*19+2]*np.log(args[19]) + res.x[pe*19+3]*1/(1.0+args[19]) + res.x[pe*19+4]*(args[19] ** 0.5)
+     + res.x[pe*20]*args[20] + res.x[pe*20+1]*(args[20] ** 2) + res.x[pe*20+2]*np.log(args[20]) + res.x[pe*20+3]*1/(1.0+args[20]) + res.x[pe*20+4]*(args[20] ** 0.5)
+     + res.x[pe*21]*args[21] + res.x[pe*21+1]*(args[21] ** 2) + res.x[pe*21+2]*np.log(args[21]) + res.x[pe*21+3]*1/(1.0+args[21]) + res.x[pe*21+4]*(args[21] ** 0.5)
+     + res.x[pe*22]*args[22] + res.x[pe*22+1]*(args[22] ** 2) + res.x[pe*22+2]*np.log(args[22]) + res.x[pe*22+3]*1/(1.0+args[22]) + res.x[pe*22+4]*(args[22] ** 0.5)
+     + res.x[pe*23]*args[23] + res.x[pe*23+1]*(args[23] ** 2) + res.x[pe*23+2]*np.log(args[23]) + res.x[pe*23+3]*1/(1.0+args[23]) + res.x[pe*23+4]*(args[23] ** 0.5)
+     + res.x[pe*24]*args[24] + res.x[pe*24+1]*(args[24] ** 2) + res.x[pe*24+2]*np.log(args[24]) + res.x[pe*24+3]*1/(1.0+args[24]) + res.x[pe*24+4]*(args[24] ** 0.5)
+     + res.x[pe*25]*args[25] + res.x[pe*25+1]*(args[25] ** 2) + res.x[pe*25+2]*np.log(args[25]) + res.x[pe*25+3]*1/(1.0+args[25]) + res.x[pe*25+4]*(args[25] ** 0.5)
+     + res.x[pe*26]*args[26] + res.x[pe*26+1]*(args[26] ** 2) + res.x[pe*26+2]*np.log(args[26]) + res.x[pe*26+3]*1/(1.0+args[26]) + res.x[pe*26+4]*(args[26] ** 0.5)
+     + res.x[pe*27]*args[27] + res.x[pe*27+1]*(args[27] ** 2) + res.x[pe*27+2]*np.log(args[27]) + res.x[pe*27+3]*1/(1.0+args[27]) + res.x[pe*27+4]*(args[27] ** 0.5)
+     + res.x[pe*28]*args[28] + res.x[pe*28+1]*(args[28] ** 2) + res.x[pe*28+2]*np.log(args[28]) + res.x[pe*28+3]*1/(1.0+args[28]) + res.x[pe*28+4]*(args[28] ** 0.5)
+     + res.x[pe*29]*args[29] + res.x[pe*29+1]*(args[29] ** 2) + res.x[pe*29+2]*np.log(args[29]) + res.x[pe*29+3]*1/(1.0+args[29]) + res.x[pe*29+4]*(args[29] ** 0.5)
+     + res.x[pe*30]*args[30] + res.x[pe*30+1]*(args[30] ** 2) + res.x[pe*30+2]*np.log(args[30]) + res.x[pe*30+3]*1/(1.0+args[30]) + res.x[pe*30+4]*(args[30] ** 0.5)
+     + res.x[pe*31]*args[31] + res.x[pe*31+1]*(args[31] ** 2) + res.x[pe*31+2]*np.log(args[31]) + res.x[pe*31+3]*1/(1.0+args[31]) + res.x[pe*31+4]*(args[31] ** 0.5)
+     + res.x[pe*32]*args[32] + res.x[pe*32+1]*(args[32] ** 2) + res.x[pe*32+2]*np.log(args[32]) + res.x[pe*32+3]*1/(1.0+args[32]) + res.x[pe*32+4]*(args[32] ** 0.5)
+     + res.x[pe*33]*args[33] + res.x[pe*33+1]*(args[33] ** 2) + res.x[pe*33+2]*np.log(args[33]) + res.x[pe*33+3]*1/(1.0+args[33]) + res.x[pe*33+4]*(args[33] ** 0.5)
+     + res.x[pe*34]*args[34] + res.x[pe*34+1]*(args[34] ** 2) + res.x[pe*34+2]*np.log(args[34]) + res.x[pe*34+3]*1/(1.0+args[34]) + res.x[pe*34+4]*(args[34] ** 0.5)
+     + res.x[pe*35]*args[35] + res.x[pe*35+1]*(args[35] ** 2) + res.x[pe*35+2]*np.log(args[35]) + res.x[pe*35+3]*1/(1.0+args[35]) + res.x[pe*35+4]*(args[35] ** 0.5)
+     + res.x[pe*36]*args[36] + res.x[pe*36+1]*(args[36] ** 2) + res.x[pe*36+2]*np.log(args[36]) + res.x[pe*36+3]*1/(1.0+args[36]) + res.x[pe*36+4]*(args[36] ** 0.5)
+     + res.x[pe*37]*args[37] + res.x[pe*37+1]*(args[37] ** 2) + res.x[pe*37+2]*np.log(args[37]) + res.x[pe*37+3]*1/(1.0+args[37]) + res.x[pe*37+4]*(args[37] ** 0.5)
+     + res.x[pe*38]*args[38] + res.x[pe*38+1]*(args[38] ** 2) + res.x[pe*38+2]*np.log(args[38]) + res.x[pe*38+3]*1/(1.0+args[38]) + res.x[pe*38+4]*(args[38] ** 0.5)
+     + res.x[pe*39]*args[39] + res.x[pe*39+1]*(args[39] ** 2) + res.x[pe*39+2]*np.log(args[39]) + res.x[pe*39+3]*1/(1.0+args[39]) + res.x[pe*39+4]*(args[39] ** 0.5)
+     + res.x[pe*40]*args[40] + res.x[pe*40+1]*(args[40] ** 2) + res.x[pe*40+2]*np.log(args[40]) + res.x[pe*40+3]*1/(1.0+args[40]) + res.x[pe*40+4]*(args[40] ** 0.5)
+     + res.x[pe*41]*args[41] + res.x[pe*41+1]*(args[41] ** 2) + res.x[pe*41+2]*np.log(args[41]) + res.x[pe*41+3]*1/(1.0+args[41]) + res.x[pe*41+4]*(args[41] ** 0.5)
+     + res.x[pe*42]*args[42] + res.x[pe*42+1]*(args[42] ** 2) + res.x[pe*42+2]*np.log(args[42]) + res.x[pe*42+3]*1/(1.0+args[42]) + res.x[pe*42+4]*(args[42] ** 0.5)
+     + res.x[pe*43]*args[43] + res.x[pe*43+1]*(args[43] ** 2) + res.x[pe*43+2]*np.log(args[43]) + res.x[pe*43+3]*1/(1.0+args[43]) + res.x[pe*43+4]*(args[43] ** 0.5)
+     + res.x[pe*44]*args[44] + res.x[pe*44+1]*(args[44] ** 2) + res.x[pe*44+2]*np.log(args[44]) + res.x[pe*44+3]*1/(1.0+args[44]) + res.x[pe*44+4]*(args[44] ** 0.5)
+     + res.x[pe*45]*args[45] + res.x[pe*45+1]*(args[45] ** 2) + res.x[pe*45+2]*np.log(args[45]) + res.x[pe*45+3]*1/(1.0+args[45]) + res.x[pe*45+4]*(args[45] ** 0.5)
+     + res.x[pe*46]*args[46] + res.x[pe*46+1]*(args[46] ** 2) + res.x[pe*46+2]*np.log(args[46]) + res.x[pe*46+3]*1/(1.0+args[46]) + res.x[pe*46+4]*(args[46] ** 0.5)
+     + res.x[pe*47]*args[47] + res.x[pe*47+1]*(args[47] ** 2) + res.x[pe*47+2]*np.log(args[37]) + res.x[pe*47+3]*1/(1.0+args[47]) + res.x[pe*47+4]*(args[47] ** 0.5)
+     + res.x[pe*48]*args[48] + res.x[pe*48+1]*(args[48] ** 2) + res.x[pe*48+2]*np.log(args[48]) + res.x[pe*48+3]*1/(1.0+args[48]) + res.x[pe*48+4]*(args[48] ** 0.5)
+     + res.x[pe*49]*args[49] + res.x[pe*49+1]*(args[49] ** 2) + res.x[pe*49+2]*np.log(args[49]) + res.x[pe*49+3]*1/(1.0+args[49]) + res.x[pe*49+4]*(args[49] ** 0.5)
+     + res.x[pe*50]*args[50] + res.x[pe*50+1]*(args[50] ** 2) + res.x[pe*50+2]*np.log(args[50]) + res.x[pe*50+3]*1/(1.0+args[50]) + res.x[pe*50+4]*(args[50] ** 0.5)
+     + res.x[pe*51]*args[51] + res.x[pe*51+1]*(args[51] ** 2) + res.x[pe*51+2]*np.log(args[51]) + res.x[pe*51+3]*1/(1.0+args[51]) + res.x[pe*51+4]*(args[51] ** 0.5)
+     + res.x[pe*52]*args[52] + res.x[pe*52+1]*(args[52] ** 2) + res.x[pe*52+2]*np.log(args[52]) + res.x[pe*52+3]*1/(1.0+args[52]) + res.x[pe*52+4]*(args[52] ** 0.5)
+     + res.x[pe*53]*args[53] + res.x[pe*53+1]*(args[53] ** 2) + res.x[pe*53+2]*np.log(args[53]) + res.x[pe*53+3]*1/(1.0+args[53]) + res.x[pe*53+4]*(args[53] ** 0.5)
+     + res.x[pe*54]*args[54] + res.x[pe*54+1]*(args[54] ** 2) + res.x[pe*54+2]*np.log(args[54]) + res.x[pe*54+3]*1/(1.0+args[54]) + res.x[pe*54+4]*(args[54] ** 0.5)
+     + res.x[pe*55]*args[55] + res.x[pe*55+1]*(args[55] ** 2) + res.x[pe*55+2]*np.log(args[55]) + res.x[pe*55+3]*1/(1.0+args[55]) + res.x[pe*55+4]*(args[55] ** 0.5)
+     + res.x[pe*56]*args[56] + res.x[pe*56+1]*(args[56] ** 2) + res.x[pe*56+2]*np.log(args[56]) + res.x[pe*56+3]*1/(1.0+args[56]) + res.x[pe*56+4]*(args[56] ** 0.5)
+     + res.x[pe*57]*args[57] + res.x[pe*57+1]*(args[57] ** 2) + res.x[pe*57+2]*np.log(args[57]) + res.x[pe*57+3]*1/(1.0+args[57]) + res.x[pe*57+4]*(args[57] ** 0.5)
+     #+ res.x[pe*58]*args[58] + res.x[pe*58+1]*(args[58] ** 2) + res.x[pe*58+2]*np.log(args[58]) + res.x[pe*58+3]*1/(1.0+args[58]) + res.x[pe*58+4]*(args[58] ** 0.5)
+     + res.x[pe*47+0]*( args[-15] - args[-14] )
+     + res.x[pe*47+1]*( (args[-15] - args[-14]) ** 2 )
+     + res.x[pe*47+2]*( np.log(abs(args[-15] - args[-14])) )
+     + res.x[pe*47+3]*( 1/(1.0+args[-15]-args[-14]) )
+     + res.x[pe*47+4]*( abs(args[-15]-args[-14]) ** 0.5 )
+     + res.x[pe*47+5]*( np.sin(args[-15]-args[-14]) )
+     + res.x[pe*47+6]*( np.cos(args[-15]-args[-14]) )
+     + res.x[pe*47+7]*( args[-13] - args[-12] )
+     + res.x[pe*47+8]*( args[-11] - args[-10] )
+     + res.x[pe*47+9]*( args[-9] - args[-8] )
+     + res.x[pe*47+10]*( args[-7] - args[-6] )
+     + res.x[pe*47+11]*( args[-5] - args[-4] )
+     + res.x[pe*47+12]*( args[-3] - args[-2] )
  )
 
 

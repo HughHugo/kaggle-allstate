@@ -161,7 +161,7 @@ if __name__ == "__main__":
         'objective': 'reg:linear',
         'max_depth': 12,
         'min_child_weight': 100,
-        'alpha': 1,
+        'alpha': 1,``
         'gamma': 1,
         'booster': 'gbtree',
         'verbose_eval': True,
@@ -174,34 +174,39 @@ if __name__ == "__main__":
                           label=label)
     dtest = xgb.DMatrix(x_test)
 
-    res = xgb.cv(xgb_params, dtrain, num_boost_round=999999,
-             nfold=4,
-             seed=SEED,
-             stratified=False, obj=logregobj,
-             early_stopping_rounds=1000,
-             verbose_eval=10,
-             show_stdv=True,
-             feval=xg_eval_mae,
-             maximize=False)
+    #res = xgb.cv(xgb_params, dtrain, num_boost_round=999999,
+    #         nfold=4,
+    #         seed=SEED,
+    #         stratified=False, obj=logregobj,
+    #         early_stopping_rounds=1000,
+    #         verbose_eval=10,
+    #         show_stdv=True,
+    #         feval=xg_eval_mae,
+    #         maximize=False)
 
-    best_nrounds = res.shape[0] - 1
-    cv_mean = res.iloc[-1, 0]
-    cv_std = res.iloc[-1, 1]
-    print('CV-Mean: {0}+{1}'.format(cv_mean, cv_std))
+    #best_nrounds = res.shape[0] - 1
+    #cv_mean = res.iloc[-1, 0]
+    #cv_std = res.iloc[-1, 1]
+    #print('CV-Mean: {0}+{1}'.format(cv_mean, cv_std))
+    best_nrounds = 100000
 
+    #gbdt = xgb.train(xgb_params, dtrain, best_nrounds, obj=logregobj)
 
-    gbdt = xgb.train(xgb_params, dtrain, best_nrounds, obj=logregobj)
-
-    submission = pd.read_csv(SUBMISSION_FILE)
-    submission.iloc[:, 1] = np.exp(gbdt.predict(dtest)) - SHIFT
-    submission.to_csv('XGB_2.csv', index=None)
+    #submission = pd.read_csv(SUBMISSION_FILE)
+    #submission.iloc[:, 1] = np.exp(gbdt.predict(dtest)) - SHIFT
+    #submission.to_csv('XGB_2.csv', index=None)
 
     ########################################################################################
     sample = pd.read_csv('../input/sample_submission.csv')
     submission = pd.DataFrame(index=trainID, columns=sample.columns[1:])
     score = np.zeros(nfold)
     i=0
+    import datetime
+    import sys
+    k=0
     for tr, te in skf:
+        k+=1
+        print datetime.datetime.now()
         tr = np.where(tr)
         te = np.where(te)
         X_train, X_test, y_train, y_test = x_train[tr], x_train[te], label[tr], label[te]

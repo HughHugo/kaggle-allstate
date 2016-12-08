@@ -8,7 +8,12 @@ from scipy.stats import skew, boxcox
 from sklearn.preprocessing import StandardScaler
 from sklearn import preprocessing
 import itertools
+import sys
 
+print "$$$$"
+print int(sys.argv[1])
+print int(sys.argv[2])
+print "$$$$"
 
 shift = 200
 SHIFT = 200
@@ -180,49 +185,56 @@ if __name__ == "__main__":
                           label=label)
     dtest = xgb.DMatrix(x_test)
 
-    res = xgb.cv(xgb_params, dtrain, num_boost_round=250000,
-             nfold=4,
-             seed=SEED,
-             stratified=False, obj=logregobj,
-             early_stopping_rounds=1000,
-             verbose_eval=10,
-             show_stdv=True,
-             feval=xg_eval_mae,
-             maximize=False)
+    #res = xgb.cv(xgb_params, dtrain, num_boost_round=250000,
+    #         nfold=4,
+    #         seed=SEED,
+    #         stratified=False, obj=logregobj,
+    #         early_stopping_rounds=1000,
+    #         verbose_eval=10,
+    #         show_stdv=True,
+    #         feval=xg_eval_mae,
+    #         maximize=False)
 
-    best_nrounds = res.shape[0] - 1
-    cv_mean = res.iloc[-1, 0]
-    cv_std = res.iloc[-1, 1]
-    print('CV-Mean: {0}+{1}'.format(cv_mean, cv_std))
+    #best_nrounds = res.shape[0] - 1
+    #cv_mean = res.iloc[-1, 0]
+    #cv_std = res.iloc[-1, 1]
+    #print('CV-Mean: {0}+{1}'.format(cv_mean, cv_std))
+    best_nrounds = 100000
 
+    #gbdt = xgb.train(xgb_params, dtrain, best_nrounds, obj=logregobj)
 
-    gbdt = xgb.train(xgb_params, dtrain, best_nrounds, obj=logregobj)
-
-    submission = pd.read_csv(SUBMISSION_FILE)
-    submission.iloc[:, 1] = np.exp(gbdt.predict(dtest)) - SHIFT
-    submission.to_csv('XGB_2.csv', index=None)
+    #submission = pd.read_csv(SUBMISSION_FILE)
+    #submission.iloc[:, 1] = np.exp(gbdt.predict(dtest)) - SHIFT
+    #submission.to_csv('XGB_2.csv', index=None)
 
     ########################################################################################
     sample = pd.read_csv('../input/sample_submission.csv')
     submission = pd.DataFrame(index=trainID, columns=sample.columns[1:])
     score = np.zeros(nfold)
     i=0
+    import datetime
+    k=0
     for tr, te in skf:
-        tr = np.where(tr)
-        te = np.where(te)
-        X_train, X_test, y_train, y_test = x_train[tr], x_train[te], label[tr], label[te]
-        dtrain = xgb.DMatrix(X_train, label=y_train)
-        clf = xgb.train(xgb_params, dtrain, best_nrounds, obj=logregobj)
-        dtest = xgb.DMatrix(X_test)
-        pred = np.exp(clf.predict(dtest)) - SHIFT
-        tmp = pd.DataFrame(pred, columns=sample.columns[1:])
-        submission.iloc[te[0],0] = pred
-        score[i]= mean_absolute_error(np.exp(y_test) - SHIFT, pred)
-        print(score[i])
-        i+=1
+        print datetime.datetime.now()
+        k+=1
+        if k== int(sys.argv[1]) or k== int(sys.argv[2]):
+            print k
+            print "$"
+            tr = np.where(tr)
+            te = np.where(te)
+            X_train, X_test, y_train, y_test = x_train[tr], x_train[te], label[tr], label[te]
+            dtrain = xgb.DMatrix(X_train, label=y_train)
+            clf = xgb.train(xgb_params, dtrain, best_nrounds, obj=logregobj)
+            dtest = xgb.DMatrix(X_test)
+            pred = np.exp(clf.predict(dtest)) - SHIFT
+            tmp = pd.DataFrame(pred, columns=sample.columns[1:])
+            submission.iloc[te[0],0] = pred
+            score[i]= mean_absolute_error(np.exp(y_test) - SHIFT, pred)
+            print(score[i])
+            i+=1
 
-    print("ave: "+ str(np.average(score)) + "stddev: " + str(np.std(score)))
-    print(mean_absolute_error(np.exp(label) - SHIFT,submission.values))
+    #print("ave: "+ str(np.average(score)) + "stddev: " + str(np.std(score)))
+    #print(mean_absolute_error(np.exp(label) - SHIFT,submission.values))
 
     submission.to_csv("XGB_retrain_2.csv", index_label='id')
     ########################################################################################
